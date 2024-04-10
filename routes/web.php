@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\PostulanteController;
+=======
+use App\Http\Controllers\RoleController;
+>>>>>>> 1fcecb950cc767577aa41da647dc185631165f59
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +32,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
+<<<<<<< HEAD
 
       //POSTULANTE CONTROLLER
       Route::get('/postulantes/inicio', [PostulanteController::class, 'inicio'])->name('postulantes.inicio');
@@ -36,3 +41,13 @@ Route::middleware([
       Route::post('/postulantes/actualizar/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizar');
       Route::post('/postulantes/eliminar/{id}', [PostulanteController::class, 'eliminar'])->name('postulantes.eliminar');    
       //Route::post('/docentes/guardar', [PostulanteController::class, 'guardar'])->name('docentes.guardar');
+=======
+//ROLES
+
+Route::get('/roles/inicio', [RoleController::class, 'inicio'])->name('roles.inicio');
+Route::get('/roles/crear', [RoleController::class, 'crear'])->name('roles.crear');
+Route::post('/roles/guardar', [RoleController::class, 'guardar'])->name('roles.guardar');
+Route::get('/roles/editar/{id}', [RoleController::class, 'editar'])->name('roles.editar');
+Route::post('/roles/actualizar/{id}', [RoleController::class, 'actualizar'])->name('roles.actualizar');
+Route::post('/roles/eliminar/{id}', [RoleController::class, 'eliminar'])->name('roles.eliminar');
+>>>>>>> 1fcecb950cc767577aa41da647dc185631165f59
