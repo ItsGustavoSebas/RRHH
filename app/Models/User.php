@@ -26,6 +26,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'ci',
+        'telefono',
+        'direccion',
         'password',
     ];
 
@@ -58,4 +61,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    // Relación con postulante
+    public function postulante() {
+        return $this->hasOne(postulante::class, 'ID_Usuario');
+    }    
 }
