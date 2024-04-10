@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+//ROLES
+
+Route::get('/roles/inicio', [RoleController::class, 'inicio'])->name('roles.inicio');
+Route::get('/roles/crear', [RoleController::class, 'crear'])->name('roles.crear');
+Route::post('/roles/guardar', [RoleController::class, 'guardar'])->name('roles.guardar');
+Route::get('/roles/editar/{id}', [RoleController::class, 'editar'])->name('roles.editar');
+Route::post('/roles/actualizar/{id}', [RoleController::class, 'actualizar'])->name('roles.actualizar');
+Route::post('/roles/eliminar/{id}', [RoleController::class, 'eliminar'])->name('roles.eliminar');
