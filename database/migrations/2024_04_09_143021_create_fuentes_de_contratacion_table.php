@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('fuentes_de_contratacion', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
             $table->timestamps();
         });
     }

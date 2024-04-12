@@ -15,7 +15,7 @@
         </style>
         <title>Crear producto</title>
     </head>
-    <form action="{{ route('educaciones.guardar') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('educaciones.guardarSIG') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="bg-gradient-to-r from-indigo-700 to-indigo-950 p-8">
             <!-- Cuadro exterior con fondo azul marino y relleno de 8 unidades -->
@@ -119,22 +119,14 @@
                 </div>
 
 
-                     
+                    
                 <div class="flex -mx-3 pt-9">
                     <div class="w-full px-3 mb-5">
-                        <button type="submit" name="action" value="guardar_y_anadir_otro"
-                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Guardar y añadir otro
+                        <button type ="submit" id="guardar"
+                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Guardar
                         </button>
                     </div>
-                </div>
-
-                <div class="flex -mx-3 pt-9">
-                    <div class="w-full px-3 mb-5">
-                        <button type="submit" name="action" value="guardar_y_siguiente"
-                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Guardar y siguiente
-                        </button>
-                    </div>
-                </div>          
+                </div>                
           
             </div>
         </div>

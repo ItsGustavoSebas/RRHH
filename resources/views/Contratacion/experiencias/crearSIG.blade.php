@@ -13,18 +13,18 @@
         <style>
             @import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css');
         </style>
-        <title>Crear producto</title>
+        <title>Añadir experiencias</title>
     </head>
-    <form action="{{ route('educaciones.guardar') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('experiencias.guardar') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="bg-gradient-to-r from-indigo-700 to-indigo-950 p-8">
             <!-- Cuadro exterior con fondo azul marino y relleno de 8 unidades -->
             <div class="bg-gray-100 p-4 overflow-hidden shadow-xl sm:rounded-lg m-5 ">
                 <div class= "text-center font-sans text-black font-bold text-3xl antialiased pb-10 mt-10">
-                    REGISTRE SUS EDUCACIONES
+                    REGISTRE SUS EXPERIENCIAS
                 </div>
                 <div>
-                    <label class="font-bold text-lg" for=""> Nombre del colegio/instituto/universidad</label>
+                    <label class="font-bold text-lg" for="">Cargo</label>
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5">
                             <div class="flex">
@@ -32,18 +32,18 @@
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                     <i class="fa-solid fa-tag"></i>
                                 </div>
-                                <input id= "nombre_colegio" type="string" name="nombre_colegio"
+                                <input id= "cargo" type="string" name="cargo"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar el nombre del colegio o instituto" value="{{ old('nombre_colegio') }}">
-                                @error('nombre_colegio')
-                                    <strong class = "text-red-500">Debes ingresar el nombre del colegio/instituto/universidad</strong>
+                                    placeholder="Ingrese el cargo que tuvo" value="{{ old('cargo') }}">
+                                @error('cargo')
+                                    <strong class = "text-red-500">Debes ingresar el cargo que tuvo</strong>
                                 @enderror
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <label class="font-bold text-lg" for=""> Grado del diploma</label>
+                    <label class="font-bold text-lg" for=""> Descripción</label>
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5">
                             <div class="flex">
@@ -51,90 +51,69 @@
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                     <i class="fa-solid fa-money-bill"></i>
                                 </div>
-                                <input id= "grado_diploma" type="string" name="grado_diploma"
+                                <input id= "descripcion" type="string" name="descripcion"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar el grado del diploma" value="{{ old('grado_diploma') }}">
-                                @error('grado_diploma')
-                                    <strong class = "text-red-500">Debes ingresar el grado del diploma</strong>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <label class="font-bold text-lg" for="">Campo de estudio</label>
-                    <div class="flex -mx-3">
-                        <div class="w-full px-3 mb-5">
-                            <div class="flex">
-                                <div
-                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="fa-regular fa-file"></i>
-                                </div>
-                                <input id= "campo_de_estudio" type="string" name="campo_de_estudio"
-                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar el campo_de_estudio" value="{{ old('campo_de_estudio') }}">
-                                @error('campo_de_estudio')
-                                    <strong class = "text-red-500">Debes ingresar el campo de estudio</strong>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <label class="font-bold text-lg" for="">Fecha de finalización</label>
-                    <div class="flex -mx-3">
-                        <div class="w-full px-3 mb-5">
-                            <div class="flex">
-                                <div
-                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="fa-regular fa-file"></i>
-                                </div>
-                                <input id= "fecha_de_finalizacion" type="date" name="fecha_de_finalizacion"
-                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar la fecha de finalizacion" value="{{ old('fecha_de_finalizacion') }}">
-                                @error('fecha_de_finalizacion')
-                                    <strong class = "text-red-500">Debes ingresar la fecha de finalización</strong>
+                                    placeholder="Ingresar la descripción" value="{{ old('descripcion') }}">
+                                @error('descripcion')
+                                    <strong class = "text-red-500">Debes ingresar la descripción</strong>
                                 @enderror
                             </div>
                         </div>
                     </div>
                 </div>
 
+
                 <div>
-                    <label class="font-bold text-lg" for="">Notas adicionales</label></label>
+                    <label class="font-bold text-lg" for=""> Años</label>
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5">
                             <div class="flex">
                                 <div
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="fa-regular fa-file"></i>
+                                    <i class="fa-solid fa-money-bill"></i>
                                 </div>
-                                <input id= "notas_adicionales" type="string" name="notas_adicionales"
+                                <input id= "años" type="string" name="años"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar el notas_adicionales" value="{{ old('notas_adicionales') }}">
-                                
+                                    placeholder="Ingresar los años que tuvo en ese cargo" value="{{ old('años') }}">
+                                @error('años')
+                                    <strong class = "text-red-500">Debes ingresar los años que estuvo bajo ese cargo</strong>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-                     
+                <div>
+                    <label class="font-bold text-lg" for=""> Lugar</label>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <div class="flex">
+                                <div
+                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                                    <i class="fa-solid fa-money-bill"></i>
+                                </div>
+                                <input id= "lugar" type="string" name="lugar"
+                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
+                                    placeholder="Ingresar el lugar donde trabajo" value="{{ old('lugar') }}">
+                                @error('lugar')
+                                    <strong class = "text-red-500">Debes ingresar el lugar donde trabajo</strong>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+              
+
+                    
                 <div class="flex -mx-3 pt-9">
                     <div class="w-full px-3 mb-5">
-                        <button type="submit" name="action" value="guardar_y_anadir_otro"
-                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Guardar y añadir otro
+                        <button type ="submit" id="guardar"
+                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Guardar
                         </button>
                     </div>
-                </div>
-
-                <div class="flex -mx-3 pt-9">
-                    <div class="w-full px-3 mb-5">
-                        <button type="submit" name="action" value="guardar_y_siguiente"
-                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Guardar y siguiente
-                        </button>
-                    </div>
-                </div>          
+                </div>                
           
             </div>
         </div>

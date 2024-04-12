@@ -20,6 +20,7 @@ class Postulante extends Model
         'habilidades',
         'ID_Fuente_De_Contratacion',
         'ID_Puesto_Disponible',
+        'ID_Idiomas'
     ];
 
     // Relación con el modelo Usuario

@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class = "flex flex-wrap justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('LISTA DE EDUCACIONES') }}
+                {{ __('POSTULANTE') }}
             </h2>
          
-            <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
-                href="{{ route('educaciones.crearSIG') }}">Añadir Educación</a>
+            {{-- <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+                href="{{ route('postulantes.crearSIG') }}">Añadir Educación</a> --}}
  
         </div>
 
@@ -23,22 +23,25 @@
                                 ID</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Nombre del colegio</th>
+                                Foto</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Grado Diploma</th>
+                                Fecha de nacimiento</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Campo de estudio</th>        
+                                Nacionalidad</th>        
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Fecha de finalización</th>    
+                                Habilidades</th>    
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Notas adicionales</th>      
+                                Fuente de contratación</th>      
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                ID Postulante</th>        
+                                Puesto elegido</th>     
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Idioma secundario</th>                                      
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Acciones</th>      
@@ -48,46 +51,37 @@
                     </thead>
                     <tbody class="block md:table-row-group">
 
-                    @if (!is_null($educaciones))
-                        @foreach ($educaciones as $educacion)
+                    @if (!is_null($postulante))
+                        @foreach ($postulante as $postulanteU)
                         <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $educacion->id }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $postulanteU->ID_Usuario }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Nombre del colegio</span>{{ $educacion->nombre_colegio }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">Foto</span>{{ $postulanteU->ruta_imagen_e }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                     class="inline-block w-1/3 md:hidden font-bold">Grado Diploma</span>{{ $educacion->grado_diploma }}</td>        
+                                     class="inline-block w-1/3 md:hidden font-bold">Fecha de nacimiento</span>{{ $postulanteU->fecha_de_nacimiento }}</td>        
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Campo de estudio</span>{{ $educacion->campo_de_estudio }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">Nacionalidad</span>{{ $postulanteU->nacionalidad }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Fecha de finalización</span>{{ $educacion->fecha_de_finalizacion }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">Habilidades</span>{{ $postulanteU->habilidades }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Notas adicionales</span>{{ $educacion->notas_adicionales }}</td>       
+                                    class="inline-block w-1/3 md:hidden font-bold">Fuente de contratación</span>{{ $postulanteU->ID_Fuente_De_Contratacion }}</td>       
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Postulante</span>{{ $educacion->ID_Postulante }}</td>                                                                                  
+                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulanteU->ID_Puesto_Disponible }}</td>   
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
+                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulanteU->ID_Idioma }}</td>                                                                                          
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div class="flex flex-wrap">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
                                     
                                  
-                                    <a href="{{ route('educaciones.editar', $educacion->id) }}"
+                                    <a href="{{ route('postulantes.editarGES', ['id' => auth()->id()]) }}"
                                         class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
                                  
                                     
-                                    <div class="flex flex-wrap">
-                                        <div>
-                                            <form id="formEliminar_{{ $educacion->id }}"
-                                                action="{{ route('educaciones.eliminar', $educacion->id) }}" method="POST">
-                                                @csrf
-                                                <button type="button" class="bg-red-500 px-2 py-2 rounded-lg" title="Eliminar"
-                                                onclick="confirmarEliminacion('{{ $educacion->id }}')">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                            </form>
-                                        </div>
-                                    </div>
+                                    
                                 
                                 </div>
                             </td>
