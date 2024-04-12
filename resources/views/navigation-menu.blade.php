@@ -15,6 +15,15 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('departamentos.inicio') }}" :active="request()->routeIs('departamentos.inicio')">
+                        {{ __('Departamentos') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('cargos.inicio') }}" :active="request()->routeIs('cargos.inicio')">
+                        {{ __('Cargos') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('empleados.inicio') }}" :active="request()->routeIs('empleados.inicio')">
+                        {{ __('Empleados') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -139,6 +148,15 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('departamentos.inicio') }}" :active="request()->routeIs('departamentos.inicio')">
+                {{ __('Departamentos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('cargos.inicio') }}" :active="request()->routeIs('cargos.inicio')">
+                {{ __('Cargos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('empleados.inicio') }}" :active="request()->routeIs('empleados.inicio')">
+                {{ __('Empleados') }}
             </x-responsive-nav-link>
         </div>
 
