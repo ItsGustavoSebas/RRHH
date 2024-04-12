@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('educaciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_institución');
+            $table->string('nombre_colegio');
             $table->string('grado_diploma'); 
             $table->string('campo_de_estudio');           
             $table->date('fecha_de_finalizacion'); 

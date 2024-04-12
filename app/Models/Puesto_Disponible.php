@@ -14,6 +14,5 @@ class Puesto_Disponible extends Model
 
     protected $fillable = [
         'nombre', 
-        'estado',
     ];
 }

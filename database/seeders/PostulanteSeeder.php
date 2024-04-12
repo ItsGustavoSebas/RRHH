@@ -19,12 +19,27 @@ class PostulanteSeeder extends Seeder
         $user = User::create([
             'name' => 'postulante1',
             'email' => 'post@gmail.com',
-            'ci' => '1213123',
-            'telefono' => '13223',
-            'direccion' => 'plan 3000',        
+            
+        //    'ci' => '1213123',
+           // 'telefono' => '13223',
+   //         'direccion' => 'plan 3000',        
             'Postulante' => true,         
             'password' => bcrypt('12345678')
+        ])->assignRole('Postulante');
+
+        $postulante = new Postulante([
+           
+            'ruta_imagen_e' => '/build/imagenes/utilitarios/veterinario2.jpg',
+            'fecha_de_nacimiento' => '2023-04-01',
+            'nacionalidad' => 'Boliviano',
+            'habilidades' => 'Ninguna Xd',
+            'ID_Fuente_De_Contratacion' => null,
+            'ID_Puesto_Disponible' => null,
+
+
+
         ]);
+
 
         $postulante = new Postulante();
         $user->postulante()->save($postulante);
