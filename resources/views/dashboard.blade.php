@@ -11,5 +11,43 @@
                 <x-welcome />
             </div>
         </div>
+
+
+        <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+        href="{{ route('educaciones.rinicio') }}">Gestionar educaciones</a>
+      
+
+      
+
+        <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+        href="{{ route('postulantes.rinicio') }}">Gestionar información de postulación</a>
+
+
+        
+        <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+        href="{{ route('reconocimientos.rinicio') }}">Gestionar reconocimientos</a>
+
+
+
+        <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+        href="{{ route('experiencias.rinicio') }}">Gestionar experiencias</a>
+
+
+
+
+        <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+        href="{{ route('referencias.rinicio') }}">Gestionar referencias</a>
+
+
+
+        <a class="px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
+         href="{{ route('postulantes.postularse') }}">Postularse</a>
+
+        
+
+
+
+
+
     </div>
 </x-app-layout>
