@@ -20,9 +20,9 @@ class PostulanteSeeder extends Seeder
             'name' => 'postulante1',
             'email' => 'post@gmail.com',
             
-        //    'ci' => '1213123',
-           // 'telefono' => '13223',
-   //         'direccion' => 'plan 3000',        
+            'ci' => '1213123',
+            'telefono' => '13223',
+            'direccion' => 'plan 3000',        
             'Postulante' => true,         
             'password' => bcrypt('12345678')
         ])->assignRole('Postulante');
