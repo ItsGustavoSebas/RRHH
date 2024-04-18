@@ -107,6 +107,7 @@ Route::middleware([
     Route::post('/informacionpersonal/actualizarT/{id}', [InformacionPersonalController::class, 'actualizarTelefono'])->name('informacionpersonal.actualizar.telefono');
 
 
+
     //EDUCACIONES CONTROLLER
 Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');
 Route::get('/educaciones/crear', [EducacionController::class, 'crear'])->name('educaciones.crear');
@@ -158,4 +159,6 @@ Route::post('/referencias/eliminar/{id}', [ReferenciaController::class, 'elimina
 Route::post('/referencias/guardar', [ReferenciaController::class, 'guardar'])->name('referencias.guardar');
 Route::post('/referencias/guardarSIG', [ReferenciaController::class, 'guardarSIG'])->name('referencias.guardarSIG');
 });
+
+
 
