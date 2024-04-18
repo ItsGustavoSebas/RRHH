@@ -33,6 +33,9 @@
                     <x-nav-link href="{{ route('postulantes.rinicio') }}" :active="request()->routeIs('postulantes.rinicio')">
                         {{ __('Postulantes') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('informacionpersonal.inicio', Auth::user()->id) }}" :active="request()->routeIs('informacionpersonal.rinicio')">
+                        {{ __('Informacion Personal') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -175,6 +178,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('postulantes.rinicio') }}" :active="request()->routeIs('postulantes.rinicio')">
                 {{ __('Postulantes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('informacionpersonal.inicio', Auth::user()->id ) }}" :active="request()->routeIs('informacionpersonal.rinicio')">
+                {{ __('Información Personal') }}
             </x-responsive-nav-link>
         </div>
 

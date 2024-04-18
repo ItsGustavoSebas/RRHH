@@ -29,6 +29,9 @@ class EmpleadoSeeder extends Seeder
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
+            'fechanac' => '1990/07/01',
+            'genero' => 'Masculino',
+            'estadocivil' => 'Soltero',
         ]);
 
         $user->empleado()->save($empleado);
@@ -46,6 +49,9 @@ class EmpleadoSeeder extends Seeder
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
+            'fechanac' => '1990/07/01',
+            'genero' => 'Masculino',
+            'estadocivil' => 'Soltero',
         ]);
 
         $user->empleado()->save($empleado);
@@ -63,8 +69,29 @@ class EmpleadoSeeder extends Seeder
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
+            'fechanac' => '1990/07/01',
+            'genero' => 'Masculino',
+            'estadocivil' => 'Soltero',
         ]);
 
+        $user->empleado()->save($empleado);
+
+        $user = User::create([
+            'name' => 'Empleado',
+            'email' => 'empleado3@gmail.com',
+            'ci' => '918941',
+            'telefono' => '7284693',
+            'direccion' => 'zona la cuchilla',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Empleado');
+
+        $empleado = new Empleado([
+            'ID_Cargo' => '1',
+            'ID_Departamento'=> '1',
+            'fechanac' => '1990/07/01',
+            'genero' => 'Masculino',
+            'estadocivil' => 'Soltero',
+        ]);
         $user->empleado()->save($empleado);
     }
 }

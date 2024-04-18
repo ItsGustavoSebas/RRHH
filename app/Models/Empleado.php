@@ -20,6 +20,9 @@ class Empleado extends Model
         'ID_Cargo',
         'ruta_imagen_e',
         'ID_Departamento',
+        'fechanac',
+        'genero',
+        'estadocivil',
     ];
 
     public function usuario()
