@@ -62,5 +62,28 @@
             @endforeach
         </tbody>
     </table>
+    <script>
+        @if (Session::has('eliminado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('eliminado') }}")
+        @endif
+        @if (Session::has('actualizado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('actualizado') }}")
+        @endif
+        @if (Session::has('creado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('creado') }}")
+        @endif
+    </script>
  
 </x-app-layout>

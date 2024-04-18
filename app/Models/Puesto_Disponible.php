@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Puesto_Disponible extends Model
 {
     use HasFactory;
-    protected $table = 'puesto_disponibles';
+    protected $table = 'puestos_disponibles';
 
     protected $primaryKey = 'id';
 
