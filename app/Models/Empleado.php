@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
@@ -36,4 +37,8 @@ class Empleado extends Model
         return $this->belongsTo(Cargo::class, 'ID_Cargo');
     }
 
+    public function getEdadAttribute()
+    {
+        return Carbon::parse($this->fechanac)->age;
+    }
 }

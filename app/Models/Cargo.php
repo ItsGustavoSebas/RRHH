@@ -18,6 +18,10 @@ class Cargo extends Model
         'ID_Departamento'
     ];
 
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'ID_Cargo');
+    }
     public function departamento()
     {
         return $this->belongsTo(Departamento::class, 'ID_Departamento');

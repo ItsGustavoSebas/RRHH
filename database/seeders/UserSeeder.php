@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Empleado;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }
