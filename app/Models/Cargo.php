@@ -24,6 +24,6 @@ class Cargo extends Model
     }
     public function departamento()
     {
-        return $this->belongsTo(Cargo::class, 'ID_Departamento');
+        return $this->belongsTo(Departamento::class, 'ID_Departamento');
     }
 }
