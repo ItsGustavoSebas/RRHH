@@ -105,9 +105,10 @@ Route::middleware([
     Route::post('/informacionpersonal/actualizarD/{id}', [InformacionPersonalController::class, 'actualizarDepartamento'])->name('informacionpersonal.actualizar.departamento');
     Route::post('/informacionpersonal/actualizarC/{id}', [InformacionPersonalController::class, 'actualizarCargo'])->name('informacionpersonal.actualizar.cargo');
     Route::post('/informacionpersonal/actualizarT/{id}', [InformacionPersonalController::class, 'actualizarTelefono'])->name('informacionpersonal.actualizar.telefono');
-});
 
-//EDUCACIONES CONTROLLER
+
+
+    //EDUCACIONES CONTROLLER
 Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');
 Route::get('/educaciones/crear', [EducacionController::class, 'crear'])->name('educaciones.crear');
 Route::get('/educaciones/crearSIG', [EducacionController::class, 'crearSIG'])->name('educaciones.crearSIG');
@@ -157,3 +158,7 @@ Route::post('/referencias/actualizar/{id}', [ReferenciaController::class, 'actua
 Route::post('/referencias/eliminar/{id}', [ReferenciaController::class, 'eliminar'])->name('referencias.eliminar');
 Route::post('/referencias/guardar', [ReferenciaController::class, 'guardar'])->name('referencias.guardar');
 Route::post('/referencias/guardarSIG', [ReferenciaController::class, 'guardarSIG'])->name('referencias.guardarSIG');
+});
+
+
+

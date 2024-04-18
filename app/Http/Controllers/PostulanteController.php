@@ -34,7 +34,7 @@ class PostulanteController extends Controller
         $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
 
 
-        if (!$postulante->ruta_imagen_e) {
+        if (!$postulante->nacionalidad) {
           // Si la nacionalidad del usuario no está completa, redirigir a la página de completar datos personales
           return redirect(route('postulantes.editar', $id));
         }
