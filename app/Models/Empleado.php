@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Empleado extends Model
 {
     use HasFactory;
+    use HasRoles;
 
     protected $table = 'empleados';
 
@@ -17,7 +19,6 @@ class Empleado extends Model
         'ID_Cargo',
         'ruta_imagen_e',
         'ID_Departamento',
-        'ID_Cargo'
     ];
 
     public function usuario()

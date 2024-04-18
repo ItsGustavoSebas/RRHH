@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Empleado;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,55 @@ class EmpleadoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $user = User::create([
+            'name' => 'Administador',
+            'email' => 'adm@gmail.com',
+            'ci' => '98716',
+            'telefono' => '7789943',
+            'direccion' => 'por ahí',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Administrador');
+
+        $empleado = new Empleado([
+            'ruta_imagen_e' => null,
+            'ID_Cargo' => 1,
+            'ID_Departamento' => 2,
+        ]);
+
+        $user->empleado()->save($empleado);
+
+        $user = User::create([
+            'name' => 'Encargado',
+            'email' => 'encargado@gmail.com',
+            'ci' => '84461',
+            'telefono' => '7318578',
+            'direccion' => 'plan 3000',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Encargado');
+
+        $empleado = new Empleado([
+            'ruta_imagen_e' => null,
+            'ID_Cargo' => 1,
+            'ID_Departamento' => 2,
+        ]);
+
+        $user->empleado()->save($empleado);
+
+        $user = User::create([
+            'name' => 'Empleado',
+            'email' => 'empleado@gmail.com',
+            'ci' => '998941',
+            'telefono' => '7284693',
+            'direccion' => 'zona la cuchilla',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Empleado');
+
+        $empleado = new Empleado([
+            'ruta_imagen_e' => null,
+            'ID_Cargo' => 1,
+            'ID_Departamento' => 2,
+        ]);
+
+        $user->empleado()->save($empleado);
     }
 }

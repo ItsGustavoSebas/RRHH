@@ -27,6 +27,12 @@
                     <x-nav-link href="{{ route('puesto_disponibles.inicio') }}" :active="request()->routeIs('puesto_disponibles.inicio')">
                         {{ __('Puestos Disponibles') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('roles.inicio') }}" :active="request()->routeIs('roles.inicio')">
+                        {{ __('Roles') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('postulantes.rinicio') }}" :active="request()->routeIs('postulantes.rinicio')">
+                        {{ __('Postulantes') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -160,6 +166,15 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('empleados.inicio') }}" :active="request()->routeIs('empleados.inicio')">
                 {{ __('Empleados') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('puesto_disponibles.inicio') }}" :active="request()->routeIs('puesto_disponibles.inicio')">
+                {{ __('Puestos Disponibles') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('roles.inicio') }}" :active="request()->routeIs('roles.inicio')">
+                {{ __('Roles') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('postulantes.rinicio') }}" :active="request()->routeIs('postulantes.rinicio')">
+                {{ __('Postulantes') }}
             </x-responsive-nav-link>
         </div>
 
