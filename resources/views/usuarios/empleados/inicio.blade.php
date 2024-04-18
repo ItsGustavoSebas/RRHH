@@ -110,6 +110,10 @@
                                     </form>
                                 </div>
                             {{-- @endcan --}}
+                                <a href="{{ route('informacionpersonal.inicio', $empleado->usuario->id) }}"
+                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
+                                    <i class="far fa-file-alt"></i>
+                                </a>
                         </div>
                     </td>
                 </tr>
