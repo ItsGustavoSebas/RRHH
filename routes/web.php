@@ -7,15 +7,18 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\InformacionPersonalController;
+use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\ReferenciaController;
 use App\Http\Controllers\RoleController;
 
+
 use App\Models\Educacion;
 use App\Models\Postulante;
 use App\Models\Reconocimiento;
 use App\Models\Departamento;
+use App\Models\Puesto_Disponible;
 
 use Illuminate\Support\Facades\Route;
 
@@ -60,10 +63,10 @@ Route::middleware([
     Route::post('/roles/actualizar/{id}', [RoleController::class, 'actualizar'])->name('roles.actualizar');
     Route::post('/roles/eliminar/{id}', [RoleController::class, 'eliminar'])->name('roles.eliminar');
 
+
 Route::get('/completado', function () {
     return view('contratacion.completado');
 })->name('completado');
-
 
     //DEPARTAMENTOS
     Route::get('/departamentos/inicio', [DepartamentoController::class, 'inicio'])->name('departamentos.inicio');
@@ -73,6 +76,13 @@ Route::get('/completado', function () {
     Route::post('/departamentos/actualizar/{id}', [DepartamentoController::class, 'actualizar'])->name('departamentos.actualizar');
     Route::post('/departamentos/eliminar/{id}', [DepartamentoController::class, 'eliminar'])->name('departamentos.eliminar');
 
+    //puesto_disponibles
+    Route::get('puesto_disponibles/inicio', [Puesto_DisponibleController::class, 'inicio'])->name('puesto_disponibles.inicio');
+    Route::get('puesto_disponibles/crear', [Puesto_DisponibleController::class, 'crear'])->name('puesto_disponibles.crear');
+    Route::post('puesto_disponibles/guardar', [Puesto_DisponibleController::class, 'guardar'])->name('puesto_disponibles.guardar');
+    Route::get('puesto_disponibles/editar/{id}', [Puesto_DisponibleController::class, 'editar'])->name('puesto_disponibles.editar');
+    Route::post('puesto_disponibles/actualizar/{id}', [Puesto_DisponibleController::class, 'actualizar'])->name('puesto_disponibles.actualizar');
+    Route::post('puesto_disponibles/eliminar/{id}', [Puesto_DisponibleController::class, 'eliminar'])->name('puesto_disponibles.eliminar');
 
     //CARGOS
     Route::get('/cargos/inicio', [CargoController::class, 'inicio'])->name('cargos.inicio');
