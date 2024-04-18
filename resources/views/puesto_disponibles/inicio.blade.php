@@ -4,10 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Lista de Puestos Disponibles') }}
             </h2>
-            {{-- @can('Listar Departamentos') --}}
+            @can('Crear Puestos Disponibles')
             <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
                 href="{{ route('puesto_disponibles.crear') }}">CREAR PUESTO DISPONIBLE</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
     </x-slot>
 
@@ -38,13 +38,13 @@
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         <div class="flex flex-wrap">
                             <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
-                            {{-- @can('Editar puesto_disponible') --}}
+                            @can('Editar Puestos Disponibles')
                             <a href="{{ route('puesto_disponibles.editar', $Puesto_Disponible->id) }}"
                                 class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
-                            {{-- @endcan
-                            @can('Eliminar puesto_disponible') --}}
+                            @endcan
+                            @can('Eliminar Puestos Disponibles')
                             <div>
                                 <form id="formEliminar_{{ $Puesto_Disponible->id }}" 
                                     action="{{ route('puesto_disponibles.eliminar', $Puesto_Disponible->id) }}" method="POST">
@@ -55,7 +55,7 @@
                                     </button>
                                 </form>
                             </div>
-                            {{-- @endcan --}}
+                            @endcan
                         </div>
                     </td>
                 </tr>

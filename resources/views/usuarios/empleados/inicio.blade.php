@@ -4,10 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Lista de Empleados') }}
             </h2>
-            {{-- @can('Crear Empleado') --}}
+            @can('Crear Empleados')
                 <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
                     href="{{ route('empleados.crear') }}">REGISTRAR EMPLEADO</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
     </x-slot>
 
@@ -82,7 +82,7 @@
                             <span class="inline-block w-1/3 md:hidden font-bold">Foto</span>
                             @if ($empleado->ruta_imagen_e)
                                 <img id="imagen" src="{{ asset($empleado->ruta_imagen_e) }}"
-                                    class="w-16 h-16 object-cover rounded-full" alt="placeholder"> {{-- style="width:100px; height:100px;"  --}}
+                                    class="w-16 h-16 object-cover rounded-full" alt="placeholder"> style="width:100px; height:100px;" 
                             @else
                                 <span>Null</span>
                             @endif
@@ -92,13 +92,13 @@
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         <div class="flex flex-wrap">
                             <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
-                            {{-- @can('Editar Empleado') --}}
+                            @can('Editar Empleados')
                                 <a href="{{ route('empleados.editar', $empleado->usuario->id) }}"
                                     class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
-                            {{-- @endcan
-                            @can('Eliminar Empleado') --}}
+                            @endcan
+                            @can('Eliminar Empleados')
                                 <div> 
                                     <form id="formEliminar_{{ $empleado->usuario->id }}"
                                         action="{{ route('empleados.eliminar', $empleado->usuario->id) }}" method="POST">
@@ -109,7 +109,7 @@
                                         </button>
                                     </form>
                                 </div>
-                            {{-- @endcan --}}
+                            @endcan
                                 <a href="{{ route('informacionpersonal.inicio', $empleado->usuario->id) }}"
                                     class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
                                     <i class="far fa-file-alt"></i>

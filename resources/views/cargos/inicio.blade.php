@@ -4,11 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Cargos') }}
             </h2>
-            
-            {{-- @can('Crear Cargos') --}}
-            <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
-                href="{{ route('cargos.crear') }}">AÑADIR CARGO</a>
-            {{-- @endcan --}}
+
+            @can('Crear Cargos')
+                <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg" href="{{ route('cargos.crear') }}">AÑADIR
+                    CARGO</a>
+            @endcan
         </div>
 
     </x-slot>
@@ -42,34 +42,34 @@
                             class="inline-block w-1/3 md:hidden font-bold">Nombre</span>{{ $cargo->nombre }}
                     </td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                        class="inline-block w-1/3 md:hidden font-bold">Departamento</span>{{ optional($cargo->departamento)->nombre ?? 'N/A'  }}
+                            class="inline-block w-1/3 md:hidden font-bold">Departamento</span>{{ optional($cargo->departamento)->nombre ?? 'N/A' }}
                     </td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         <div class="flex flex-wrap">
                             <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
-                            {{-- @can('Editar Cargos') --}}
-                            <a href="{{ route('cargos.editar', $cargo->id) }}"
-                                class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            {{-- @endcan
-                            @can('Eliminar Cargos') --}}
-                            <div>
-                                <form id="formEliminar_{{ $cargo->id }}"
-                                    action="{{ route('cargos.eliminar', $cargo->id) }}" method="POST">
-                                    @csrf
-                                    <button type="button" class="bg-red-500 px-2 py-2 rounded-lg" title="Eliminar"
-                                        onclick="confirmarEliminacion('{{ $cargo->id }}')">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            {{-- @endcan --}}
+                            @can('Editar Cargos')
+                                <a href="{{ route('cargos.editar', $cargo->id) }}"
+                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            @endcan
+                            @can('Eliminar Cargos')
+                                <div>
+                                    <form id="formEliminar_{{ $cargo->id }}"
+                                        action="{{ route('cargos.eliminar', $cargo->id) }}" method="POST">
+                                        @csrf
+                                        <button type="button" class="bg-red-500 px-2 py-2 rounded-lg" title="Eliminar"
+                                            onclick="confirmarEliminacion('{{ $cargo->id }}')">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endcan
                         </div>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    
+
 </x-app-layout>

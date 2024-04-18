@@ -22,15 +22,15 @@ class RoleSeeder extends Seeder
         $rol4 = Role::create(['name' => 'Empleado']);
 
         //Usuarios
-        Permission::create(['name' => 'Inicio Usuario'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'Crear Usuario'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'Guardar Usuario'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'Eliminar Usuario'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'Editar Usuario'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'Actualizar Usuario'])->syncRoles([$rol1]);
+        Permission::create(['name' => 'Inicio Empleados'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Crear Empleados'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Empleados'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Empleados'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Empleados'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Empleados'])->syncRoles([$rol1, $rol2]);
 
         //roles
-        Permission::create(['name' => 'Inicio Rol'])->syncRoles([$rol1]);
+        Permission::create(['name' => 'Inicio Roles'])->syncRoles([$rol1]);
         Permission::create(['name' => 'Crear Rol'])->syncRoles([$rol1]);
         Permission::create(['name' => 'Guardar Rol'])->syncRoles([$rol1]);
         Permission::create(['name' => 'Editar Rol'])->syncRoles([$rol1]);
@@ -47,12 +47,32 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Editar Solicitud'])->syncRoles([$rol1, $rol2, $rol3]);
         Permission::create(['name' => 'Actualizar Solicitud'])->syncRoles([$rol1, $rol2, $rol3]);
 
-        //oferta de empleo
-        Permission::create(['name' => 'Inicio Oferta'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Crear Oferta'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Guardar Oferta'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Eliminar Oferta'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Editar Oferta'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Actualizar Oferta'])->syncRoles([$rol1, $rol2]);
+        //Puestos Disponibles
+        Permission::create(['name' => 'Inicio Puestos Disponibles'])->syncRoles([$rol1, $rol2, $rol4]);
+        Permission::create(['name' => 'Crear Puestos Disponibles'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Puestos Disponibles'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Puestos Disponibles'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Puestos Disponibles'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Puestos Disponibles'])->syncRoles([$rol1, $rol2]);
+
+        //Departamentos
+        Permission::create(['name' => 'Inicio Departamentos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Crear Departamentos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Departamentos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Departamentos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Departamentos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Departamentos'])->syncRoles([$rol1, $rol2]);
+
+        //Cargos
+         Permission::create(['name' => 'Inicio Cargos'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Crear Cargos'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Guardar Cargos'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Editar Cargos'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Actualizar Cargos'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Eliminar Cargos'])->syncRoles([$rol1, $rol2]);
+
+        //Informacion Personal
+        Permission::create(['name' => 'Inicio Informacion Personal'])->syncRoles([$rol1, $rol2, $rol4]);
+
     }
 }

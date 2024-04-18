@@ -15,7 +15,6 @@
                     <a href="{{ route('experiencias.rinicio') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Gestionar experiencias</a>
                     <a href="{{ route('referencias.rinicio') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Gestionar referencias</a>
                     <a href="{{ route('postulantes.postularse') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Postularse</a>
-                    <a href="{{ route('informacionpersonal.inicio', '4') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Informacion Personal</a>
                 </div>
             </div>
         </div>
