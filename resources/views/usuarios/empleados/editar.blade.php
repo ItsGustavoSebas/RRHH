@@ -137,7 +137,9 @@
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500">
                                     <option value="">Selecciona el Departamento</option>
                                     @foreach ($departamentos as $departamento)
-                                        <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
+                                        <option value="{{ $departamento->id }}"
+                                            @if ($departamento->id == $empleados->departamento->id) selected @endif>
+                                            {{ $departamento->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -152,11 +154,17 @@
                             <div>
                                 @foreach ($roles as $rol)
                                     <label for="{{ $rol->id }}">
-                                        <input type="checkbox" name="roles[]" value="{{ $rol->id }}" id="{{ $rol->id }}" class="mr-1">
+                                        <input type="checkbox" 
+                                               name="roles[]" 
+                                               value="{{ $rol->id }}" 
+                                               id="{{ $rol->id }}" 
+                                               class="mr-1" 
+                                               {{ $empleados->usuario->hasRole($rol->name) ? 'checked' : '' }} />
                                         {{ $rol->name }}
                                     </label>
                                 @endforeach
                             </div>
+                            
                             @error('roles')
                                 <strong class="text-red-500 font-bold">Ingresar al menos un Rol</strong>
                             @enderror
@@ -175,7 +183,8 @@
                                     <option value="">Selecciona el Cargo</option>
                                     @foreach ($cargos as $cargo)
                                         <option value="{{ $cargo->id }}"
-                                            data-departamento="{{ $cargo->ID_Departamento }}">{{ $cargo->nombre }}
+                                            data-departamento="{{ $cargo->ID_Departamento }}"
+                                            @if ($cargo->id == $empleados->cargo->id) selected @endif>{{ $cargo->nombre }}
                                         </option>
                                     @endforeach
                                 </select>

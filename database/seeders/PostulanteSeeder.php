@@ -35,13 +35,8 @@ class PostulanteSeeder extends Seeder
             'habilidades' => 'Ninguna Xd',
             'ID_Fuente_De_Contratacion' => null,
             'ID_Puesto_Disponible' => null,
-
-
-
         ]);
 
-
-        $postulante = new Postulante();
         $user->postulante()->save($postulante);
     }
 }
