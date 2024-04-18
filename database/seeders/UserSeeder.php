@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Empleado;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -44,7 +45,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678')
         ])->assignRole('Postulante');
 
-        User::create([
+        $user = User::create([
             'name' => 'Empleado',
             'email' => 'empleado@gmail.com',
             'ci' => '998941',
@@ -52,5 +53,14 @@ class UserSeeder extends Seeder
             'direccion' => 'zona la cuchilla',
             'password' => bcrypt('12345678')
         ])->assignRole('Empleado');
+
+        $empleado = new Empleado([
+            'ID_Cargo' => '1',
+            'ID_Departamento'=> '1',
+            'fechanac' => '1990/07/01',
+            'genero' => 'Masculino',
+            'estadocivil' => 'Soltero',
+        ]);
+        $user->empleado()->save($empleado);
     }
 }

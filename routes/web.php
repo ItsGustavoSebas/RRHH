@@ -6,7 +6,7 @@ use App\Http\Controllers\ExperienciaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadoController;
-
+use App\Http\Controllers\InformacionPersonalController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\ReferenciaController;
@@ -89,6 +89,12 @@ Route::get('/completado', function () {
     Route::get('/usuarios/empleados/editar/{id}', [EmpleadoController::class, 'editar'])->name('empleados.editar');
     Route::post('/usuarios/empleados/actualizar/{id}', [EmpleadoController::class, 'actualizar'])->name('empleados.actualizar');
     Route::post('/usuarios/empleados/eliminar/{id}', [EmpleadoController::class, 'eliminar'])->name('empleados.eliminar');
+
+    //INFORMACIONPERSONAL
+    Route::get('/informacionpersonal/inicio/{id}', [InformacionPersonalController::class, 'inicio'])->name('informacionpersonal.inicio');
+    Route::post('/informacionpersonal/actualizarD/{id}', [InformacionPersonalController::class, 'actualizarDepartamento'])->name('informacionpersonal.actualizar.departamento');
+    Route::post('/informacionpersonal/actualizarC/{id}', [InformacionPersonalController::class, 'actualizarCargo'])->name('informacionpersonal.actualizar.cargo');
+    Route::post('/informacionpersonal/actualizarT/{id}', [InformacionPersonalController::class, 'actualizarTelefono'])->name('informacionpersonal.actualizar.telefono');
 
 });
 

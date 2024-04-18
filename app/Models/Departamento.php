@@ -16,4 +16,14 @@ class Departamento extends Model
         'Nombre',
     ];
 
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'ID_Departamento');
+    }
+
+    public function cargos()
+    {
+        return $this->hasMany(Cargo::class, 'ID_Cargo');
+    }
+
 }
