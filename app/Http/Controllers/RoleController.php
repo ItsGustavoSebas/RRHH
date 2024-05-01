@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bitacora;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -34,6 +36,24 @@ class RoleController extends Controller
         $rol->name = $request->name;
         $rol->save();
         $rol->permissions()->sync($request->permissions);
+        //-----------------------------------------------
+        $bitacora_id = session('bitacora_id');
+
+        if ($bitacora_id) {
+            $bitacora = Bitacora::find($bitacora_id);
+
+            $horaActual = Carbon::now()->format('H:i:s');
+
+            $bitacora->detalleBitacoras()->create([
+                'accion' => 'Actualizar Rol',
+                'metodo' => 'PUT', 
+                'hora' => $horaActual,
+                'tabla' => 'roles', 
+                'registroId' => $rol->id,
+                'ruta'=> request()->fullurl(),
+            ]);
+        }
+        //-----------------------------------------------
         return redirect()->route('roles.inicio', $id)->with('actualizado', "Rol Editado Correctamente");
     }
 

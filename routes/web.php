@@ -1,10 +1,11 @@
 <?php
 
-
+use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\EducacionController;
 use App\Http\Controllers\ExperienciaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\DetalleBitacoraController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\InformacionPersonalController;
 use App\Http\Controllers\Puesto_DisponibleController;
@@ -158,6 +159,16 @@ Route::post('/referencias/actualizar/{id}', [ReferenciaController::class, 'actua
 Route::post('/referencias/eliminar/{id}', [ReferenciaController::class, 'eliminar'])->name('referencias.eliminar');
 Route::post('/referencias/guardar', [ReferenciaController::class, 'guardar'])->name('referencias.guardar');
 Route::post('/referencias/guardarSIG', [ReferenciaController::class, 'guardarSIG'])->name('referencias.guardarSIG');
+
+//Bitacora
+Route::get('/bitacoras/inicio/{id}', [BitacoraController::class, 'inicio'])->name('bitacoras.inicio');
+Route::get('/bitacoras/rinicio', [BitacoraController::class, 'rinicio'])->name('bitacoras.rinicio');
+Route::get('/bitacoras/PDF', [BitacoraController::class, 'generarBitacoraPDF'])->name('generarBitacoraPDF');
+Route::get('/bitacoras/PDF/{id}', [BitacoraController::class, 'generarBitacoraPDF_usuario'])->name('generarBitacoraPDF_usuario');
+
+//DetalleBitacora
+Route::get('/detbitacoras/inicio/{id}', [DetalleBitacoraController::class, 'inicio'])->name('detbitacoras.inicio');
+Route::get('/detbitacoras/PDF/{id}', [DetalleBitacoraController::class, 'generarDetalleBitacoraPDF'])->name('generarDetalleBitacoraPDF');
 });
 
 
