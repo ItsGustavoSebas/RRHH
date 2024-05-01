@@ -46,28 +46,39 @@
         <tbody class="block md:table-row-group">
             @foreach ($bitacoras as $bitacora)
                 <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $bitacora->id }}</td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">ID_Usuario</span>{{ $bitacora->ID_Usuario }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">ID</span>
+                        {{ $bitacora->id }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Entrada</span>{{ $bitacora->entrada }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">ID_Usuario</span>
+                        {{ $bitacora->ID_Usuario }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Salida</span>{{ $bitacora->salida }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Entrada</span>
+                        {{ decrypt($bitacora->entrada) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Usuario</span>{{ $bitacora->usuario }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Salida</span>
+                        @if ($bitacora->salida !== null)
+                            {{ decrypt($bitacora->salida) }}
+                        @endif
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Tipo</span>{{ $bitacora->tipo }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Usuario</span>
+                        {{ decrypt($bitacora->usuario) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">DireccionIp</span>{{ $bitacora->direccionIp }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Tipo</span>
+                        {{ decrypt($bitacora->tipo) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Navegador</span>{{ $bitacora->navegador }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">DireccionIp</span>
+                        {{ decrypt($bitacora->direccionIp) }}
+                    </td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Navegador</span>
+                        {{ decrypt($bitacora->navegador) }}
                     </td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         <div class="flex flex-wrap">

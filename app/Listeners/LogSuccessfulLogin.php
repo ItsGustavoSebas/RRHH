@@ -8,6 +8,7 @@ use App\Models\DetalleBitacora;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Crypt;
 
 class LogSuccessfulLogin
 {
@@ -38,25 +39,29 @@ class LogSuccessfulLogin
         }
 
         
-        $bitacora = $event->user->bitacoras()->create([
-            'entrada' => now(),
-            'salida'=> null,
-            'usuario' => $event->user->name,
-            'tipo' => $tipo,
-            'direccionIp' => request()->ip(),
-            'navegador' => request()->header('user-agent'),
-        ]);
+        // Datos de la bitácora
+        $bitacoraData = [
+            'entrada' => Crypt::encrypt(now()), 
+            'salida' => null,
+            'usuario' => Crypt::encrypt($event->user->name), 
+            'tipo' => Crypt::encrypt($tipo), 
+            'direccionIp' => Crypt::encrypt(request()->ip()), 
+            'navegador' => Crypt::encrypt(request()->header('user-agent')),
+        ];
 
-        $horaActual = Carbon::now()->format('H:i:s');
+        $bitacora = $event->user->bitacoras()->create($bitacoraData);
 
-        $bitacora->detalleBitacoras()->create([
-            'accion' => 'Iniciar Sesión',
-            'metodo' => request()->method(),
-            'hora' => $horaActual,
-            'tabla'=> 'usuarios',
+        // Detalle de la bitácora
+        $detalleBitacoraData = [
+            'accion' => Crypt::encrypt('Iniciar Sesión'),
+            'metodo' => Crypt::encrypt(request()->method()),
+            'hora' => Crypt::encrypt(Carbon::now()->format('H:i:s')),
+            'tabla' => Crypt::encrypt('usuarios'), 
             'registroId' => null,
-            'ruta'=> request()->fullurl(),
-        ]);
+            'ruta' => Crypt::encrypt(request()->fullurl()),
+        ];
+
+$bitacora->detalleBitacoras()->create($detalleBitacoraData);
 
         session(['bitacora_id' => $bitacora->id]);
     }

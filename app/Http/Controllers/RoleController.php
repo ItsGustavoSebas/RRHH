@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bitacora;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -41,16 +42,16 @@ class RoleController extends Controller
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Rol',
-                'metodo' => 'PUT', 
+                'accion' => Crypt::encrypt('Actualizar Rol'),
+                'metodo' => Crypt::encrypt('PUT'), 
                 'hora' => $horaActual,
-                'tabla' => 'roles', 
-                'registroId' => $rol->id,
-                'ruta'=> request()->fullurl(),
+                'tabla' => Crypt::encrypt('roles'), 
+                'registroId' => Crypt::encrypt($rol->id),
+                'ruta'=> Crypt::encrypt(request()->fullurl()),
             ]);
         }
         //-----------------------------------------------

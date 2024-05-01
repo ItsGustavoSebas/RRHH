@@ -6,6 +6,7 @@ use App\Models\Referencia;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class ReferenciaObserver
 {
@@ -21,16 +22,16 @@ class ReferenciaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Referencia',
-                'metodo' => 'POST', 
+                'accion' => Crypt::encrypt('Crear Referencia'),
+                'metodo' => Crypt::encrypt('POST'), 
                 'hora' => $horaActual,
-                'tabla' => 'referencias', 
-                'registroId' => $referencia->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('referencias'), 
+                'registroId' => Crypt::encrypt($referencia->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -47,16 +48,16 @@ class ReferenciaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Referencia',
-                'metodo' => 'PUT', 
+                'accion' => Crypt::encrypt('Actualizar Referencia'),
+                'metodo' => Crypt::encrypt('PUT'), 
                 'hora' => $horaActual,
-                'tabla' => 'referencias', 
-                'registroId' => $referencia->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('referencias'), 
+                'registroId' => Crypt::encrypt($referencia->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -73,16 +74,16 @@ class ReferenciaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Referencia',
-                'metodo' => 'DELETE', 
+                'accion' => Crypt::encrypt('Eliminar Referencia'),
+                'metodo' => Crypt::encrypt('DELETE'), 
                 'hora' => $horaActual,
-                'tabla' => 'referencias', 
-                'registroId' => $referencia->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('referencias'), 
+                'registroId' => Crypt::encrypt($referencia->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }

@@ -6,6 +6,7 @@ use App\Models\Postulante;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class PostulanteObserver
 {
@@ -21,16 +22,16 @@ class PostulanteObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
+        
             $horaActual = Carbon::now()->format('H:i:s');
-
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Postulante',
-                'metodo' => 'POST', 
-                'hora' => $horaActual,
-                'tabla' => 'postulantes', 
-                'registroId' => $postulante->ID_Usuario,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encrypt('Crear Postulante'),
+                'metodo' => Crypt::encrypt('POST'), 
+                'hora' => Crypt::encrypt($horaActual),
+                'tabla' => Crypt::encrypt('postulantes'), 
+                'registroId' => Crypt::encrypt($postulante->ID_Usuario),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -47,16 +48,16 @@ class PostulanteObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
+        
             $horaActual = Carbon::now()->format('H:i:s');
-
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Postulante',
-                'metodo' => 'PUT', 
-                'hora' => $horaActual,
-                'tabla' => 'postulantes', 
-                'registroId' => $postulante->ID_Usuario,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encryptString('Actualizar Postulante'),
+                'metodo' => Crypt::encryptString('PUT'), 
+                'hora' => Crypt::encryptString($horaActual),
+                'tabla' => Crypt::encryptString('postulantes'), 
+                'registroId' => Crypt::encryptString($postulante->ID_Usuario),
+                'ruta'=> Crypt::encryptString(Request::url()),
             ]);
         }
     }
@@ -73,16 +74,16 @@ class PostulanteObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
+        
             $horaActual = Carbon::now()->format('H:i:s');
-
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Postulante',
-                'metodo' => 'DELETE', 
-                'hora' => $horaActual,
-                'tabla' => 'postulantes', 
-                'registroId' => $postulante->ID_Usuario,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encryptString('Eliminar Postulante'),
+                'metodo' => Crypt::encryptString('DELETE'), 
+                'hora' => Crypt::encryptString($horaActual),
+                'tabla' => Crypt::encryptString('postulantes'), 
+                'registroId' => Crypt::encryptString($postulante->ID_Usuario),
+                'ruta'=> Crypt::encryptString(Request::url()),
             ]);
         }
     }

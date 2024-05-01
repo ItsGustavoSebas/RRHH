@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Bitacora;
 use App\Models\Cargo;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Request;
 
 class CargoObserver
@@ -21,17 +22,20 @@ class CargoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Cargo',
-                'metodo' => 'POST', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            // Detalle de la bitácora encriptado
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Crear Cargo'),
+                'metodo' => Crypt::encrypt('POST'), 
                 'hora' => $horaActual,
-                'tabla' => 'cargos', 
-                'registroId' => $cargo->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('cargos'), 
+                'registroId' => Crypt::encrypt($cargo->id), 
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 
@@ -47,17 +51,19 @@ class CargoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Cargo',
-                'metodo' => 'PUT', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Actualizar Cargo'),
+                'metodo' => Crypt::encrypt('PUT'),
                 'hora' => $horaActual,
-                'tabla' => 'cargos', 
-                'registroId' => $cargo->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('cargos'),
+                'registroId' => Crypt::encrypt($cargo->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 
@@ -73,17 +79,19 @@ class CargoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Cargo',
-                'metodo' => 'DELETE', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Eliminar Cargo'),
+                'metodo' => Crypt::encrypt('DELETE'),
                 'hora' => $horaActual,
-                'tabla' => 'cargos', 
-                'registroId' => $cargo->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('cargos'),
+                'registroId' => Crypt::encrypt($cargo->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 

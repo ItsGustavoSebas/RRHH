@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('bitacoras', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ID_Usuario');
-            $table->datetime('entrada')->nullable();
-            $table->datetime('salida')->nullable();
-            $table->string('usuario')->nullable();
-            $table->string('tipo')->nullable();
-            $table->string('direccionIp')->nullable();
+            $table->text('entrada')->nullable();
+            $table->text('salida')->nullable();
+            $table->text('usuario')->nullable();
+            $table->text('tipo')->nullable();
+            $table->text('direccionIp')->nullable();
             $table->text('navegador')->nullable();
             $table->foreign('ID_Usuario')->references('id')->on('users');
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Bitacora;
 use App\Models\Departamento;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Request;
 
 class DepartamentoObserver
@@ -21,17 +22,19 @@ class DepartamentoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Departamento',
-                'metodo' => 'POST', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Crear Departamento'),
+                'metodo' => Crypt::encrypt('POST'),
                 'hora' => $horaActual,
-                'tabla' => 'departamentos', 
-                'registroId' => $departamento->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('departamentos'),
+                'registroId' => Crypt::encrypt($departamento->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 
@@ -45,20 +48,24 @@ class DepartamentoObserver
     {
         $bitacora_id = session('bitacora_id');
 
+        
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
 
-            $horaActual = Carbon::now()->format('H:i:s');
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
 
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Departamento',
-                'metodo' => 'PUT', 
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Actualizar Departamento'),
+                'metodo' => Crypt::encrypt('PUT'),
                 'hora' => $horaActual,
-                'tabla' => 'departamentos', 
-                'registroId' => $departamento->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('departamentos'),
+                'registroId' => Crypt::encrypt($departamento->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
+
     }
 
     /**
@@ -73,17 +80,19 @@ class DepartamentoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Departamento',
-                'metodo' => 'DELETE', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Eliminar Departamento'),
+                'metodo' => Crypt::encrypt('DELETE'),
                 'hora' => $horaActual,
-                'tabla' => 'departamentos', 
-                'registroId' => $departamento->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('departamentos'),
+                'registroId' => Crypt::encrypt($departamento->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 
