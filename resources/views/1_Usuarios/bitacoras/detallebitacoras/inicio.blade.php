@@ -43,29 +43,41 @@
         <tbody class="block md:table-row-group">
             @foreach ($detbitacoras as $detbitacora)
                 <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $detbitacora->id }}</td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">ID_Bitacora</span>{{ $detbitacora->ID_Bitacora }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">ID</span>
+                        {{ $detbitacora->id }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Accion</span>{{ $detbitacora->accion }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">ID_Bitacora</span>
+                        {{ $detbitacora->ID_Bitacora }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Metodo</span>{{ $detbitacora->metodo }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Accion</span>
+                        {{ decrypt($detbitacora->accion) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Hora</span>{{ $detbitacora->hora }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Metodo</span>
+                        {{ decrypt($detbitacora->metodo) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Tabla</span>{{ $detbitacora->tabla }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Hora</span>
+                        {{ decrypt($detbitacora->hora) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">RegistroId</span>{{ $detbitacora->registroId }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Tabla</span>
+                        {{ decrypt($detbitacora->tabla) }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Ruta</span>{{ $detbitacora->ruta }}
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">RegistroId</span>
+                        @if ($bitacora->registroId !== null)
+                            {{ decrypt($detbitacora->registroId) }}
+                        @endif
+                        
                     </td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        <span class="inline-block w-1/3 md:hidden font-bold">Ruta</span>
+                        {{ decrypt($detbitacora->ruta) }}
+                    </td>                    
                 </tr>
             @endforeach
         </tbody>

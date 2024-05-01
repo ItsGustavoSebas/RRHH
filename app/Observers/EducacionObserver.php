@@ -6,6 +6,7 @@ use App\Models\Educacion;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class EducacionObserver
 {
@@ -21,17 +22,19 @@ class EducacionObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Educacion',
-                'metodo' => 'POST', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Crear Educacion'),
+                'metodo' => Crypt::encrypt('POST'),
                 'hora' => $horaActual,
-                'tabla' => 'educaciones', 
-                'registroId' => $educacion->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('educaciones'),
+                'registroId' => Crypt::encrypt($educacion->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 
@@ -47,17 +50,19 @@ class EducacionObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Educacion',
-                'metodo' => 'PUT', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Actualizar Educacion'),
+                'metodo' => Crypt::encrypt('PUT'),
                 'hora' => $horaActual,
-                'tabla' => 'educaciones', 
-                'registroId' => $educacion->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('educaciones'),
+                'registroId' => Crypt::encrypt($educacion->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 
@@ -73,17 +78,19 @@ class EducacionObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Educacion',
-                'metodo' => 'DELETE', 
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Eliminar Educacion'),
+                'metodo' => Crypt::encrypt('DELETE'),
                 'hora' => $horaActual,
-                'tabla' => 'educaciones', 
-                'registroId' => $educacion->id,
-                'ruta'=> Request::url(),
-            ]);
+                'tabla' => Crypt::encrypt('educaciones'),
+                'registroId' => Crypt::encrypt($educacion->id),
+                'ruta' => Crypt::encrypt(Request::url()),
+            ];
+        
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);
         }
     }
 

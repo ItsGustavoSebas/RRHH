@@ -6,6 +6,7 @@ use App\Models\Reconocimiento;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class ReconocimientoObserver
 {
@@ -21,16 +22,16 @@ class ReconocimientoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Reconocimiento',
-                'metodo' => 'POST', 
+                'accion' => Crypt::encrypt('Crear Reconocimiento'),
+                'metodo' => Crypt::encrypt('POST'), 
                 'hora' => $horaActual,
-                'tabla' => 'reconocimientos', 
-                'registroId' => $reconocimiento->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('reconocimientos'), 
+                'registroId' => Crypt::encrypt($reconocimiento->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -47,18 +48,19 @@ class ReconocimientoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Reconocimiento',
-                'metodo' => 'PUT', 
+                'accion' => Crypt::encrypt('Actualizar Reconocimiento'),
+                'metodo' => Crypt::encrypt('PUT'), 
                 'hora' => $horaActual,
-                'tabla' => 'reconocimientos', 
-                'registroId' => $reconocimiento->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('reconocimientos'), 
+                'registroId' => Crypt::encrypt($reconocimiento->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
+        
     }
 
     /**
@@ -73,16 +75,16 @@ class ReconocimientoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Reconocimiento',
-                'metodo' => 'DELETE', 
+                'accion' => Crypt::encrypt('Eliminar Reconocimiento'),
+                'metodo' => Crypt::encrypt('DELETE'), 
                 'hora' => $horaActual,
-                'tabla' => 'reconocimientos', 
-                'registroId' => $reconocimiento->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('reconocimientos'), 
+                'registroId' => Crypt::encrypt($reconocimiento->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }

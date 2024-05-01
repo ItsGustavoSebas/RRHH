@@ -6,6 +6,7 @@ use App\Models\Experiencia;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class ExperienciaObserver
 {
@@ -21,17 +22,15 @@ class ExperienciaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Experiencia',
-                'metodo' => 'POST', 
-                'hora' => $horaActual,
-                'tabla' => 'experiencias', 
-                'registroId' => $experiencia->id,
-                'ruta'=> Request::url(),
-            ]);
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+            $accion = Crypt::encrypt('Crear Experiencia');
+            $metodo = Crypt::encrypt('POST');
+            $tabla = Crypt::encrypt('experiencias');
+            $registroId = Crypt::encrypt($experiencia->id);
+            $ruta = Crypt::encrypt(Request::url());
+        
+            $bitacora->detalleBitacoras()->create(compact('accion', 'metodo', 'horaActual', 'tabla', 'registroId', 'ruta'));
         }
     }
 
@@ -47,17 +46,15 @@ class ExperienciaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Experiencia',
-                'metodo' => 'PUT', 
-                'hora' => $horaActual,
-                'tabla' => 'experiencias', 
-                'registroId' => $experiencia->id,
-                'ruta'=> Request::url(),
-            ]);
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+            $accion = Crypt::encrypt('Actualizar Experiencia');
+            $metodo = Crypt::encrypt('PUT');
+            $tabla = Crypt::encrypt('experiencias');
+            $registroId = Crypt::encrypt($experiencia->id);
+            $ruta = Crypt::encrypt(Request::url());
+        
+            $bitacora->detalleBitacoras()->create(compact('accion', 'metodo', 'horaActual', 'tabla', 'registroId', 'ruta'));
         }
     }
 
@@ -73,17 +70,15 @@ class ExperienciaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Experiencia',
-                'metodo' => 'DELETE', 
-                'hora' => $horaActual,
-                'tabla' => 'experiencias', 
-                'registroId' => $experiencia->id,
-                'ruta'=> Request::url(),
-            ]);
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+            $accion = Crypt::encrypt('Eliminar Experiencia');
+            $metodo = Crypt::encrypt('DELETE');
+            $tabla = Crypt::encrypt('experiencias');
+            $registroId = Crypt::encrypt($experiencia->id);
+            $ruta = Crypt::encrypt(Request::url());
+        
+            $bitacora->detalleBitacoras()->create(compact('accion', 'metodo', 'horaActual', 'tabla', 'registroId', 'ruta'));
         }
     }
 

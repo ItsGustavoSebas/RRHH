@@ -6,7 +6,7 @@ use App\Models\Empleado;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Crypt;
 
 class EmpleadoObserver
 {
@@ -22,17 +22,15 @@ class EmpleadoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Empleado',
-                'metodo' => 'POST', 
-                'hora' => $horaActual,
-                'tabla' => 'empleados', 
-                'registroId' => $empleado->ID_Usuario,
-                'ruta'=> Request::url(),
-            ]);
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+            $accion = Crypt::encrypt('Crear Empleado');
+            $metodo = Crypt::encrypt('POST');
+            $tabla = Crypt::encrypt('empleados');
+            $registroId = Crypt::encrypt($empleado->ID_Usuario);
+            $ruta = Crypt::encrypt(Request::url());
+        
+            $bitacora->detalleBitacoras()->create(compact('accion', 'metodo', 'horaActual', 'tabla', 'registroId', 'ruta'));
         }
     }
 
@@ -48,17 +46,15 @@ class EmpleadoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Empleado',
-                'metodo' => 'PUT', 
-                'hora' => $horaActual,
-                'tabla' => 'empleados', 
-                'registroId' => $empleado->ID_Usuario,
-                'ruta'=> Request::url(),
-            ]);
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+            $accion = Crypt::encrypt('Actualizar Empleado');
+            $metodo = Crypt::encrypt('PUT');
+            $tabla = Crypt::encrypt('empleados');
+            $registroId = Crypt::encrypt($empleado->ID_Usuario);
+            $ruta = Crypt::encrypt(Request::url());
+        
+            $bitacora->detalleBitacoras()->create(compact('accion', 'metodo', 'horaActual', 'tabla', 'registroId', 'ruta'));
         }
     }
 
@@ -74,17 +70,15 @@ class EmpleadoObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
-            $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Empleado',
-                'metodo' => 'DELETE', 
-                'hora' => $horaActual,
-                'tabla' => 'empleados', 
-                'registroId' => $empleado->ID_Usuario,
-                'ruta'=> Request::url(),
-            ]);
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+            $accion = Crypt::encrypt('Eliminar Empleado');
+            $metodo = Crypt::encrypt('DELETE');
+            $tabla = Crypt::encrypt('empleados');
+            $registroId = Crypt::encrypt($empleado->ID_Usuario);
+            $ruta = Crypt::encrypt(Request::url());
+        
+            $bitacora->detalleBitacoras()->create(compact('accion', 'metodo', 'horaActual', 'tabla', 'registroId', 'ruta'));
         }
     }
 

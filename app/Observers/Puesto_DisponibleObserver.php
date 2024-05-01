@@ -6,6 +6,7 @@ use App\Models\Puesto_Disponible;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class Puesto_DisponibleObserver
 {
@@ -21,16 +22,16 @@ class Puesto_DisponibleObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
+        
             $horaActual = Carbon::now()->format('H:i:s');
-
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Puesto Disponible',
-                'metodo' => 'POST', 
-                'hora' => $horaActual,
-                'tabla' => 'puestos_disponibles', 
-                'registroId' => $puesto_Disponible->id,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encrypt('Crear Puesto Disponible'),
+                'metodo' => Crypt::encrypt('POST'), 
+                'hora' => Crypt::encrypt($horaActual),
+                'tabla' => Crypt::encrypt('puestos_disponibles'), 
+                'registroId' => Crypt::encrypt($puesto_Disponible->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -47,16 +48,16 @@ class Puesto_DisponibleObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Puesto Disponible',
-                'metodo' => 'PUT', 
+                'accion' => Crypt::encrypt('Actualizar Puesto Disponible'),
+                'metodo' => Crypt::encrypt('PUT'), 
                 'hora' => $horaActual,
-                'tabla' => 'puestos_disponibles', 
-                'registroId' => $puesto_Disponible->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('puestos_disponibles'), 
+                'registroId' => Crypt::encrypt($puesto_Disponible->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -73,16 +74,16 @@ class Puesto_DisponibleObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Puesto Disponible',
-                'metodo' => 'DELETE', 
+                'accion' => Crypt::encrypt('Eliminar Puesto Disponible'),
+                'metodo' => Crypt::encrypt('DELETE'), 
                 'hora' => $horaActual,
-                'tabla' => 'puestos_disponibles', 
-                'registroId' => $puesto_Disponible->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('puestos_disponibles'), 
+                'registroId' => Crypt::encrypt($puesto_Disponible->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }

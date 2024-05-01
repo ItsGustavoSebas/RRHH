@@ -6,6 +6,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class RoleObserver
 {
@@ -21,16 +22,16 @@ class RoleObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
+        
             $horaActual = Carbon::now()->format('H:i:s');
-
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Rol',
-                'metodo' => 'POST', 
-                'hora' => $horaActual,
-                'tabla' => 'roles', 
-                'registroId' => $role->id,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encrypt('Crear Rol'),
+                'metodo' => Crypt::encrypt('POST'), 
+                'hora' => Crypt::encrypt($horaActual),
+                'tabla' => Crypt::encrypt('roles'), 
+                'registroId' => Crypt::encrypt($role->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -56,18 +57,19 @@ class RoleObserver
     {
         $bitacora_id = session('bitacora_id');
 
+        
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
 
             $horaActual = Carbon::now()->format('H:i:s');
 
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Rol',
-                'metodo' => 'DELETE', 
-                'hora' => $horaActual,
-                'tabla' => 'roles', 
-                'registroId' => $role->id,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encrypt('Eliminar Rol'),
+                'metodo' => Crypt::encrypt('DELETE'), 
+                'hora' => Crypt::encrypt($horaActual),
+                'tabla' => Crypt::encrypt('roles'), 
+                'registroId' => Crypt::encrypt($role->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }

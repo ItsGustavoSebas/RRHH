@@ -6,6 +6,7 @@ use App\Models\Bitacora;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Crypt;
 
 class LogSuccessfulLogout
 {
@@ -31,21 +32,24 @@ class LogSuccessfulLogout
             ->latest()
             ->first();
 
-        if ($bitacora) {
-            $bitacora->update([
-                'salida' => now(),
-            ]);
-        }
-
-        $horaActual = Carbon::now()->format('H:i:s');
-
-        $bitacora->detalleBitacoras()->create([
-            'accion' => 'Cerrar Sesión',
-            'metodo' => request()->method(),
-            'hora' => $horaActual,
-            'tabla'=> 'usuarios',
-            'registroId' => null,
-            'ruta'=> request()->fullurl(),
-        ]);
+            if ($bitacora) {
+                $bitacora->update([
+                    'salida' => Crypt::encrypt(now()), 
+                ]);
+            }
+            
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s')); 
+            
+            // Detalle de la bitácora
+            $detalleBitacoraData = [
+                'accion' => Crypt::encrypt('Cerrar Sesión'), 
+                'metodo' => Crypt::encrypt(request()->method()), 
+                'hora' => $horaActual,
+                'tabla' => Crypt::encrypt('usuarios'), 
+                'registroId' => null,
+                'ruta' => Crypt::encrypt(request()->fullurl()), 
+            ];
+            
+            $bitacora->detalleBitacoras()->create($detalleBitacoraData);        
     }
 }

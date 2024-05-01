@@ -6,6 +6,7 @@ use App\Models\Idioma;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class IdiomaObserver
 {
@@ -21,16 +22,16 @@ class IdiomaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Crear Idioma',
-                'metodo' => 'POST', 
+                'accion' => Crypt::encrypt('Crear Idioma'),
+                'metodo' => Crypt::encrypt('POST'), 
                 'hora' => $horaActual,
-                'tabla' => 'idiomas', 
-                'registroId' => $idioma->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('idiomas'), 
+                'registroId' => Crypt::encrypt($idioma->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -47,16 +48,16 @@ class IdiomaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
-            $horaActual = Carbon::now()->format('H:i:s');
-
+        
+            $horaActual = Crypt::encrypt(Carbon::now()->format('H:i:s'));
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Actualizar Idioma',
-                'metodo' => 'PUT', 
+                'accion' => Crypt::encrypt('Actualizar Idioma'),
+                'metodo' => Crypt::encrypt('PUT'), 
                 'hora' => $horaActual,
-                'tabla' => 'idiomas', 
-                'registroId' => $idioma->id,
-                'ruta'=> Request::url(),
+                'tabla' => Crypt::encrypt('idiomas'), 
+                'registroId' => Crypt::encrypt($idioma->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
@@ -73,16 +74,16 @@ class IdiomaObserver
 
         if ($bitacora_id) {
             $bitacora = Bitacora::find($bitacora_id);
-
+        
             $horaActual = Carbon::now()->format('H:i:s');
-
+        
             $bitacora->detalleBitacoras()->create([
-                'accion' => 'Eliminar Idioma',
-                'metodo' => 'DELETE', 
-                'hora' => $horaActual,
-                'tabla' => 'idiomas', 
-                'registroId' => $idioma->id,
-                'ruta'=> Request::url(),
+                'accion' => Crypt::encrypt('Eliminar Idioma'),
+                'metodo' => Crypt::encrypt('DELETE'), 
+                'hora' => Crypt::encrypt($horaActual),
+                'tabla' => Crypt::encrypt('idiomas'), 
+                'registroId' => Crypt::encrypt($idioma->id),
+                'ruta'=> Crypt::encrypt(Request::url()),
             ]);
         }
     }
