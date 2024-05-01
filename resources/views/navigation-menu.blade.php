@@ -45,11 +45,10 @@
                             {{ __('Postulantes') }}
                         </x-nav-link>
                     @endcan
-                    @can('Inicio Informacion Personal')
-                        <x-nav-link href="{{ route('informacionpersonal.inicio', Auth::user()->id) }}" :active="request()->routeIs('informacionpersonal.rinicio')">
-                            {{ __('Informacion Personal') }}
+                    @can('Inicio Departamentos')
+                        <x-nav-link href="{{ route('bitacoras.rinicio') }}" :active="request()->routeIs('departamentos.inicio')">
+                            {{ __('Bitacoras') }}
                         </x-nav-link>
-                    </div>
                     @endcan
                 </div>
 

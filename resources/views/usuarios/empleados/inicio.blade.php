@@ -110,10 +110,18 @@
                                     </form>
                                 </div>
                             @endcan
+                            @can('Inicio Informacion Personal')
                                 <a href="{{ route('informacionpersonal.inicio', $empleado->usuario->id) }}"
-                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
+                                    class = "bg-amber-300 px-2 py-2 rounded-lg" title="Informacion">
                                     <i class="far fa-file-alt"></i>
                                 </a>
+                            @endcan
+                            @can('Inicio Bitacoras')
+                                <a href="{{ route('bitacoras.inicio', $empleado->usuario->id) }}"
+                                    class = "bg-blue-500 px-2 py-2 rounded-lg" title="Bitacora">
+                                    <i class="fas fa-history"></i>
+                                </a>
+                            @endcan
                         </div>
                     </td>
                 </tr>

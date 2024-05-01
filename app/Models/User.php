@@ -74,4 +74,8 @@ class User extends Authenticatable
     public function empleado() {
         return $this->hasOne(Empleado::class, 'ID_Usuario');
     }
+
+    public function bitacoras() {
+        return $this->hasMany(Bitacora::class, 'ID_Usuario');
+    }
 }

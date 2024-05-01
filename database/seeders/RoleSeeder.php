@@ -74,5 +74,8 @@ class RoleSeeder extends Seeder
         //Informacion Personal
         Permission::create(['name' => 'Inicio Informacion Personal'])->syncRoles([$rol1, $rol2, $rol4]);
 
+        //Bitacora
+        Permission::create(['name' => 'Inicio Bitacoras'])->syncRoles([$rol1]);
+        Permission::create(['name' => 'Inicio Detalles Bitacoras'])->syncRoles([$rol1]); 
     }
 }
