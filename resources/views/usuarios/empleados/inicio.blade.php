@@ -4,10 +4,29 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Lista de Empleados') }}
             </h2>
-            @can('Crear Empleados')
+            <div>
+                <a href="{{ route('excelempleado') }}"
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    Excel
+                </a>
+                <a href="{{ route('pdfempleado') }}"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    PDF
+                </a>
+                <a href="{{ route('htmlempleado') }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    HTML
+                </a>
+                <a href="{{ route('csvempleado') }}"
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    CSV
+                </a>
+                @can('Crear Empleados')
                 <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
                     href="{{ route('empleados.crear') }}">REGISTRAR EMPLEADO</a>
-            @endcan
+                @endcan
+            </div>
+            
         </div>
     </x-slot>
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\ReferenciaController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 
 
@@ -169,6 +170,16 @@ Route::get('/bitacoras/PDF/{id}', [BitacoraController::class, 'generarBitacoraPD
 //DetalleBitacora
 Route::get('/detbitacoras/inicio/{id}', [DetalleBitacoraController::class, 'inicio'])->name('detbitacoras.inicio');
 Route::get('/detbitacoras/PDF/{id}', [DetalleBitacoraController::class, 'generarDetalleBitacoraPDF'])->name('generarDetalleBitacoraPDF');
+
+//Reportes
+Route::get('/reportes/postulantes/excel', [ReporteController::class, 'excelpostulante'])->name('excelpostulante');
+Route::get('/reportes/postulantes/csv', [ReporteController::class, 'csvpostulante'])->name('csvpostulante');
+Route::get('/reportes/postulantes/pdf', [ReporteController::class, 'pdfpostulante'])->name('pdfpostulante');
+Route::get('/reportes/postulantes/html', [ReporteController::class, 'htmlpostulante'])->name('htmlpostulante');
+Route::get('/reportes/empleados/excel', [ReporteController::class, 'excelempleado'])->name('excelempleado');
+Route::get('/reportes/empleados/csv', [ReporteController::class, 'csvempleado'])->name('csvempleado');
+Route::get('/reportes/empleados/pdf', [ReporteController::class, 'pdfempleado'])->name('pdfempleado');
+Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'])->name('htmlempleado');
 });
 
 
