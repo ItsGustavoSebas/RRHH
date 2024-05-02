@@ -4,7 +4,24 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('POSTULANTE') }}
             </h2>
-         
+            <div>
+                <a href="{{ route('excelpostulante') }}"
+                    class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    Excel
+                </a>
+                <a href="{{ route('pdfpostulante') }}"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    PDF
+                </a>
+                <a href="{{ route('htmlpostulante') }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    HTML
+                </a>
+                <a href="{{ route('csvpostulante') }}"
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 shadow mr-4">
+                    CSV
+                </a>
+            </div>
             {{-- <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
                 href="{{ route('postulantes.crearSIG') }}">Añadir Educación</a> --}}
  

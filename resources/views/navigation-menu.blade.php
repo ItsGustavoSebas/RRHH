@@ -45,8 +45,8 @@
                             {{ __('Postulantes') }}
                         </x-nav-link>
                     @endcan
-                    @can('Inicio Departamentos')
-                        <x-nav-link href="{{ route('bitacoras.rinicio') }}" :active="request()->routeIs('departamentos.inicio')">
+                    @can('Inicio Bitacoras')
+                        <x-nav-link href="{{ route('bitacoras.rinicio') }}" :active="request()->routeIs('bitacoras.inicio')">
                             {{ __('Bitacoras') }}
                         </x-nav-link>
                     @endcan
