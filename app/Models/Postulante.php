@@ -20,9 +20,10 @@ class Postulante extends Model
         'fecha_de_nacimiento',
         'nacionalidad',
         'habilidades',
+        'puntos',
         'ID_Fuente_De_Contratacion',
         'ID_Puesto_Disponible',
-        'ID_Idiomas'
+        'ID_Idioma'
     ];
 
     // Relación con el modelo Usuario
@@ -44,4 +45,10 @@ class Postulante extends Model
     {
         return $this->belongsTo(Puesto_Disponible::class, 'ID_Puesto_Disponible');
     }
+
+    //relación con idiomas
+    public function idioma()
+    {
+        return $this->belongsTo(Idioma::class, 'ID_Idioma');
+    }    
 }

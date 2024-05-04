@@ -127,6 +127,21 @@ Route::get('/postulantes/editarGES/{id}', [PostulanteController::class, 'editarG
 Route::post('/postulantes/actualizar/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizar');
 Route::post('/postulantes/actualizarGES/{id}', [PostulanteController::class, 'actualizarGES'])->name('postulantes.actualizarGES');
 Route::get('/postulantes/postularse', [PostulanteController::class, 'postularse'])->name('postulantes.postularse');
+Route::get('/postulantes/inicio', [PostulanteController::class, 'inicio'])->name('postulantes.inicio');
+
+//Postulante evaluación CONTROLLER
+Route::get('/postulantes/evaluar', [PostulanteController::class, 'evaluar'])->name('postulantes.evaluar');
+Route::get('/postulantes/evaluarInicio/{id}', [PostulanteController::class, 'evaluarInicio'])->name('postulantes.evaluarInicio');
+Route::get('/postulantes/evaluacionIdioma/{id}', [PostulanteController::class, 'evaluacionIdioma'])->name('postulantes.evaluacionIdioma');
+Route::get('/postulantes/evaluacionEducacion/{id}', [PostulanteController::class, 'evaluacionEducacion'])->name('postulantes.evaluacionEducacion');
+Route::get('/postulantes/evaluacionReconocimiento/{id}', [PostulanteController::class, 'evaluacionReconocimiento'])->name('postulantes.evaluacionReconocimiento');
+Route::get('/postulantes/evaluacionExperiencia/{id}', [PostulanteController::class, 'evaluacionExperiencia'])->name('postulantes.evaluacionExperiencia');
+Route::post('/postulantes/actualizarEvaluacionIdioma/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionIdioma');
+Route::post('/postulantes/editarEvaluacionEducacion/{id}', [PostulanteController::class, 'editarEvaluacionEducacion'])->name('postulantes.editarEvaluacionEducacion');
+Route::post('/postulantes/actualizarEvaluacionReconocimiento/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionReconocimiento');
+Route::post('/postulantes/actualizarEvaluacionExperiencia/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionExperiencia');
+
+
 
 
 //RECONOCIMIENTOS CONTROLLER

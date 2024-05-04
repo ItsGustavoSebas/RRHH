@@ -17,13 +17,35 @@
             </div>
 
             <div class="grid lg:grid-cols-1 grid-cols-1 gap-4 p-5">
-                <div class="col-span-1">
-                    <label class="font-bold text-lg" for="ruta_imagen_e">Foto </label>
-                    <input id="ruta_imagen_e" name="ruta_imagen_e" type="text" class="px-3 py-2 w-full rounded-xl bg-blue-100" placeholder="Suba su foto" value="{{ $postulante->ruta_imagen_e }}">
+                <div class="flex justify-center items-center space-x-6 py-9 pb-10">
+                    <div class="shrink-0">
+                        <img id="previewImagen" src="{{ asset($postulante->ruta_imagen_e) }}"
+                            style="width: 100px; height: 100px;" class="object-cover rounded-full" alt="Imagen del estudiante">
+                    </div>
+                    <label class="block">
+                        <span class="sr-only">Elige una foto de perfil</span>
+                        <input type="file" id="ruta_imagen_e" name="ruta_imagen_e"
+                            onchange="loadFile(event)"
+                            class="block w-full text-sm text-slate-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-violet-50 file:text-violet-700
+                            hover:file:bg-violet-100
+                        " />
+                    </label>
                     @error('ruta_imagen_e')
-                        <strong class="text-red-500">Debes subir su foto</strong>
+                        <strong class="text-danger">Debes ingresar una imagen</strong>
                     @enderror
                 </div>
+                
+
+                <script>
+                    function loadFile(event) {
+                        var image = document.getElementById('previewImagen');
+                        image.src = URL.createObjectURL(event.target.files[0]);
+                    };
+                </script>
                 <br>
                             
                 <div class="col-span-1">

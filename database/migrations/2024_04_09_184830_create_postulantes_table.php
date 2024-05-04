@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('fecha_de_nacimiento')->nullable();
             $table->string('nacionalidad')->nullable();
             $table->string('habilidades')->nullable();
+            $table->integer('puntos')->nullable();
 
             $table->unsignedBigInteger('ID_Fuente_De_Contratacion')->nullable();
             $table->unsignedBigInteger('ID_Puesto_Disponible')->nullable(); 
