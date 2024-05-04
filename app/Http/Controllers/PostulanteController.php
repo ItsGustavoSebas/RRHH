@@ -14,16 +14,16 @@ use App\Models\Referencia;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostulanteController extends Controller
 {
-       //vista admin
-       public function inicio(){
-        $postulante = Postulante::all();
-        $fuentes = Fuente_De_Contratacion::all();
-        $puestos = Puesto_Disponible::all();
-        $idiomas = Idioma::all();
-        return (view('Contratacion.postulantes.inicio', compact('fuentes', 'postulante', 'puestos', 'idiomas'))) ;
+    //vista admin
+    public function inicio(){
+        $postulantes = Postulante::all();
+    
+    
+        return (view('Contratacion.postulantes.inicio', compact('postulantes'))) ;
     }
 
 
@@ -64,13 +64,176 @@ class PostulanteController extends Controller
     //vista usuario postulante para ver sus datos
     public function rinicio(){
 
+        $id = Auth::id();
+        $postulante = Postulante::where('ID_Usuario', $id)->first();
+
+ 
         $fuentes = Fuente_De_Contratacion::all();
         $puesto = Puesto_Disponible::all();
         $idiomas = Idioma::all();
   
-        $postulante = Postulante::all();
+
         return (view('Contratacion.postulantes.rinicio', compact('postulante', 'fuentes', 'puesto', 'idiomas'))) ;
     }
+
+
+    //vista usuario postulante evaluación para ver sus datos
+    public function evaluarInicio($id){
+
+        $postulante = Postulante::where('ID_Usuario', $id)->first();
+
+        $educaciones = Educacion::where('ID_Postulante', $postulante->ID_Usuario)->count();
+        $educaciones = $educaciones*3;
+
+        $reconocimientos = Reconocimiento::where('ID_Postulante', $postulante->ID_Usuario)->count();
+        $reconocimientos = $reconocimientos * 3;
+
+        $experiencias = Experiencia::where('ID_Postulante', $postulante->ID_Usuario)->count();
+        $experiencias = $experiencias * 5;
+
+        // Contar referencias relacionadas con el postulante
+        $referencias = Referencia::where('ID_Postulante', $postulante->ID_Usuario)->count();
+        if ($referencias >= 3) {
+          $referencias = 1;
+        }
+
+
+        return (view('Contratacion.postulantes.EvaluarInicio', compact('postulante', 'educaciones', 'reconocimientos', 'experiencias', 'referencias'))) ;
+    }
+
+    
+
+    public function evaluar(){
+
+        $postulantes = Postulante::all();
+  
+        foreach ($postulantes as $postulante) {
+            $puntos = 0;
+    
+            // Verificar si tiene un idioma xdxd
+            if ($postulante->ID_Idioma !== null) {
+                $puntos += 1;
+            }
+            
+    
+            // Contar educaciones relacionadas con el postulante
+            $educaciones = Educacion::where('ID_Postulante', $postulante->ID_Usuario)->count();
+            $puntos += $educaciones * 3;
+
+            // Contar reconocimientos relacionados con el postulante
+            $reconocimientos = Reconocimiento::where('ID_Postulante', $postulante->ID_Usuario)->count();
+            $puntos += $reconocimientos * 3;
+
+            // Contar experiencias relacionadas con el postulante
+            $experiencias = Experiencia::where('ID_Postulante', $postulante->ID_Usuario)->count();
+            $puntos += $experiencias * 5;
+
+            // Contar referencias relacionadas con el postulante
+            $referencias = Referencia::where('ID_Postulante', $postulante->ID_Usuario)->count();
+            if ($referencias >= 3) {
+              $puntos += 1;
+            }
+
+
+            $postulante->puntos = $puntos;
+            $postulante->save();
+    
+
+        }
+    
+        return (view('Contratacion.postulantes.inicio', compact('postulantes'))->with('evaluados', 'Postulantes evaluados de forma automatica'));
+    }
+
+
+
+
+
+        //vista de los idiomas evaluados
+        public function evaluacionEducacion($id){
+
+            $postulante = Postulante::where('ID_Usuario', $id)->first();
+    
+            // Contar reconocimientos relacionados con el postulante
+            $educaciones = Educacion::where('ID_Postulante', $postulante->ID_Usuario)->get();
+            $educacionesCant = Educacion::where('ID_Postulante', $postulante->ID_Usuario)->count();
+      
+    
+            return (view('Contratacion.evaluacion.evaluacionEducacion', compact('postulante', 'educaciones', 'educacionesCant'))) ;
+        }
+
+
+        //vista de los idiomas evaluados
+        public function evaluacionReconocimiento($id){
+
+            $postulante = Postulante::where('ID_Usuario', $id)->first();
+    
+            $reconocimientos = Reconocimiento::where('ID_Postulante', $postulante->ID_Usuario)->get();
+      
+    
+            return (view('Contratacion.evaluacion.evaluacionReconocimiento', compact('postulante', 'reconocimientos'))) ;
+        }
+
+
+
+        //vista de los idiomas evaluados
+        public function evaluacionExperiencia($id){
+
+            $postulante = Postulante::where('ID_Usuario', $id)->first();
+    
+            $experiencias = Experiencia::where('ID_Postulante', $postulante->ID_Usuario)->get();
+      
+    
+            return (view('Contratacion.evaluacion.evaluacionExperiencia', compact('postulante', 'experiencias'))) ;
+        }
+
+
+
+        public function actualizarEvaluacionEducacion($idPostulante, $nuevoValor)
+        {
+            $postulantes = Postulante::all();
+            $postulante = Postulante::where('ID_Usuario', '=', $idPostulante)->first();
+            $postulante->puntos =  $postulante->puntos - $nuevoValor;
+            $postulante->save();
+
+            return (view('Contratacion.postulantes.inicio', compact('postulantes'))) ;
+        }
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function crear()
     {
@@ -86,7 +249,7 @@ class PostulanteController extends Controller
     public function guardar(REQUEST $request)
     {      
         $request->validate([
-            'foto', 
+            'ruta_imagen_e' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'fecha_de_nacimiento', 
             'nacionalidad', 
             'habilidades', 
@@ -94,8 +257,17 @@ class PostulanteController extends Controller
             'ID_Puesto_Disponible',
             'ID_Idioma',
         ]);
+
+        if ($request->ruta_imagen_e) {
+            $nombreImagen = time() . '_' . $request->ruta_imagen_e->getClientOriginalName();
+            $ruta = $request->ruta_imagen_e->storeAs('public/imagenes/postulantes', $nombreImagen);
+            $url = Storage::url($ruta);
+        }else{
+            $url = asset('postulantes/default.png');
+        }
+
         $postulante = new Postulante();
-        $postulante->ruta_imagen_e = $request->ruta_imagen_e;
+        $postulante->ruta_imagen_e = $url;
         $postulante->fecha_de_nacimiento = $request->fecha_de_nacimiento;
         $postulante->nacionalidad = $request->nacionalidad;
         $postulante->habilidades = $request->habilidades;
@@ -107,24 +279,6 @@ class PostulanteController extends Controller
 
 
 
-        //Crear DetalleBitacora
-
-        // $bitacora_id = session('bitacora_id');
-
-        // if ($bitacora_id) {
-        //     $bitacora = Bitacora::find($bitacora_id);
-
-        //     $horaActual = now()->format('H:i:s');
-
-        //     $bitacora->detalleBitacoras()->create([
-        //         'accion' => 'Crear Marca',
-        //         'metodo' => $request->method(),
-        //         'hora' => $horaActual,
-        //         'tabla' => 'marcas',
-        //         'registroId' => $marca->id,
-        //         'ruta'=> request()->fullurl(),
-        //     ]);
-        // }
 
         switch ($request->input('action')) {
             case 'guardar_y_anadir_otro':
@@ -170,7 +324,6 @@ class PostulanteController extends Controller
         $id = Auth::id();
         $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
         $request->validate([
-            'ruta_imagen_e'=> 'required',
             'fecha_de_nacimiento'=> 'required',
             'nacionalidad'=> 'required',
             'habilidades',
@@ -178,13 +331,21 @@ class PostulanteController extends Controller
             'ID_Puesto_Disponible'=> 'required',
             'ID_Idioma'=> 'required',
         ]);
-        $postulante->ruta_imagen_e = $request->ruta_imagen_e; 
+
         $postulante->fecha_de_nacimiento = $request->fecha_de_nacimiento;
         $postulante->nacionalidad = $request->nacionalidad;
         $postulante->habilidades = $request->habilidades?? 'No tiene habilidades.';
         $postulante->ID_Fuente_De_Contratacion = $request->ID_Fuente_De_Contratacion;
         $postulante->ID_Puesto_Disponible = $request->ID_Puesto_Disponible;
         $postulante->ID_Idioma = $request->ID_Idioma;
+
+
+        if ($request->hasFile('ruta_imagen_e')) {
+            $nombreImagen = time() . '_' . $request->ruta_imagen_e->getClientOriginalName();
+            $ruta = $request->ruta_imagen_e->storeAs('public/imagenes/postulantes', $nombreImagen);
+            $url = Storage::url($ruta);
+            $postulante->ruta_imagen_e = $url;
+        }
 
 
         $postulante->save();

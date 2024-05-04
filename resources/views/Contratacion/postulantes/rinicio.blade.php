@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class = "flex flex-wrap justify-between">
+        {{-- <div class = "flex flex-wrap justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('POSTULANTE') }}
             </h2>
@@ -22,10 +22,9 @@
                     CSV
                 </a>
             </div>
-            {{-- <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
-                href="{{ route('postulantes.crearSIG') }}">Añadir Educación</a> --}}
  
-        </div>
+ 
+        </div> --}}
 
         <div>
             <div>
@@ -69,24 +68,40 @@
                     <tbody class="block md:table-row-group">
 
                     @if (!is_null($postulante))
-                        @foreach ($postulante as $postulanteU)
+                      
                         <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $postulanteU->ID_Usuario }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $postulante->ID_Usuario }}</td>
+
+                                    
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+
+                              <div class="flex">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Foto</span>
+                                @if ($postulante->ruta_imagen_e)
+                                    <img id="imagen" src="{{ asset($postulante->ruta_imagen_e) }}"
+                                    class="w-16 h-16 object-cover rounded-full" alt="placeholder"> {{-- style="width:100px; height:100px;"  --}}
+                                @else
+                                    <span>Null</span>
+                                @endif
+                               </div>
+                               
+                            </td>
+
+
+
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Foto</span>{{ $postulanteU->ruta_imagen_e }}</td>
+                                     class="inline-block w-1/3 md:hidden font-bold">Fecha de nacimiento</span>{{ $postulante->fecha_de_nacimiento }}</td>        
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                     class="inline-block w-1/3 md:hidden font-bold">Fecha de nacimiento</span>{{ $postulanteU->fecha_de_nacimiento }}</td>        
+                                    class="inline-block w-1/3 md:hidden font-bold">Nacionalidad</span>{{ $postulante->nacionalidad }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Nacionalidad</span>{{ $postulanteU->nacionalidad }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">Habilidades</span>{{ $postulante->habilidades }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Habilidades</span>{{ $postulanteU->habilidades }}</td>
+                                    class="inline-block w-1/3 md:hidden font-bold">Fuente de contratación</span>{{ $postulante->ID_Fuente_De_Contratacion }}</td>       
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Fuente de contratación</span>{{ $postulanteU->ID_Fuente_De_Contratacion }}</td>       
+                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulante->ID_Puesto_Disponible }}</td>   
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulanteU->ID_Puesto_Disponible }}</td>   
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulanteU->ID_Idioma }}</td>                                                                                          
+                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulante->ID_Idioma }}</td>                                                                                          
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div class="flex flex-wrap">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
@@ -96,14 +111,13 @@
                                         class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
-                                 
                                     
                                     
                                 
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                 
                     @else
                         
                     @endif                        
