@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\EmpleadoPersonalizadoExport;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\EducacionController;
 use App\Http\Controllers\ExperienciaController;
@@ -187,6 +188,8 @@ Route::get('/detbitacoras/inicio/{id}', [DetalleBitacoraController::class, 'inic
 Route::get('/detbitacoras/PDF/{id}', [DetalleBitacoraController::class, 'generarDetalleBitacoraPDF'])->name('generarDetalleBitacoraPDF');
 
 //Reportes
+Route::get('/reportes/inicio', [ReporteController::class, 'inicio'])->name('reportes.inicio');
+Route::post('/reportes/empleados/personalizado', [ReporteController::class, 'excelempleadopersonalizado'])->name('reportes.empleado');
 Route::get('/reportes/postulantes/excel', [ReporteController::class, 'excelpostulante'])->name('excelpostulante');
 Route::get('/reportes/postulantes/csv', [ReporteController::class, 'csvpostulante'])->name('csvpostulante');
 Route::get('/reportes/postulantes/pdf', [ReporteController::class, 'pdfpostulante'])->name('pdfpostulante');
