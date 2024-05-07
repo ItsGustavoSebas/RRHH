@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/sanctum/token', [AuthController::class, 'generateToken']);
+
+Route::middleware('auth:sanctum')->get('/user/revoke', function (Request $request) {
+    $user = $request->user();
+    $user->tokens()->delete();
+    return 'Tokens Eliminados';
 });
