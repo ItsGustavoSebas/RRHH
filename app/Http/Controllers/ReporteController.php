@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EmpleadoExport;
+use App\Exports\EmpleadoPersonalizadoExport;
 use App\Exports\PostulanteExport;
 use App\Models\Empleado;
 use App\Models\Fuente_De_Contratacion;
@@ -14,9 +15,27 @@ use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as Format;
+use Illuminate\Support\Facades\Schema;
 
 class ReporteController extends Controller
 {
+    public function inicio()
+    {
+        $columnas = Schema::getColumnListing('empleados');
+        //dd($columnas);
+        return (view('reportes.inicio',compact('columnas')));
+    }
+    
+    //Personalizado
+    public function excelempleadopersonalizado(Request $request)
+    {
+        $columnasSeleccionadas = $request->input('columnas', []);
+
+        // Descargar el archivo Excel personalizado
+        return Excel::download(new EmpleadoPersonalizadoExport($columnasSeleccionadas), 'empleados_personalizados.xlsx');
+    }
+
+    //General
     public function excelpostulante(){
         return Excel::download(new PostulanteExport, 'postulantes.xlsx');
     }
