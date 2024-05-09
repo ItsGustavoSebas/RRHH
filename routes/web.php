@@ -189,7 +189,9 @@ Route::get('/detbitacoras/PDF/{id}', [DetalleBitacoraController::class, 'generar
 
 //Reportes
 Route::get('/reportes/inicio', [ReporteController::class, 'inicio'])->name('reportes.inicio');
-Route::post('/reportes/empleados/personalizado', [ReporteController::class, 'excelempleadopersonalizado'])->name('reportes.empleado');
+Route::post('/reportes/empleados/personalizado', [ReporteController::class, 'reporteempleadopersonalizado'])->name('reportes.empleado');
+Route::post('/reportes/departamentos/empleados/personalizado', [ReporteController::class, 'reportedepartamentoempleadopersonalizado'])->name('reportes.departamento.empleado');
+Route::post('/reportes/postulantes/personalizado', [ReporteController::class, 'reportepostulantepersonalizado'])->name('reportes.postulante');
 Route::get('/reportes/postulantes/excel', [ReporteController::class, 'excelpostulante'])->name('excelpostulante');
 Route::get('/reportes/postulantes/csv', [ReporteController::class, 'csvpostulante'])->name('csvpostulante');
 Route::get('/reportes/postulantes/pdf', [ReporteController::class, 'pdfpostulante'])->name('pdfpostulante');
