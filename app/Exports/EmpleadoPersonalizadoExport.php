@@ -10,11 +10,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EmpleadoPersonalizadoExport implements FromCollection, WithHeadings
 {
-    protected $columnasSeleccionadas;
+    protected $columnase;
+    protected $columnasu;
+    protected $empleados;
 
-    public function __construct($columnasSeleccionadas)
+    public function __construct($columnase,$columnasu,$empleados)
     {
-        $this->columnasSeleccionadas = $columnasSeleccionadas;
+        $this->columnase = $columnase;
+        $this->columnasu = $columnasu;
+        $this->empleados = $empleados;
     }
 
     /**
@@ -22,17 +26,42 @@ class EmpleadoPersonalizadoExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        // Seleccionar solo las columnas especificadas
-        return Empleado::select($this->columnasSeleccionadas)->get();
+        return $this->empleados->map(function ($empleado) {
+            $datosEmpleado = [];
+            foreach ($this->columnasu as $columna) {
+                            $datosEmpleado[$columna] = $empleado->usuario->{$columna};
+                        }
+            foreach ($this->columnase as $columna) {
+                if ($columna === 'ID_Cargo') {
+                    $datosEmpleado['Cargo'] = $empleado->cargo ? $empleado->cargo->nombre : '';
+                }
+                elseif ($columna === 'ID_Departamento') {
+                    $datosEmpleado['Departamento'] = $empleado->departamento ? $empleado->departamento->nombre : '';
+                }
+                else {
+                    $datosEmpleado[$columna] = $empleado->{$columna};
+                }
+            }
+            return $datosEmpleado;
+        });
     }
 
     public function headings(): array
     {
-        // Encabezados de las columnas basados en las columnas seleccionadas
         $headings = [];
-        foreach ($this->columnasSeleccionadas as $columna) {
-            // Aquí puedes modificar los nombres de las columnas si es necesario
+        foreach ($this->columnasu as $columna) {
             $headings[] = ucfirst($columna);
+        }
+        foreach ($this->columnase as $columna) {
+            if ($columna === 'ID_Cargo') {
+                $headings[] = 'Cargo';
+            }
+            elseif ($columna === 'ID_Departamento') {
+                $headings[] = 'Departamento';
+            }
+            else {
+                $headings[] = ucfirst($columna);
+            }
         }
         return $headings;
     }

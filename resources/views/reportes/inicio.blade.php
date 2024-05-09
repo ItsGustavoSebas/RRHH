@@ -15,8 +15,7 @@
         <div class="grid grid-cols-1 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
 
 
-            <div
-                class="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer"
+            <div class="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer"
                 onclick="toggleModalDiferentes('empleado', 'open')">
                 <span class="p-5 rounded-full bg-green-500 text-white shadow-lg shadow-red-200"><svg
                         xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
@@ -54,19 +53,41 @@
                             <p class="p-4">Ingrese los datos:</p>
 
                             <!-- Campo de columnas -->
-                            <div class='flex flex-col'>
-                                @foreach ($columnas as $columna)
+                            <div class='flex flex-col mt-6'>
+                                @foreach ($columnasu as $columnau)
                                     <div class="flex items-center">
                                         <div class="relative">
-                                            <input type="checkbox" id="columna{{ $loop->index }}"
-                                                name="columnas[]" value="{{ $columna }}"
-                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer"
-                                                />
+                                            <input type="checkbox" id="columnau{{ $loop->index }}"
+                                                name="columnasusuarios[]" value="{{ $columnau }}"
+                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer" />
                                         </div>
-                                        <label for="columna{{ $loop->index }}"
-                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columna) }}</label>
+                                        <label for="columnau{{ $loop->index }}"
+                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columnau) }}</label>
                                     </div>
                                 @endforeach
+                            </div>
+                            <div class='flex flex-col'>
+                                @foreach ($columnase as $columnae)
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <input type="checkbox" id="columnae{{ $loop->index }}"
+                                                name="columnasempleados[]" value="{{ $columnae }}"
+                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer" />
+                                        </div>
+                                        <label for="columnae{{ $loop->index }}"
+                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columnae) }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div>
+                                <p class="p-4">Selecciona Tipo de Archivo:</p>
+                                <select name="extension" id="extension"
+                                    class="font-bold rounded border-2 border-blue-900 text-gray-600 h-14 w-60 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                    <option value="excel">Excel</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="html">HTML</option>
+                                    <option value="csv">CSV</option>
+                                </select>
                             </div>
 
                             <button id="closeModalempleado" onclick="toggleModalDiferentes('empleado', 'close')"
@@ -78,8 +99,9 @@
                 </div>
             </div>
 
-            <div
-                class="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
+            <div class="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer"
+                onclick="toggleModalDiferentes('departamento', 'open')">
+
                 <span class="p-5 rounded-full bg-blue-500 text-white shadow-lg shadow-orange-200">
                     <svg class="h-10 w-10 text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -93,8 +115,94 @@
                 </p>
             </div>
 
-            <div
-                class="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
+            <!-- Modal -->
+            <div id="modal_departamento" class="fixed hidden inset-0 z-50 flex items-center justify-center">
+                <!-- Fondo opaco del modal -->
+                <div class="fixed inset-0 bg-gray-800 opacity-75"></div>
+                <!-- Contenido del modal -->
+                <div class="max-w-xl rounded overflow-hidden shadow-lg bg-white p-8 z-50" style="width: 36rem">
+                    <!-- Botón para cerrar el modal -->
+                    <button id="closeModaldepartamento" class="float-right mt-4 mr-4"
+                        onclick="toggleModalDiferentes('departamento', 'close')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <!-- Contenido del modal -->
+                    <p class="p-4">Datos de Empleados por Departamento</p>
+                    <div class="border-b-2 m-0"></div>
+                    <div class="mr-8 ml-4">
+                        <form id="guardarDepartamentoForm" action="{{ route('reportes.departamento.empleado') }}"
+                            method="POST" enctype="multipart/form-data" class="relative self-center">
+                            @csrf
+
+                            <p class="p-4">Ingrese los datos:</p>
+
+                            <!-- Campo de Departamento -->
+                            <div>
+                                <p class="p-4">Selecciona Departamento:</p>
+                                <select name="ID_Departamento" id="ID_Departamento"
+                                    class="font-bold rounded border-2 border-blue-900 text-gray-600 h-14 w-60 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                    @foreach ($departamentos as $dep)
+                                        <option value="{{ $dep->id }}">
+                                            {{ $dep->nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Campo de columnas -->
+                            <div class='flex flex-col mt-6'>
+                                @foreach ($columnasu as $columnau)
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <input type="checkbox" id="columnau{{ $loop->index }}"
+                                                name="columnasusuarios[]" value="{{ $columnau }}"
+                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer" />
+                                        </div>
+                                        <label for="columnau{{ $loop->index }}"
+                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columnau) }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class='flex flex-col '>
+                                @foreach ($columnase as $columnae)
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <input type="checkbox" id="columnae{{ $loop->index }}"
+                                                name="columnasempleadosd[]" value="{{ $columnae }}"
+                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer" />
+                                        </div>
+                                        <label for="columnae{{ $loop->index }}"
+                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columnae) }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div>
+                                <p class="p-4">Selecciona Tipo de Archivo:</p>
+                                <select name="extension" id="extension"
+                                    class="font-bold rounded border-2 border-blue-900 text-gray-600 h-14 w-60 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                    <option value="excel">Excel</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="html">HTML</option>
+                                    <option value="csv">CSV</option>
+                                </select>
+                            </div>
+
+                            <button id="closeModaldepartamento"
+                                onclick="toggleModalDiferentes('departamento', 'close')"
+                                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-8">
+                                Aceptar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer"
+                onclick="toggleModalDiferentes('postulante', 'open')">
                 <span class="p-5 rounded-full bg-orange-500 text-white shadow-lg shadow-red-200"><svg
                         xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.5">
@@ -103,6 +211,78 @@
                     </svg></span>
                 <p class="text-xl font-medium text-slate-700 mt-3">Postulantes</p>
                 <p class="mt-2 text-sm text-slate-500">Reporte de los datos de los postulantes registrados</p>
+            </div>
+
+            <!-- Modal -->
+            <div id="modal_postulante" class="fixed hidden inset-0 z-50 flex items-center justify-center">
+                <!-- Fondo opaco del modal -->
+                <div class="fixed inset-0 bg-gray-800 opacity-75"></div>
+                <!-- Contenido del modal -->
+                <div class="max-w-xl rounded overflow-hidden shadow-lg bg-white p-8 z-50" style="width: 36rem">
+                    <!-- Botón para cerrar el modal -->
+                    <button id="closeModalpostulante" class="float-right mt-4 mr-4"
+                        onclick="toggleModalDiferentes('postulante', 'close')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <!-- Contenido del modal -->
+                    <p class="p-4">Datos de Postulantes</p>
+                    <div class="border-b-2 m-0"></div>
+                    <div class="mr-8 ml-4">
+                        <form id="guardarPostulanteForm" action="{{ route('reportes.postulante') }}" method="POST"
+                            enctype="multipart/form-data" class="relative self-center">
+                            @csrf
+
+                            <p class="p-4">Ingrese los datos:</p>
+
+                            <!-- Campo de columnas -->
+                            <div class='flex flex-col mt-6'>
+                                @foreach ($columnasu as $columnau)
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <input type="checkbox" id="columnau{{ $loop->index }}"
+                                                name="columnasusuarios[]" value="{{ $columnau }}"
+                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer" />
+                                        </div>
+                                        <label for="columnau{{ $loop->index }}"
+                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columnau) }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class='flex flex-col'>
+                                @foreach ($columnasp as $columnap)
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <input type="checkbox" id="columnap{{ $loop->index }}"
+                                                name="columnaspostulantes[]" value="{{ $columnap }}"
+                                                class="appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-blue-900 checked:scale-75 transition-all duration-200 peer" />
+                                        </div>
+                                        <label for="columnap{{ $loop->index }}"
+                                            class="ml-2 flex flex-col justify-center peer-checked:text-blue-900 select-none">{{ ucfirst($columnap) }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div>
+                                <p class="p-4">Selecciona Tipo de Archivo:</p>
+                                <select name="extension" id="extension"
+                                    class="font-bold rounded border-2 border-blue-900 text-gray-600 h-14 w-60 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                    <option value="excel">Excel</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="html">HTML</option>
+                                    <option value="csv">CSV</option>
+                                </select>
+                            </div>
+
+                            <button id="closeModalpostulante" onclick="toggleModalDiferentes('postulante', 'close')"
+                                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-8">
+                                Aceptar
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             {{-- <div
