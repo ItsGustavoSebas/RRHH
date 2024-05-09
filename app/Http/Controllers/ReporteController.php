@@ -89,16 +89,20 @@ class ReporteController extends Controller
 
     //General
     public function excelpostulante(){
-        return Excel::download(new PostulanteExport, 'postulantes.xlsx');
+        $postulantes = Postulante::all();
+        return Excel::download(new PostulanteExport($postulantes), 'postulantes.xlsx');
     }
     public function csvpostulante(){
-        return Excel::download(new PostulanteExport, 'postulantes.csv', Format::CSV);
+        $postulantes = Postulante::all();
+        return Excel::download(new PostulanteExport($postulantes), 'postulantes.csv', Format::CSV);
     }
     public function pdfpostulante(){
-        return Excel::download(new PostulanteExport, 'postulantes.pdf', Format::DOMPDF);
+        $postulantes = Postulante::all();
+        return Excel::download(new PostulanteExport($postulantes), 'postulantes.pdf', Format::DOMPDF);
     }
     public function htmlpostulante(){
-        return Excel::download(new PostulanteExport, 'postulantes.html', Format::HTML);
+        $postulantes = Postulante::all();
+        return Excel::download(new PostulanteExport($postulantes), 'postulantes.html', Format::HTML);
     }
     public function excelempleado(){
         $empleados = Empleado::select('ID_Usuario', 'genero', 'estadocivil', 'fechanac','ID_Cargo','ID_Departamento') 
