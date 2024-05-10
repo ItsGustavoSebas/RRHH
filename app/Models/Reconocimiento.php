@@ -22,7 +22,7 @@ class Reconocimiento extends Model
 
     public function postulante()
     {
-        return $this->belongsTo(postulante::class, 'ID_Usuario');
+        return $this->belongsTo(Postulante::class, 'ID_Usuario');
     }
 
 }

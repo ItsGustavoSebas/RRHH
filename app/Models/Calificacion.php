@@ -5,16 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Postulante_Idioma extends Model
+class Calificacion extends Model
 {
     use HasFactory;
-    protected $table = 'experiencias';
+
+    protected $table = 'calificacion';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'ptIdioma', 
+        'ptEducacion', 
+        'ptReconocimiento', 
+        'ptExperiencia', 
+        'ptReferencia', 
         'ID_Postulante', 
-        'ID_Idioma', 
 
     ];
 
@@ -23,8 +28,4 @@ class Postulante_Idioma extends Model
     {
         return $this->belongsTo(Postulante::class, 'ID_Postulante');
     } 
-
-    public function idioma() {
-        return $this->belongsTo(Idioma::class, 'ID_Idioma', 'id');
-    }
 }
