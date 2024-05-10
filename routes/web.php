@@ -130,6 +130,8 @@ Route::post('/postulantes/actualizar/{id}', [PostulanteController::class, 'actua
 Route::post('/postulantes/actualizarGES/{id}', [PostulanteController::class, 'actualizarGES'])->name('postulantes.actualizarGES');
 Route::get('/postulantes/postularse', [PostulanteController::class, 'postularse'])->name('postulantes.postularse');
 Route::get('/postulantes/inicio', [PostulanteController::class, 'inicio'])->name('postulantes.inicio');
+Route::post('/postulantes/rechazar/{id}', [PostulanteController::class, 'rechazar'])->name('postulantes.rechazar');
+Route::post('/postulantes/proceso/{id}', [PostulanteController::class, 'proceso'])->name('postulantes.proceso');
 
 //Postulante evaluación CONTROLLER
 Route::post('/postulantes/evaluar', [PostulanteController::class, 'evaluar'])->name('postulantes.evaluar');

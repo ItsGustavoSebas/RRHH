@@ -21,6 +21,7 @@ class Postulante extends Model
         'nacionalidad',
         'habilidades',
         'puntos',
+        'estado',
         'ID_Fuente_De_Contratacion',
         'ID_Puesto_Disponible',
         'ID_Idioma',

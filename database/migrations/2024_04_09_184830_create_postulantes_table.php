@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nacionalidad')->nullable();
             $table->string('habilidades')->nullable();
             $table->integer('puntos')->nullable();
+            $table->boolean('estado')->nullable();
 
             $table->unsignedBigInteger('ID_Fuente_De_Contratacion')->nullable();
             $table->unsignedBigInteger('ID_Puesto_Disponible')->nullable(); 

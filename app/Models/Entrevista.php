@@ -18,6 +18,7 @@ class Entrevista extends Model
         'fecha_fin',
         'detalles',
         'ID_Postulante', 
+        'ID_Usuario', 
 
 
     ];
@@ -27,4 +28,10 @@ class Entrevista extends Model
     {
         return $this->belongsTo(Postulante::class, 'ID_Postulante');
     } 
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'ID_Usuario');
+    }
+
 }

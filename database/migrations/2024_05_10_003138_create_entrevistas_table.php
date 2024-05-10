@@ -21,8 +21,11 @@ return new class extends Migration
             $table->string('detalles');  
       
       
-            $table->unsignedBigInteger('ID_Postulante');
+            $table->unsignedBigInteger('ID_Postulante')->nullable();
+            $table->unsignedBigInteger('ID_Usuario')->nullable();
             $table->foreign('ID_Postulante')->references('ID_Usuario')->on('postulantes')->onDelete('cascade');
+            $table->foreign('ID_Usuario')->references('id')->on('users');
+
 
             $table->timestamps();
         });
