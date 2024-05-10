@@ -36,6 +36,9 @@
                                 Detalles</th>   
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Iniciado por</th>      
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Acciones</th>             
 
   
@@ -60,6 +63,8 @@
                                     class="inline-block w-1/3 md:hidden font-bold">Fecha de finalización</span>{{ $entrevista->fecha_fin }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                                     class="inline-block w-1/3 md:hidden font-bold">Detalles</span>{{ $entrevista->detalles }}</td>
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
+                                    class="inline-block w-1/3 md:hidden font-bold">Iniciado por</span>{{ $entrevista->usuario->name }}</td>        
                                                                                                           
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div class="flex flex-wrap">

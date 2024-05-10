@@ -8,10 +8,10 @@
                 {{ __('POSTULANTE') }}
             </h2>
 
-            <br>
+ 
 
             <div>
-                <br>
+              
 
                 <a href="{{ route('excelpostulante') }}"
                     class="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 shadow mr-4">
@@ -39,7 +39,7 @@
             <button id="openModalBtn" class="px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg">EVALUAR POSTULANTES AUTOMATICAMENTE</button>
         </div>
           
-
+  
 <style>
     #myModal {
   display: none; /* Ocultar el modal por defecto */
@@ -76,6 +76,7 @@
     color: darkred; /* Cambia el color al pasar el mouse sobre el icono de cierre */
 }
 </style>
+
 <!-- Modal -->
 <!-- Modal -->
 <div id="myModal" class="modal text-center">
@@ -127,11 +128,6 @@
     }
 </script>
 
-
-
-
-  
-                    
 
 
         <button id="ordenar-por-puntos" class="px-3 py-2 bg-green-600 font-bold text-white rounded-lg">Ordenar por Puntos</button>
@@ -196,10 +192,10 @@
         
 
 
-
+    </x-slot>
 
         <div>
-            <br>
+     
 
             <div>
         
@@ -242,6 +238,9 @@
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Puntos Evaluación</th> 
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Estado de postulación</th> 
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Acciones</th>                  
@@ -307,6 +306,19 @@
                                     <span class="inline-block w-1/3 md:hidden font-bold">Puntos Evaluación</span>
                                     {{ $postulanteU->puntos ?? 0 }}
                             </td>
+
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Estado</span>
+                                @if ($postulanteU->estado === 1)
+                                    Aceptado
+                                @elseif ($postulanteU->estado === 0)
+                                    Rechazado
+                                @else
+                                    En proceso
+                                @endif
+                            </td>
+
+
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div class="flex flex-wrap">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
@@ -317,10 +329,38 @@
                                     </a>
 
 
-                                  
+                                    <div>
+                                        <form id="formEliminar1_{{ $postulanteU->ID_Usuario }}" 
+                                            action="{{ route('postulantes.proceso', $postulanteU->ID_Usuario) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="bg-green-200 px-2 py-2 rounded-lg" title="Establecer postulación en proceso">
+                                                <i class="fas fa-spinner fa-spin"></i> <!-- Ícono de una barra de carga -->
+                                            </button>
+                                        </form>
+                                    </div>
+                                    
+
+
+
                                     <a href="{{ route('entrevistas.crear', $postulanteU->ID_Usuario) }}" class="bg-green-400 px-2 py-2 rounded-lg" title="Entrevistar">
                                         <i class="fas fa-chalkboard-teacher"></i>
                                     </a>
+
+
+
+
+
+                                    <div>
+                                        <form id="formEliminar_{{ $postulanteU->ID_Usuario }}" 
+                                            action="{{ route('postulantes.rechazar', $postulanteU->ID_Usuario) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="bg-red-400 px-2 py-2 rounded-lg" title="Rechazar postulante">
+                                                <i class="fas fa-times"></i> <!-- Ícono de una X -->
+                                            </button>
+                                        </form>
+                                    </div>
+
+
 
                                 </div>
                             </td>
@@ -337,7 +377,7 @@
             </div>
         </div>
         
-    </x-slot>
+  
     
 
     <script>
