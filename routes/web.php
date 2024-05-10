@@ -153,6 +153,7 @@ Route::get('/entrevistas/inicio', [EntrevistaController::class, 'inicio'])->name
 Route::get('/entrevistas/editar/{id}', [EntrevistaController::class, 'editar'])->name('entrevistas.editar');
 Route::post('/entrevistas/actualizar/{id}', [EntrevistaController::class, 'actualizar'])->name('entrevistas.actualizar');
 Route::post('/entrevistas/eliminar/{id}', [EntrevistaController::class, 'eliminar'])->name('entrevistas.eliminar');
+Route::get('/entrevistas/visualizar/{id}', [EntrevistaController::class, 'visualizar'])->name('entrevistas.visualizar');
 
 
 
@@ -213,6 +214,8 @@ Route::get('/reportes/empleados/excel', [ReporteController::class, 'excelemplead
 Route::get('/reportes/empleados/csv', [ReporteController::class, 'csvempleado'])->name('csvempleado');
 Route::get('/reportes/empleados/pdf', [ReporteController::class, 'pdfempleado'])->name('pdfempleado');
 Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'])->name('htmlempleado');
+
+Route::post('/marcar-notificacion-leida/{id}', [EntrevistaController::class, 'marcarLeida'])->name('marcar_notificacion_leida');
 });
 
 

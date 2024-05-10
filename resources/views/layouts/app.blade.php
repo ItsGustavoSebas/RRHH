@@ -25,9 +25,60 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
          <!-- Agregar el enlace al archivo de la biblioteca Sweetalert -->
          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         <link href="/dist/output.css" rel="stylesheet" />
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+             integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+             crossorigin="anonymous" referrerpolicy="no-referrer" />
+         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+         <script>
+            function collapseSidebar() {
+                let sidebar = document.getElementById('sidebar');
+                let mainContent = document.querySelector('main');
+                let headerContent = document.querySelector('header');
+                let toggle = document.getElementById('toggle-button');
+                let titles = sidebar.querySelectorAll('span');
+        
+                if (sidebar.classList.contains('lg:w-[240px]')) {
+                    //sidebar
+                    sidebar.classList.remove('lg:w-[240px]');
+                    sidebar.classList.add('w-[55px]');
+        
+                    //content
+                    mainContent.classList.remove('lg:w-[100wh-250px]');
+                    mainContent.classList.remove('lg:ml-[240px]');
+                    mainContent.classList.add('lg:w-[100wh-100px]');
+                    mainContent.classList.add('ml-[55px]');
+                    
+                    //header
+                    headerContent.classList.remove('lg:ml-[240px]');
+                    headerContent.classList.add('ml-[55px]');
 
+                    //toggle
+                    toggle.classList.remove('rotate-180');
+                    toggle.classList.add('rotate-0');
+                } else {
+                    //sidebar
+                    sidebar.classList.remove('w-[55px]');
+                    sidebar.classList.add('lg:w-[240px]');
+        
+                    //content
+                    mainContent.classList.remove('lg:w-[100wh-100px]');
+                    mainContent.classList.remove('ml-[55px]');
+                    mainContent.classList.add('lg:w-[100wh-250px]');
+                    mainContent.classList.add('lg:ml-[240px]');
+        
+                    //header
+                    headerContent.classList.remove('ml-[55px]');
+                    headerContent.classList.add('lg:ml-[240px]');
 
+                    //toggle
+                    toggle.classList.remove('rotate-0');
+                    toggle.classList.add('rotate-180');
+                }
+            }
+        </script>
+        
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
@@ -42,14 +93,14 @@
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 mt-[55px] ml-[55px]">
                         {{ $header }}
                     </div>
                 </header>
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class = "ml-[55px] lg:w-[100wh-100px] mt-[55px]">
                 {{ $slot }}
             </main>
         </div>

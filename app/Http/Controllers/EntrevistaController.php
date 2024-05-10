@@ -8,6 +8,7 @@ use App\Models\Postulante;
 use App\Models\User;
 use App\Notifications\Entrevista as NotificationsEntrevista;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EntrevistaController extends Controller
 {
@@ -77,5 +78,24 @@ class EntrevistaController extends Controller
 
 
         return redirect(route('entrevistas.inicio'))->with('eliminado', 'Entrevista eliminada exitosamente');
+    }
+
+    public function visualizar($id)
+    {
+        $entrevista = Entrevista::find($id);
+        return view('Contratacion.entrevistas.visualizar', compact('entrevista'));
+    }
+
+    public function marcarLeida($id)
+    {
+        $usuario = Auth::user();
+        $notification = $usuario->notifications->where('id', $id)->first();
+        // Marca la notificación como leída si se encuentra
+        if ($notification) {
+            $notification->markAsRead();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'La notificación no se encontró'], 404);
+        }
     }
 }
