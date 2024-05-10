@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('idiomas', function (Blueprint $table) {
+        Schema::create('nivel_idioma', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre'); 
-               
+            $table->string('categoria');    
 
 
             $table->timestamps();
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('idiomas');
+        Schema::dropIfExists('nivel_idioma');
     }
 };

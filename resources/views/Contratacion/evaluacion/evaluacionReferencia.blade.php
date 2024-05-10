@@ -2,16 +2,14 @@
     <x-slot name="header">
         <div class = "flex flex-wrap justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Puntos por sección del postulante: ') . $postulante->usuario->name }}
-                
-
+                {{ __('Lista de referencias del postulante: '. $postulante->usuario->name) }}
             </h2>
+         
+            
+        </div>
 
-           
- 
- 
-        </div> 
         <br>
+        
 
         <div>
             <div>
@@ -21,89 +19,47 @@
                     <thead class="block md:table-header-group">
                         <tr
                             class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
-      
-     
-
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Educaciones</th>
+                                ID</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Reconocimientos</th>
+                                Nombre</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Experiencias</th>        
-
+                                Descripción</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Referencias</th>    
-                                
+                                Telefono</th>          
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Idioma</th>
-                             
-                                                 
+                                ID Postulante</th>            
                         </tr>
 
                     </thead>
                     <tbody class="block md:table-row-group">
 
-                
-                      
-
-        
-                            
-
+                    @if (!is_null($referencias))
+                        @foreach ($referencias as $referencia)
+                        <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Educaciones</span>Puntos: {{ $calificaciones->ptEducacion }}
-                                    <a href="{{ route('postulantes.evaluacionEducacion', $postulante->ID_Usuario) }}"
-                                        class = "bg-green-400 px-2 py-2 rounded-lg" title="Visualizar">
-                                        <i class="far fa-eye"></i>
-
-                                    </a>
-                            </td>
-
+                                    class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $referencia->id }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                class="inline-block w-1/3 md:hidden font-bold">Reconocimientos</span>Puntos: {{ $calificaciones->ptReconocimiento }}
-                                <a href="{{ route('postulantes.evaluacionReconocimiento', $postulante->ID_Usuario) }}"
-                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Visualizar">
-                                    <i class="far fa-eye"></i>
-
-                                </a>
-                                     
-                                    
-                            </td>    
-
+                                    class="inline-block w-1/3 md:hidden font-bold">Nombre</span>{{ $referencia->nombre }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                class="inline-block w-1/3 md:hidden font-bold">Experiencias</span>Puntos: {{ $calificaciones->ptExperiencia }}
-                                <a href="{{ route('postulantes.evaluacionExperiencia', $postulante->ID_Usuario) }}"
-                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Visualizar">
-                                    <i class="far fa-eye"></i>
-
-                                </a>
-                            </td>
-
-
+                                     class="inline-block w-1/3 md:hidden font-bold">Descripcion</span>{{ $referencia->descripcion }}</td>        
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                class="inline-block w-1/3 md:hidden font-bold">Referencias</span>Puntos: {{ $calificaciones->ptReferencia }}
-                                <a href="{{ route('postulantes.evaluacionReferencia', $postulante->ID_Usuario) }}"
-                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Visualizar">
-                                    <i class="far fa-eye"></i>
-
-                                </a>
-                            </td>
-
-                            
+                                     class="inline-block w-1/3 md:hidden font-bold">Telefono</span>{{ $referencia->telefono }}</td>                                                             
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                class="inline-block w-1/3 md:hidden font-bold">Idioma</span>Puntos: {{ $calificaciones->ptIdioma }}
-               
-                            </td>
-
-                           
-                                    
+                                    class="inline-block w-1/3 md:hidden font-bold">ID Postulante</span>{{ $referencia->ID_Postulante }}</td>                                                                                  
                           
+                              
+                            </td>
                         </tr>
-                                 
+                        @endforeach
+                    @else
+                        
+                    @endif                        
              
                     </tbody>
                 </table>

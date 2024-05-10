@@ -42,6 +42,9 @@
                                 Foto</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Nombre</th>    
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Fecha de nacimiento</th>
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
@@ -57,7 +60,10 @@
                                 Puesto elegido</th>     
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Idioma secundario</th>                                      
+                                Idioma secundario</th>       
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Nivel Idioma</th>                                         
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Acciones</th>      
@@ -88,6 +94,9 @@
                                
                             </td>
 
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
+                                class="inline-block w-1/3 md:hidden font-bold">Nombre</span>{{ $postulante->usuario->name }}</td>      
+
 
 
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
@@ -96,12 +105,25 @@
                                     class="inline-block w-1/3 md:hidden font-bold">Nacionalidad</span>{{ $postulante->nacionalidad }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                                     class="inline-block w-1/3 md:hidden font-bold">Habilidades</span>{{ $postulante->habilidades }}</td>
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Fuente de contratación</span>{{ $postulante->ID_Fuente_De_Contratacion }}</td>       
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulante->ID_Puesto_Disponible }}</td>   
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>{{ $postulante->ID_Idioma }}</td>                                                                                          
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        <span class="inline-block w-1/3 md:hidden font-bold">Fuente de contratación</span>
+                                        {{ $postulante->fuente_de_contratacion ? $postulante->fuente_de_contratacion->nombre : 'No especificado.' }}
+                                    </td>
+                                    
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        <span class="inline-block w-1/3 md:hidden font-bold">Puesto elegido</span>
+                                        {{ $postulante->puesto_disponible ? $postulante->puesto_disponible->nombre : 'No especificado.' }}
+                                    </td>
+                                    
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        <span class="inline-block w-1/3 md:hidden font-bold">Segundo Idioma</span>
+                                        {{ $postulante->idioma ? $postulante->idioma->nombre : 'No especificado' }}
+                                    </td>        
+                                    
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        <span class="inline-block w-1/3 md:hidden font-bold">Nivel Idioma</span>
+                                        {{ $postulante->nivel_idioma ? $postulante->nivel_idioma->categoria : 'No especificado' }}
+                                    </td>       
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div class="flex flex-wrap">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>

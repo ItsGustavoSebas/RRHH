@@ -72,7 +72,7 @@
                                 </div>
                                 <input id= "campo_de_estudio" type="string" name="campo_de_estudio"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar el campo_de_estudio" value="{{ old('campo_de_estudio') }}">
+                                    placeholder="Ingresar el campo de estudio" value="{{ old('campo_de_estudio') }}">
                                 @error('campo_de_estudio')
                                     <strong class = "text-red-500">Debes ingresar el campo de estudio</strong>
                                 @enderror
@@ -111,7 +111,7 @@
                                 </div>
                                 <input id= "notas_adicionales" type="string" name="notas_adicionales"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Ingresar el notas_adicionales" value="{{ old('notas_adicionales') }}">
+                                    placeholder="Ingresar si desea notas adicionales" value="{{ old('notas_adicionales') }}">
                                 
                             </div>
                         </div>

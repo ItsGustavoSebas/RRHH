@@ -8,6 +8,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DetalleBitacoraController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\EntrevistaController;
 use App\Http\Controllers\InformacionPersonalController;
 use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
@@ -131,16 +132,28 @@ Route::get('/postulantes/postularse', [PostulanteController::class, 'postularse'
 Route::get('/postulantes/inicio', [PostulanteController::class, 'inicio'])->name('postulantes.inicio');
 
 //Postulante evaluación CONTROLLER
-Route::get('/postulantes/evaluar', [PostulanteController::class, 'evaluar'])->name('postulantes.evaluar');
+Route::post('/postulantes/evaluar', [PostulanteController::class, 'evaluar'])->name('postulantes.evaluar');
 Route::get('/postulantes/evaluarInicio/{id}', [PostulanteController::class, 'evaluarInicio'])->name('postulantes.evaluarInicio');
 Route::get('/postulantes/evaluacionIdioma/{id}', [PostulanteController::class, 'evaluacionIdioma'])->name('postulantes.evaluacionIdioma');
 Route::get('/postulantes/evaluacionEducacion/{id}', [PostulanteController::class, 'evaluacionEducacion'])->name('postulantes.evaluacionEducacion');
 Route::get('/postulantes/evaluacionReconocimiento/{id}', [PostulanteController::class, 'evaluacionReconocimiento'])->name('postulantes.evaluacionReconocimiento');
+Route::get('/postulantes/evaluacionReferencia/{id}', [PostulanteController::class, 'evaluacionReferencia'])->name('postulantes.evaluacionReferencia');
 Route::get('/postulantes/evaluacionExperiencia/{id}', [PostulanteController::class, 'evaluacionExperiencia'])->name('postulantes.evaluacionExperiencia');
 Route::post('/postulantes/actualizarEvaluacionIdioma/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionIdioma');
 Route::post('/postulantes/editarEvaluacionEducacion/{id}', [PostulanteController::class, 'editarEvaluacionEducacion'])->name('postulantes.editarEvaluacionEducacion');
 Route::post('/postulantes/actualizarEvaluacionReconocimiento/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionReconocimiento');
 Route::post('/postulantes/actualizarEvaluacionExperiencia/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionExperiencia');
+
+
+
+//Entrevistas postulante CONTROLLER
+Route::get('/entrevistas/crear/{id}', [EntrevistaController::class, 'crear'])->name('entrevistas.crear');
+Route::post('/entrevistas/guardar/{id}', [EntrevistaController::class, 'guardar'])->name('entrevistas.guardar');
+Route::get('/entrevistas/inicio', [EntrevistaController::class, 'inicio'])->name('entrevistas.inicio');
+Route::get('/entrevistas/editar/{id}', [EntrevistaController::class, 'editar'])->name('entrevistas.editar');
+Route::post('/entrevistas/actualizar/{id}', [EntrevistaController::class, 'actualizar'])->name('entrevistas.actualizar');
+Route::post('/entrevistas/eliminar/{id}', [EntrevistaController::class, 'eliminar'])->name('entrevistas.eliminar');
+
 
 
 

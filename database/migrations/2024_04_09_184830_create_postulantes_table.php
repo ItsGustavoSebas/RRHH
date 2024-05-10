@@ -24,9 +24,11 @@ return new class extends Migration
             $table->unsignedBigInteger('ID_Fuente_De_Contratacion')->nullable();
             $table->unsignedBigInteger('ID_Puesto_Disponible')->nullable(); 
             $table->unsignedBigInteger('ID_Idioma')->nullable(); 
+            $table->unsignedBigInteger('ID_NivelIdioma')->nullable(); 
             $table->foreign('ID_Fuente_De_Contratacion')->references('id')->on('fuentes_de_contratacion')->onDelete('set null');
             $table->foreign('ID_Puesto_Disponible')->references('id')->on('puestos_disponibles')->onDelete('set null');
             $table->foreign('ID_Idioma')->references('id')->on('idiomas')->onDelete('set null');
+            $table->foreign('ID_NivelIdioma')->references('id')->on('nivel_idioma')->onDelete('set null');
 
             $table->foreign('ID_Usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

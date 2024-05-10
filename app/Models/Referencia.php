@@ -14,6 +14,7 @@ class Referencia extends Model
 
     protected $fillable = [
         'nombre', 
+        'descripcion', 
         'telefono', 
 
     ];
@@ -21,6 +22,6 @@ class Referencia extends Model
 
     public function postulante()
     {
-        return $this->belongsTo(postulante::class, 'ID_Usuario');
+        return $this->belongsTo(Postulante::class, 'ID_Usuario');
     } 
 }

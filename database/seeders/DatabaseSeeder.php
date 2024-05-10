@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(IdiomaSeeder::class);
         $this->call(DepartamentoSeeder::class);
         $this->call(CargoSeeder::class);
+        $this->call(Nivel_IdiomaSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

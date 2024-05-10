@@ -37,6 +37,18 @@
                 
 
                 <br>
+
+
+                <div class="col-span-1">
+                    <label class="font-bold text-lg" for="descripcion">Descripción de la referencia</label>
+                    <input id="descripcion" name="descripcion" type="text" class="px-3 py-2 w-full rounded-xl bg-blue-100" placeholder="Ingresa la descripción de la referencia" value="{{ $referencias->descripcion }}">
+                    @error('descripcion')
+                        <strong class="text-red-500">Debes ingresar la descripción de la referencia</strong>
+                    @enderror
+                </div>
+
+                <br>
+
                             
                 <div class="p-5 text-center">
                     <button type="submit" id="registrar" class="bg-blue-600 text-white font-bold px-6 py-3 rounded-lg">

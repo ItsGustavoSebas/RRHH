@@ -8,7 +8,7 @@
 
     <title>Editar información</title>
 
-    <form action="{{ route('postulantes.actualizar', ['id' => auth()->id()]) }}" method="POST">
+    <form action="{{ route('postulantes.actualizar', ['id' => auth()->id()]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg m-5">
 
@@ -20,7 +20,7 @@
                 <div class="flex justify-center items-center space-x-6 py-9 pb-10">
                     <div class="shrink-0">
                         <img id="previewImagen" src="{{ asset($postulante->ruta_imagen_e) }}"
-                            style="width: 100px; height: 100px;" class="object-cover rounded-full" alt="Imagen del estudiante">
+                            style="width: 100px; height: 100px;" class="object-cover rounded-full" alt="Imagen del postulante">
                     </div>
                     <label class="block">
                         <span class="sr-only">Elige una foto de perfil</span>
@@ -150,6 +150,24 @@
                             </div>
                             @error('ID_Idioma')
                                 <strong class = "text-red-500">Debes ingresar un idioma</strong>
+                            @enderror
+
+                            <div class="flex">
+                             <div
+                                class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                                <i class="fa-solid fa-filter"></i>
+                              </div>
+                             <select name="ID_NivelIdioma" id="ID_NivelIdioma" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500">
+                                <option value="">Selecciona un nivel del idioma</option>
+                                @foreach ($nivelIdiomas as $nivelIdioma)
+                                    <option value="{{ $nivelIdioma->id }}" {{ $postulante->ID_NivelIdioma == $nivelIdioma->id ? 'selected' : '' }}>
+                                        {{ $nivelIdioma->categoria }}
+                                    </option>
+                                @endforeach
+                             </select>
+                            </div>
+                            @error('ID_NivelIdioma')
+                              <strong class = "text-red-500">Debes ingresar un nivel del idioma.</strong>
                             @enderror
                         </div>
                     </div>

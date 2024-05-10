@@ -43,11 +43,13 @@ class ReferenciaController extends Controller
             $id = Auth::id();
             $request->validate([
                 'nombre' => 'required',
+                'descripcion' => 'required',
                 'telefono' => 'required',
             
             ]);
             $Referencia = new Referencia();
             $Referencia->nombre = $request->nombre;
+            $Referencia->descripcion = $request->descripcion;
             $Referencia->telefono = $request->telefono;
             $Referencia->ID_Postulante = $id;
             $Referencia->save();
@@ -93,10 +95,12 @@ class ReferenciaController extends Controller
             $id = Auth::id();
             $request->validate([
                 'nombre' => 'required',
+                'descripcion' => 'required',
                 'telefono' => 'required',
             ]);
             $Referencia = new Referencia();
             $Referencia->nombre = $request->nombre;
+            $Referencia->descripcion = $request->descripcion;
             $Referencia->telefono = $request->telefono;
             $Referencia->ID_Postulante = $id;
             $Referencia->save();
@@ -138,9 +142,11 @@ class ReferenciaController extends Controller
             $Referencia = Referencia::where('ID_Postulante', '=', $id)->first();
             $request->validate([
                 'nombre' => 'required',
+                'descripcion' => 'required',
                 'telefono' => 'required',
             ]);
             $Referencia->nombre = $request->nombre;
+            $Referencia->descripcion = $request->descripcion;
             $Referencia->telefono = $request->telefono;
             $Referencia->ID_Postulante = $id;
     

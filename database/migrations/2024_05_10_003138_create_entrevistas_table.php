@@ -13,11 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('idiomas', function (Blueprint $table) {
+        Schema::create('entrevistas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre'); 
-               
-
+            $table->date('fecha_inicio');  
+            $table->string('hora');  
+            $table->date('fecha_fin');  
+            $table->string('detalles');  
+      
+      
+            $table->unsignedBigInteger('ID_Postulante');
+            $table->foreign('ID_Postulante')->references('ID_Usuario')->on('postulantes')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('idiomas');
+        Schema::dropIfExists('entrevistas');
     }
 };

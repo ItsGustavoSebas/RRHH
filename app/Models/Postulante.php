@@ -23,7 +23,8 @@ class Postulante extends Model
         'puntos',
         'ID_Fuente_De_Contratacion',
         'ID_Puesto_Disponible',
-        'ID_Idioma'
+        'ID_Idioma',
+        'ID_NivelIdioma',
     ];
 
     // Relación con el modelo Usuario
@@ -36,7 +37,7 @@ class Postulante extends Model
     //relación con fuente de contratacion
     public function fuente_de_contratacion()
     {
-        return $this->belongsTo(fuente_de_contratacion::class, 'ID_Fuente_De_Contratacion');
+        return $this->belongsTo(Fuente_De_Contratacion::class, 'ID_Fuente_De_Contratacion');
     }
 
 
@@ -51,4 +52,11 @@ class Postulante extends Model
     {
         return $this->belongsTo(Idioma::class, 'ID_Idioma');
     }    
+
+
+
+    public function nivel_idioma()
+    {
+        return $this->belongsTo(Nivel_Idioma::class, 'ID_NivelIdioma');
+    }   
 }
