@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Entrevista;
 use App\Models\Postulante;
+use App\Models\User;
+use App\Notifications\Entrevista as NotificationsEntrevista;
 use Illuminate\Http\Request;
 
 class EntrevistaController extends Controller
@@ -37,6 +39,8 @@ class EntrevistaController extends Controller
         $entrevista->detalles= $request->detalles;
         $entrevista->ID_Postulante= $id;
         $entrevista->save();
+        $user = User::find($id);
+        $user->notify(new NotificationsEntrevista($entrevista));
 
         return redirect(route('entrevistas.inicio'))->with('creado', 'Entrevista creada exitosamente');
     }
