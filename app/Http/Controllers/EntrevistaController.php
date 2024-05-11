@@ -86,7 +86,6 @@ class EntrevistaController extends Controller
 
     public function visualizar($id)
     {
-        dd(Auth::user()->Notifications);
         $entrevista = Entrevista::find($id);
         return view('Contratacion.entrevistas.visualizar', compact('entrevista'));
     }
