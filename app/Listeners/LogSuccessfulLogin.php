@@ -34,7 +34,7 @@ class LogSuccessfulLogin
 
         if ($event->user->postulante && !$event->user->empleado) {
             $tipo = 'Postulante';
-        } elseif (!$event->user->cliente && $event->user->empleado) {
+        } elseif (!$event->user->postulante && $event->user->empleado) {
             $tipo = 'Empleado';
         }
 
