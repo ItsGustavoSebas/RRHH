@@ -37,61 +37,36 @@
                     <!-- About Section -->
                     <div class="hidden md:block lg:block">
                         <ul class="flex bg-white ">
-                            @if (!$opcional || $opcional == null)
-                                <li class="mr-1" id="informacion1">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md"
-                                        href="#" onclick="cargarContenido('informacion')">Información</a>
-                                </li>
-                            @else
-                                <li class="mr-1" id="informacion2">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                                        href="#" onclick="cargarContenido('informacion')">Información</a>
-                                </li>
-                            @endif
-                            @if ($opcional == 'educaciones')
-                                <li class=" mr-1" id="educaciones1">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md"
-                                        href="#" onclick="cargarContenido('educaciones')">Educaciones</a>
-                                </li>
-                            @else
-                                <li class="mr-1" id="educaciones2">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                                        href="#" onclick="cargarContenido('educaciones')">Educaciones</a>
-                                </li>
-                            @endif
-                            @if ($opcional == 'reconocimientos')
-                                <li class=" mr-1" id="reconocimientos1">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md"
-                                        href="#" onclick="cargarContenido('reconocimientos')">Reconocimientos</a>
-                                </li>
-                            @else
-                                <li class="mr-1" id="reconocimientos2">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                                        href="#" onclick="cargarContenido('reconocimientos')">Reconocimientos</a>
-                                </li>
-                            @endif
-                            @if ($opcional == 'experiencias')
-                                <li class=" mr-1" id="experiencias1">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md"
-                                        href="#" onclick="cargarContenido('experiencias')">Experiencias</a>
-                                </li>
-                            @else
-                                <li class="mr-1" id="experiencias2">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                                        href="#" onclick="cargarContenido('experiencias')">Experiencias</a>
-                                </li>
-                            @endif
-                            @if ($opcional == 'referencias')
-                                <li class=" mr-1" id="referencias1">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md"
-                                        href="#" onclick="cargarContenido('referencias')">Referencias</a>
-                                </li>
-                            @else
-                                <li class="mr-1" id="referencias2">
-                                    <a class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                                        href="#" onclick="cargarContenido('referencias')">Referencias</a>
-                                </li>
-                            @endif
+                            <li class="mr-1" id="informacion1">
+                                <a id="informacionButton"
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                                {{ !$opcional || $opcional == null ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
+                                    href="#" onclick="cargarContenido('informacion')">Información</a>
+                            </li>
+                            <li class=" mr-1">
+                                <a id="educacionesButton"
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                                {{ $opcional == 'educaciones' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
+                                    href="#" onclick="cargarContenido('educaciones')">Educaciones</a>
+                            </li>
+                            <li class=" mr-1">
+                                <a id="reconocimientosButton"
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                                {{ $opcional == 'reconocimientos' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
+                                    href="#" onclick="cargarContenido('reconocimientos')">Reconocimientos</a>
+                            </li>
+                            <li class=" mr-1">
+                                <a id="experienciasButton"
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                                {{ $opcional == 'experiencias' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
+                                    href="#" onclick="cargarContenido('experiencias')">Experiencias</a>
+                            </li>
+                            <li class=" mr-1">
+                                <a id="referenciasButton"
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                                {{ $opcional == 'referencias' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
+                                    href="#" onclick="cargarContenido('referencias')">Referencias</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- Contenido -->
@@ -106,29 +81,37 @@
         function cargarContenido(info) {
             let contenido = document.getElementById('contenido');
             let tablaHTML = '';
-    
+            informacionButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold");
+            educacionesButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold");
+            reconocimientosButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold");
+            experienciasButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold");
+            referenciasButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold");
+
             if (info === 'informacion') {
                 tablaHTML = `<x-tabla-informacion2 :opcional="null" />`;
-                
+                informacionButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md");
             }
-    
+
             if (info === 'educaciones') {
                 tablaHTML = `<x-tabla-informacion2 :opcional="'educaciones'" />`;
+                educacionesButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md");
             }
-    
+
             if (info === 'reconocimientos') {
                 tablaHTML = `<x-tabla-informacion2 :opcional="'reconocimientos'" />`;
+                reconocimientosButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md");
             }
-    
+
             if (info === 'experiencias') {
                 tablaHTML = `<x-tabla-informacion2 :opcional="'experiencias'" />`;
+                experienciasButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md");
             }
-    
+
             if (info === 'referencias') {
                 tablaHTML = `<x-tabla-informacion2 :opcional="'referencias'" />`;
+                referenciasButton.setAttribute("class", "rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold shadow-md");
             }
-    
+
             contenido.innerHTML = tablaHTML;
         }
     </script>
-    

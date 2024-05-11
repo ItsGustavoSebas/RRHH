@@ -479,6 +479,53 @@ class PostulanteController extends Controller
 
     }
 
+    public function editarinfo($id)
+    {
+        $usuarios = User::where('id', '=', $id)->first();
+        return view('Contratacion.postulantes.editarinfo', compact('usuarios'));
+    }
+
+    public function actualizarinfo(Request $request, $id)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+            'telefono' => 'required|unique:users,telefono,' . $id,
+            'ci' => 'required|unique:users,ci,' . $id,
+            'direccion' => 'required',
+        ], [
+            'name.required' => 'Debes ingresar el nombre.',
+            'email.required' => 'Debes ingresar el correo electrónico.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'telefono.required' => 'Debes ingresar el teléfono.',
+            'ci.required' => 'Debes ingresar el C.I.',
+            'direccion.required' => 'Debes ingresar la dirección.',
+            'ci.unique' => 'La Cédula de Identidad ya está registrada.',
+            'telefono.unique' => 'El número de teléfono ya está en uso.',
+        ]);
+
+        $usuarios = User::where('id', '=', $id)->first();  /* User::findOrFail($id) esto es para regresar un valor null en un error de base de datos */
+
+        $usuarios->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'ci' => $request->ci,
+            'direccion' => $request->direccion,
+        ]);
+
+        if ($request->password) {
+            $usuarios->update([
+                'password' => bcrypt($request->password),
+            ]);
+        }
+
+        $usuarios->save();
+
+        return redirect()->route('dashboard')->with('actualizado', 'Usuario actualizado exitosamente');
+    }
+
     // public function eliminar($id)
     // {
     //     $postulante = Postulante::where('id', '=', $id)->first();

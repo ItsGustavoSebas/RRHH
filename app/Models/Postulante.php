@@ -77,4 +77,9 @@ class Postulante extends Model
     {
         return $this->hasMany(Experiencia::class, 'ID_Postulante');
     }
+
+    public function entrevista()
+    {
+        return $this->hasOne(Entrevista::class, 'ID_Postulante');
+    }
 }
