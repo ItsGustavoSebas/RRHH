@@ -40,6 +40,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/puestos', function () {
+    $puesto_disponibles = Puesto_Disponible::where('disponible', '>', 0)->get();
+    return view('puestos-disponible', compact('puesto_disponibles'));
+})->name('puestos');
 
 Route::middleware([
     'auth:sanctum',
