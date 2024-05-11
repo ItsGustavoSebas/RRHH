@@ -25,13 +25,15 @@
             <p class="tracking-wide px-2">Habilidades:
                 {{ Auth::user()->postulante->habilidades }}
             </p>
+            @if(Auth::user()->postulante->fuente_de_contratacion)
             <p class="tracking-wide px-2">Fuente de Contratación:
                 {{ Auth::user()->postulante->fuente_de_contratacion->nombre }}</p>
+            @endif
+            @if(Auth::user()->postulante->idioma)
             <p class="tracking-wide px-2">Idioma Secundario:
                 {{ Auth::user()->postulante->idioma->nombre }} -
                 {{ Auth::user()->postulante->nivel_idioma->categoria }}</p>
-            <p class="tracking-wide px-2">Fuente de Contratación:
-                {{ $opcional }}</p>
+            @endif
         </div>
     </div>
 @endif

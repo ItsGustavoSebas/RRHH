@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Postulante;
 use App\Models\Puesto_Disponible;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Puesto_DisponibleController extends Controller
 {
@@ -21,9 +23,13 @@ class Puesto_DisponibleController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
+            'información' => 'required',
+            'disponible' => 'required',
         ]);
         $puesto_disponibles = new Puesto_Disponible();
         $puesto_disponibles->nombre = $request->nombre;
+        $puesto_disponibles->información = $request->información;
+        $puesto_disponibles->disponible = $request->disponible;
         $puesto_disponibles->save();
 
         return redirect(route('puesto_disponibles.inicio'))->with('creado', 'Puesto Disponible creado exitosamente');
@@ -37,11 +43,15 @@ class Puesto_DisponibleController extends Controller
 
     public function actualizar(REQUEST $request, $id)
     {
-        $puesto_disponibles = Puesto_Disponible::where('id', '=', $id)->first();
         $request->validate([
             'nombre' => 'required',
+            'información' => 'required',
+            'disponible' => 'required',
         ]);
+        $puesto_disponibles = Puesto_Disponible::where('id', '=', $id)->first();
         $puesto_disponibles->nombre = $request->nombre;
+        $puesto_disponibles->información = $request->información;
+        $puesto_disponibles->disponible = $request->disponible;
         $puesto_disponibles->save();
 
         
@@ -56,5 +66,19 @@ class Puesto_DisponibleController extends Controller
 
 
         return redirect(route('puesto_disponibles.inicio'))->with('eliminado', 'Puesto_Disponible ' . $nombre . ' eliminado exitosamente');
+    }
+
+    public function disponibles(){
+        $puesto_disponibles = Puesto_Disponible::where('disponible', '>', 0)->get();
+        return view ('puesto_disponibles.puestos', compact('puesto_disponibles'));
+    }
+
+    public function postularse($idpuesto){
+        $id = Auth::user()->id;
+        $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
+        $postulante->ID_Puesto_Disponible = $idpuesto;
+        $postulante->estado = null;
+        $postulante->save();
+        return redirect(route('puesto_disponibles.disponibles'))->with('actualizado', 'Has pustulado al puesto exitosamente');
     }
 }
