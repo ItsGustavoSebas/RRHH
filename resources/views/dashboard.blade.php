@@ -20,43 +20,53 @@
                     @endif
                 </div>
                 <div class="bg-blue-300 max-w-7xl px-4 sm:px-6 lg:px-8">
-                    @if (Auth::user()->postulante->estado == false)
-                        <p class="ml-10 text-red-500">Rechazado</p>
-                        <p class="ml-10 text-gray-500">Lamentablemente, su solicitud ha sido rechazada en esta ocasión.
-                            Sin embargo, lo invitamos a seguir revisando nuestras oportunidades de trabajo y postularse
-                            a otros puestos que puedan ser de su interés.</p>
+                    @if (Auth::user()->postulante->referencias->isEmpty())
+                        <p class="ml-10 text-red-500">Información incompleta</p>
+                        <p class="ml-10 text-gray-500">Por favor, complete toda la información requerida en su solicitud
+                            para continuar con el proceso de postulación.</p>
                     @else
-                        @if (!Auth::user()->postulante->entrevista && !Auth::user()->postulante->contrato)
-                            <p class="ml-10 text-green-500 fond-bold">Pendiente de revisión</p>
-                            <p class="ml-10 text-gray-500">Su solicitud ha sido enviada y está siendo revisada por el
-                                equipo
-                                de
-                                reclutamiento. Por favor, espere mientras procesamos su solicitud.</p>
-                        @endif
-
-                        @if (Auth::user()->postulante->entrevista)
-                            @if (!Auth::user()->postulante->entrevista->puntos)
-                                <p class="ml-10 text-green-500 fond-bold">Programado para entrevista</p>
-                                <p class="ml-10 text-gray-500">Ha sido programado para una entrevista. Por favor,
-                                    asegúrese
+                        @if (Auth::user()->postulante->estado === 0)
+                            <p class="ml-10 text-red-500">Rechazado</p>
+                            <p class="ml-10 text-gray-500">Lamentablemente, su solicitud ha sido rechazada en esta
+                                ocasión.
+                                Sin embargo, lo invitamos a seguir revisando nuestras oportunidades de trabajo y
+                                postularse
+                                a otros puestos que puedan ser de su interés.</p>
+                        @else
+                            @if (!Auth::user()->postulante->entrevista && !Auth::user()->postulante->contrato)
+                                <p class="ml-10 text-green-500 fond-bold">Pendiente de revisión</p>
+                                <p class="ml-10 text-gray-500">Su solicitud ha sido enviada y está siendo revisada por
+                                    el
+                                    equipo
                                     de
-                                    prepararse adecuadamente y estar disponible en el momento programado.</p>
-                            @else
-                                <p class="ml-10 text-green-500 fond-bold">Entrevista realizada</p>
-                                <p class="ml-10 text-gray-500">Ha completado con éxito la entrevista. Ahora estamos
-                                    evaluando su
-                                    desempeño y pronto nos pondremos en contacto con usted con más información.</p>
+                                    reclutamiento. Por favor, espere mientras procesamos su solicitud.</p>
                             @endif
-                        @endif
 
-                        @if (Auth::user()->postulante->contrato)
-                            <p class="ml-10 text-green-500">Oferta extendida</p>
-                            <p class="ml-10 text-gray-500">Le hemos extendido una oferta de empleo. Por favor, revise
-                                los
-                                términos y condiciones de la oferta y contáctenos si tiene alguna pregunta o desea
-                                discutir
-                                los
-                                detalles.</p>
+                            @if (Auth::user()->postulante->entrevista)
+                                @if (!Auth::user()->postulante->entrevista->puntos)
+                                    <p class="ml-10 text-green-500 fond-bold">Programado para entrevista</p>
+                                    <p class="ml-10 text-gray-500">Ha sido programado para una entrevista. Por favor,
+                                        asegúrese
+                                        de
+                                        prepararse adecuadamente y estar disponible en el momento programado.</p>
+                                @else
+                                    <p class="ml-10 text-green-500 fond-bold">Entrevista realizada</p>
+                                    <p class="ml-10 text-gray-500">Ha completado con éxito la entrevista. Ahora estamos
+                                        evaluando su
+                                        desempeño y pronto nos pondremos en contacto con usted con más información.</p>
+                                @endif
+                            @endif
+
+                            @if (Auth::user()->postulante->contrato)
+                                <p class="ml-10 text-green-500">Oferta extendida</p>
+                                <p class="ml-10 text-gray-500">Le hemos extendido una oferta de empleo. Por favor,
+                                    revise
+                                    los
+                                    términos y condiciones de la oferta y contáctenos si tiene alguna pregunta o desea
+                                    discutir
+                                    los
+                                    detalles.</p>
+                            @endif
                         @endif
                     @endif
                 </div>
@@ -72,8 +82,8 @@
 
                     <!-- Buttons -->
                     <div class="flex space-x-4 space-y-4 lg:block md:block">
-                        @if (Auth::user()->postulante->estado == false)
-                            <a href=""
+                        @if (Auth::user()->postulante->estado === 0)
+                            <a href="{{ route('puesto_disponibles.disponibles') }}"
                                 class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Puestos
                                 disponibles</a>
                         @else
@@ -92,7 +102,7 @@
                                     contrato</a>
                             @endif
 
-                            @if (!Auth::user()->postulante->referencias)
+                            @if (Auth::user()->postulante->referencias->isEmpty())
                                 <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md"
                                     href="{{ route('postulantes.postularse') }}">Continuar
                                     Proceso</a>

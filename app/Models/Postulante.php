@@ -81,6 +81,6 @@ class Postulante extends Model
 
     public function entrevista()
     {
-        return $this->hasOne(Entrevista::class, 'ID_Postulante');
+        return $this->hasOne(Entrevista::class, 'ID_Postulante')->latest();
     }
 }
