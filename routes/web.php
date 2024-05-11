@@ -46,8 +46,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/dashboard/{opcional?}', function ($opcional = null) {
+        return view('dashboard', compact('opcional'));
     })->name('dashboard');
 
     //POSTULANTE CONTROLLER

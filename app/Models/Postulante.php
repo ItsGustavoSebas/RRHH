@@ -53,10 +53,28 @@ class Postulante extends Model
         return $this->belongsTo(Idioma::class, 'ID_Idioma');
     }    
 
-
-
     public function nivel_idioma()
     {
         return $this->belongsTo(Nivel_Idioma::class, 'ID_NivelIdioma');
     }   
+
+    public function referencias()
+    {
+        return $this->hasMany(Referencia::class, 'ID_Postulante');
+    }
+
+    public function educaciones()
+    {
+        return $this->hasMany(Educacion::class, 'ID_Postulante');
+    }
+
+    public function reconocimientos()
+    {
+        return $this->hasMany(Reconocimiento::class, 'ID_Postulante');
+    }
+
+    public function experiencias()
+    {
+        return $this->hasMany(Experiencia::class, 'ID_Postulante');
+    }
 }

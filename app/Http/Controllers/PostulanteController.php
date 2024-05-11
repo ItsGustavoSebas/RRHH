@@ -443,15 +443,14 @@ class PostulanteController extends Controller
         $id = Auth::id();
         $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
         $request->validate([
-            'ruta_imagen_e'=> 'required',
             'fecha_de_nacimiento'=> 'required',
             'nacionalidad'=> 'required',
-            'habilidades',
             'ID_Fuente_De_Contratacion'=> 'required',
             'ID_Puesto_Disponible'=> 'required',
             'ID_Idioma'=> 'required',
             'ID_NivelIdioma'=> 'required',
         ]);
+        
         $postulante->fecha_de_nacimiento = $request->fecha_de_nacimiento;
         $postulante->nacionalidad = $request->nacionalidad;
         $postulante->habilidades = $request->habilidades?? 'No tiene habilidades.';
@@ -476,7 +475,7 @@ class PostulanteController extends Controller
 
 
         
-        return redirect(route('postulantes.rinicio'))->with('actualizado', 'Información actualizada exitosamente');
+        return redirect(route('dashboard'))->with('actualizado', 'Información actualizada exitosamente');
 
     }
 
