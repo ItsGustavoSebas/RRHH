@@ -46,8 +46,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/dashboard/{opcional?}', function ($opcional = null) {
+        return view('dashboard', compact('opcional'));
     })->name('dashboard');
 
     //POSTULANTE CONTROLLER
@@ -130,6 +130,8 @@ Route::post('/postulantes/actualizar/{id}', [PostulanteController::class, 'actua
 Route::post('/postulantes/actualizarGES/{id}', [PostulanteController::class, 'actualizarGES'])->name('postulantes.actualizarGES');
 Route::get('/postulantes/postularse', [PostulanteController::class, 'postularse'])->name('postulantes.postularse');
 Route::get('/postulantes/inicio', [PostulanteController::class, 'inicio'])->name('postulantes.inicio');
+Route::get('postulantes/editarinfo/{id}', [PostulanteController::class, 'editarinfo'])->name('postulantes.editarinfo');
+Route::post('postulantes/actualizarinfo/{id}', [PostulanteController::class, 'actualizarinfo'])->name('postulantes.actualizarinfo');
 Route::post('/postulantes/rechazar/{id}', [PostulanteController::class, 'rechazar'])->name('postulantes.rechazar');
 Route::post('/postulantes/proceso/{id}', [PostulanteController::class, 'proceso'])->name('postulantes.proceso');
 

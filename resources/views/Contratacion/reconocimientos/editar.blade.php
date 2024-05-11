@@ -8,7 +8,7 @@
 
     <title>Editar reconocimiento</title>
 
-    <form action="{{ route('educaciones.actualizar', $educaciones->id) }}" method="POST">
+    <form action="{{ route('reconocimientos.actualizar', $reconocimientos->id) }}" method="POST">
         @csrf
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg m-5">
 
@@ -19,7 +19,7 @@
             <div class="grid lg:grid-cols-1 grid-cols-1 gap-4 p-5">
                 <div class="col-span-1">
                     <label class="font-bold text-lg" for="nombre">Nombre del reconocimiento</label>
-                    <input id="nombre" name="nombre" type="text" class="px-3 py-2 w-full rounded-xl bg-blue-100" placeholder="Ingresa el nombre" value="{{ $educaciones->nombre }}">
+                    <input id="nombre" name="nombre" type="text" class="px-3 py-2 w-full rounded-xl bg-blue-100" placeholder="Ingresa el nombre" value="{{ $reconocimientos->nombre }}">
                     @error('nombre')
                         <strong class="text-red-500">Debes ingresar el nombre del reconocimiento</strong>
                     @enderror
@@ -28,7 +28,7 @@
                             
                 <div class="col-span-1">
                     <label class="font-bold text-lg" for="descripcion">Descripción del reconocimiento</label>
-                    <input id="descripcion" name="descripcion" type="text" class="px-3 py-2 w-full rounded-xl bg-blue-100" placeholder="Ingresa la descripción del reconocimiento" value="{{ $educaciones->descripcion }}">
+                    <input id="descripcion" name="descripcion" type="text" class="px-3 py-2 w-full rounded-xl bg-blue-100" placeholder="Ingresa la descripción del reconocimiento" value="{{ $reconocimientos->descripcion }}">
                     @error('descripcion')
                         <strong class="text-red-500">Debes ingresar la descripción del reconocimiento</strong>
                     @enderror

@@ -126,7 +126,7 @@ class ReferenciaController extends Controller
             //     ]);
             // }
     
-            return redirect(route('referencias.rinicio'))->with('creado', 'Curso creada exitosamente');
+            return redirect(route('dashboard', ['opcional' => 'referencias']))->with('creado', 'Curso creada exitosamente');
         }    
     
         public function editar()
@@ -171,7 +171,7 @@ class ReferenciaController extends Controller
             //     ]);
             // }
             
-            return redirect(route('referencias.rinicio'))->with('actualizado', 'Referencia actualizada exitosamente');
+            return redirect()->route('dashboard', ['opcional' => 'referencias'])->with('actualizado', 'Referencia actualizada exitosamente');
         }
     
         public function eliminar($id)
@@ -198,6 +198,6 @@ class ReferenciaController extends Controller
             //     ]);
             // }
     
-            return redirect(route('referencias.rinicio'))->with('eliminado', 'Referencia eliminado exitosamente');
+            return redirect(route('dashboard', ['opcional' => 'referencias']))->with('eliminado', 'Referencia eliminado exitosamente');
         }
 }

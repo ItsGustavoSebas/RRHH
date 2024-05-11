@@ -470,15 +470,14 @@ class PostulanteController extends Controller
         $id = Auth::id();
         $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
         $request->validate([
-            'ruta_imagen_e'=> 'required',
             'fecha_de_nacimiento'=> 'required',
             'nacionalidad'=> 'required',
-            'habilidades',
             'ID_Fuente_De_Contratacion'=> 'required',
             'ID_Puesto_Disponible'=> 'required',
             'ID_Idioma'=> 'required',
             'ID_NivelIdioma'=> 'required',
         ]);
+        
         $postulante->fecha_de_nacimiento = $request->fecha_de_nacimiento;
         $postulante->nacionalidad = $request->nacionalidad;
         $postulante->habilidades = $request->habilidades?? 'No tiene habilidades.';
@@ -503,8 +502,55 @@ class PostulanteController extends Controller
 
 
         
-        return redirect(route('postulantes.rinicio'))->with('actualizado', 'Información actualizada exitosamente');
+        return redirect(route('dashboard'))->with('actualizado', 'Información actualizada exitosamente');
 
+    }
+
+    public function editarinfo($id)
+    {
+        $usuarios = User::where('id', '=', $id)->first();
+        return view('Contratacion.postulantes.editarinfo', compact('usuarios'));
+    }
+
+    public function actualizarinfo(Request $request, $id)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+            'telefono' => 'required|unique:users,telefono,' . $id,
+            'ci' => 'required|unique:users,ci,' . $id,
+            'direccion' => 'required',
+        ], [
+            'name.required' => 'Debes ingresar el nombre.',
+            'email.required' => 'Debes ingresar el correo electrónico.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'telefono.required' => 'Debes ingresar el teléfono.',
+            'ci.required' => 'Debes ingresar el C.I.',
+            'direccion.required' => 'Debes ingresar la dirección.',
+            'ci.unique' => 'La Cédula de Identidad ya está registrada.',
+            'telefono.unique' => 'El número de teléfono ya está en uso.',
+        ]);
+
+        $usuarios = User::where('id', '=', $id)->first();  /* User::findOrFail($id) esto es para regresar un valor null en un error de base de datos */
+
+        $usuarios->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'ci' => $request->ci,
+            'direccion' => $request->direccion,
+        ]);
+
+        if ($request->password) {
+            $usuarios->update([
+                'password' => bcrypt($request->password),
+            ]);
+        }
+
+        $usuarios->save();
+
+        return redirect()->route('dashboard')->with('actualizado', 'Usuario actualizado exitosamente');
     }
 
     // public function eliminar($id)

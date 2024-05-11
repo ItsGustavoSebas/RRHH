@@ -16,7 +16,6 @@ class Referencia extends Model
         'nombre', 
         'descripcion', 
         'telefono', 
-
     ];
 
 
