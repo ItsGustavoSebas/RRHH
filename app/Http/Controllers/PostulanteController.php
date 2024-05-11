@@ -508,8 +508,6 @@ class PostulanteController extends Controller
 
     public function editarinfo($id)
     {
-
-        dd(Auth::user()->postulante->estado);
         $usuarios = User::where('id', '=', $id)->first();
         return view('Contratacion.postulantes.editarinfo', compact('usuarios'));
     }
