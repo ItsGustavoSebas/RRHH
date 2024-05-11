@@ -26,6 +26,9 @@ class EntrevistaController extends Controller
 
     public function guardar(REQUEST $request, $id)
     {
+        $idUser = Auth::id();
+        
+
         $request->validate([
             'fecha_inicio' => 'required',
             'hora' => 'required',
@@ -39,6 +42,7 @@ class EntrevistaController extends Controller
         $entrevista->fecha_fin= $request->fecha_fin;
         $entrevista->detalles= $request->detalles;
         $entrevista->ID_Postulante= $id;
+        $entrevista->ID_Usuario= $idUser;
         $entrevista->save();
         $user = User::find($id);
         $user->notify(new NotificationsEntrevista($entrevista));

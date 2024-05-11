@@ -305,6 +305,7 @@ class PostulanteController extends Controller
             'fecha_de_nacimiento', 
             'nacionalidad', 
             'habilidades', 
+ 
             'ID_Fuente_De_Contratacion',
             'ID_Puesto_Disponible',
             'ID_Idioma',
@@ -392,6 +393,7 @@ class PostulanteController extends Controller
         $postulante->fecha_de_nacimiento = $request->fecha_de_nacimiento;
         $postulante->nacionalidad = $request->nacionalidad;
         $postulante->habilidades = $request->habilidades?? 'No tiene habilidades.';
+        $postulante->estado = $request->has('estado') ? 'false' : null;
         $postulante->ID_Fuente_De_Contratacion = $request->ID_Fuente_De_Contratacion;
         $postulante->ID_Puesto_Disponible = $request->ID_Puesto_Disponible;
         $postulante->ID_Idioma = $request->ID_Idioma;
@@ -435,6 +437,31 @@ class PostulanteController extends Controller
 
 
         
+    }
+
+    public function rechazar($id)
+    {
+
+        $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
+
+        $postulante->estado = false;
+        $postulante->save();
+      
+        return redirect(route('postulantes.inicio'))->with('actualizado', 'Postulante rechazado de forma exitosa');
+        
+
+    }
+
+    public function proceso($id)
+    {
+    
+        $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
+
+        $postulante->estado = null;
+        $postulante->save();
+
+        return redirect(route('postulantes.inicio'))->with('actualizado', 'Postulante puesto en proceso de contratación de manera exitosa');
+
     }
 
 
