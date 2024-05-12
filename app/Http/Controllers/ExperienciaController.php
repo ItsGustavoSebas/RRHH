@@ -131,7 +131,7 @@ class ExperienciaController extends Controller
         //     ]);
         // }
 
-        return redirect(route('experiencias.rinicio'))->with('creado', 'Curso creada exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'experiencias']))->with('creado', 'Curso creada exitosamente');
     }    
 
     public function editar()
@@ -178,7 +178,7 @@ class ExperienciaController extends Controller
         //     ]);
         // }
         
-        return redirect(route('experiencias.rinicio'))->with('actualizado', 'Experiencia actualizada exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'experiencias']))->with('actualizado', 'Experiencia actualizada exitosamente');
     }
 
     public function eliminar($id)
@@ -205,6 +205,6 @@ class ExperienciaController extends Controller
         //     ]);
         // }
 
-        return redirect(route('experiencias.rinicio'))->with('eliminado', 'Experiencia eliminado exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'experiencias']))->with('eliminado', 'Experiencia eliminado exitosamente');
     }
 }

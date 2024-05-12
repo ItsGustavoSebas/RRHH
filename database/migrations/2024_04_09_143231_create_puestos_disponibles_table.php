@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('puestos_disponibles', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');          
+            $table->string('nombre');
+            $table->string('informacion');
+            $table->integer('disponible');          
             $table->timestamps();
         });
     }

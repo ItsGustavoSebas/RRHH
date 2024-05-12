@@ -48,8 +48,7 @@
                             class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                             <div class="py-1" role="menu" aria-orientation="vertical"
                                 aria-labelledby="options-menu">
-
-                                @foreach (auth()->user()->unreadNotifications as $notification)
+                                @foreach (Auth::user()->unreadNotifications as $notification)
                                     @if ($notification->data['type'] == 'entrevista')
                                         <a href="{{ route('entrevistas.visualizar', $notification->data['entrevista_id']) }}"
                                             class="py-2 px-4 flex items-center hover:bg-gray-50 group"

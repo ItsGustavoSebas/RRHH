@@ -40,10 +40,12 @@
         }
 
         .footer {
-            font-size: 12px;
-            color: #777777;
-            margin-top: 20px;
-        }
+    font-size: 12px;
+    color: #777777;
+    text-align: center;
+    margin-top: 20px; /* Añadido margen superior */
+    margin-bottom: 20px; /* Añadido margen inferior */
+}
 
         .header {
             font-weight: bold;
@@ -72,23 +74,15 @@
         <p>{{ $entrevista->detalles }}</p>
         <p>Estamos emocionados de conocerte y discutir cómo puedes contribuir al equipo en [Nombre de la Empresa].
             ¡Esperamos con ansias nuestra reunión!</p>
-        <a href="#" class="button">Confirmar</a>
+        <a href="http://127.0.0.1:8000/" class="button">Confirmar</a>
         <p class="footer">¡Saludos cordiales,</p>
         @php
-            $id = Illuminate\Support\Facades\Auth::id();
-            $user = App\Models\User::find($id);
+            $user = App\Models\User::find($entrevista->ID_Usuario);
         @endphp
         <p class="footer">{{ $user->name }}</p>
         <p class="footer">{{ $user->empleado->cargo->nombre }}</p>
         <p class="footer">[Nombre de la Empresa]</p>
     </div>
-
-    <script>
-        // Script para redirigir al inicio de la página cuando se hace clic en el botón "Más información"
-        document.querySelector('.button').addEventListener('click', function() {
-            window.location.href = 'http://127.0.0.1:8000/';
-        });
-    </script>
 
 </body>
 

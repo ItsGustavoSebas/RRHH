@@ -4,10 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Lista de Puestos Disponibles') }}
             </h2>
-            @can('Crear Puestos Disponibles')
-                <a class = "px-3 py-2 bg-indigo-600 font-bold text-white rounded-lg"
-                    href="{{ route('puesto_disponibles.crear') }}">CREAR PUESTO DISPONIBLE</a>
-            @endcan
         </div>
     </x-slot>
 
@@ -40,35 +36,22 @@
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                             class="inline-block w-1/3 md:hidden font-bold">ID</span>{{ $Puesto_Disponible->id }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
+                            class="inline-block w-1/3 md:hidden font-bold">Nombre</span>{{ $Puesto_Disponible->nombre }}
+                    </td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                             class="inline-block w-1/3 md:hidden font-bold">Información</span>{{ $Puesto_Disponible->informacion }}
                     </td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                             class="inline-block w-1/3 md:hidden font-bold">Puestos Disponibles</span>{{ $Puesto_Disponible->disponible }}
                     </td>
-                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                            class="inline-block w-1/3 md:hidden font-bold">Nombre</span>{{ $Puesto_Disponible->nombre }}
-                    </td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         <div class="flex flex-wrap">
                             <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
-                            @can('Editar Puestos Disponibles')
-                                <a href="{{ route('puesto_disponibles.editar', $Puesto_Disponible->id) }}"
-                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="Editar">
-                                    <i class="fa-regular fa-pen-to-square"></i>
+                            @can('Postularse')
+                                <a href="{{ route('puesto_disponibles.postularse', $Puesto_Disponible->id) }}"
+                                    class = "bg-green-400 px-2 py-2 rounded-lg" title="postularse">
+                                    <i class="fa-solid fa-check"></i>
                                 </a>
-                            @endcan
-                            @can('Eliminar Puestos Disponibles')
-                                <div>
-                                    <form id="formEliminar_{{ $Puesto_Disponible->id }}"
-                                        action="{{ route('puesto_disponibles.eliminar', $Puesto_Disponible->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        <button type="button" class="bg-red-500 px-2 py-2 rounded-lg" title="Eliminar"
-                                            onclick="confirmarEliminacion('{{ $Puesto_Disponible->id }}')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
                             @endcan
                         </div>
                     </td>

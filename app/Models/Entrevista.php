@@ -17,6 +17,7 @@ class Entrevista extends Model
         'hora',
         'fecha_fin',
         'detalles',
+        'puntos',
         'ID_Postulante', 
         'ID_Usuario', 
 

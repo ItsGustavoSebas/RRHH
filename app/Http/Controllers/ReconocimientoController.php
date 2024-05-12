@@ -122,7 +122,7 @@ class ReconocimientoController extends Controller
         //     ]);
         // }
 
-        return redirect(route('reconocimientos.rinicio'))->with('creado', 'Curso creada exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'reconocimientos']))->with('creado', 'Curso creada exitosamente');
     }    
 
     public function editar()
@@ -165,7 +165,7 @@ class ReconocimientoController extends Controller
         //     ]);
         // }
         
-        return redirect(route('reconocimientos.rinicio'))->with('actualizado', 'Reconocimiento actualizada exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'reconocimientos']))->with('actualizado', 'Reconocimiento actualizada exitosamente');
     }
 
     public function eliminar($id)
@@ -192,6 +192,6 @@ class ReconocimientoController extends Controller
         //     ]);
         // }
 
-        return redirect(route('reconocimientos.rinicio'))->with('eliminado', 'Reconocimiento eliminado exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'reconocimientos']))->with('eliminado', 'Reconocimiento eliminado exitosamente');
     }
 }

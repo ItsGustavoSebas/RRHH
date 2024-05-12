@@ -36,7 +36,10 @@
                                 Detalles</th>   
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Iniciado por</th>      
+                                Iniciado por</th>   
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Puntaje</th>             
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                                 Acciones</th>             
@@ -46,6 +49,8 @@
                         </tr>
 
                     </thead>
+
+                    
                     <tbody class="block md:table-row-group">
 
                     @if (!is_null($entrevistas))
@@ -64,11 +69,22 @@
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                                     class="inline-block w-1/3 md:hidden font-bold">Detalles</span>{{ $entrevista->detalles }}</td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                    class="inline-block w-1/3 md:hidden font-bold">Iniciado por</span>{{ $entrevista->usuario->name }}</td>        
+                                    class="inline-block w-1/3 md:hidden font-bold">Iniciado por</span>{{ $entrevista->usuario->name }}</td>      
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        <span class="inline-block w-1/3 md:hidden font-bold">Puntaje</span>
+                                        {{ $entrevista->puntos ?? 'Sin puntaje' }}
+                            </td>
+                                                   
                                                                                                           
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div class="flex flex-wrap">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
+
+                
+
+                                    <button id="openModalBtn" class="bg-green-400 px-2 py-2 rounded-lg" title="Puntos">
+                                        <i class="fas fa-star"></i>
+                                    </button>
                                     
                                  
                                     <a href="{{ route('entrevistas.editar', $entrevista->id) }}"
@@ -92,6 +108,90 @@
                                 
                                 </div>
                             </td>
+
+                        
+                            
+
+                            <style>
+                                #evaluarBtn {
+                                    background-color: #4CAF50;
+                                    color: white;
+                                    padding: 14px 20px;
+                                    margin: 8px 0;
+                                    border: none;
+                                    cursor: pointer;
+                                    width: 100%;
+                                    border-radius: 5px;
+                                    font-size: 16px;
+                                }
+                            
+                                #evaluarBtn:hover {
+                                    background-color: #45a049;
+                                }
+                            
+                                .input-description {
+                                    font-weight: bold;
+                                }
+                            
+                                .close {
+                                    color: red;
+                                    font-weight: bold;
+                                    font-size: 35px; /* Ajusta el tamaño del icono de cierre */
+                                    cursor: pointer;
+                                }
+                            
+                                .close:hover {
+                                    color: darkred; /* Cambia el color al pasar el mouse sobre el icono de cierre */
+                                }
+                            </style>
+                            
+     
+                            
+                            <!-- Modal -->
+                            <div id="myModal" class="modal text-center" style="display: none;">
+                                <div class="modal-content">
+                                    <span class="close close-modal">&times;</span>
+                                    <p class="input-description"><strong>Introducir puntaje:</strong> (Entre 1 y 100)</p>
+                                    <form action="{{ route('entrevistas.puntuar', $entrevista->id) }}" method="POST">
+                                        @csrf
+                                        <input type="number" name="puntos" placeholder="Puntaje (1-100)" min="1" max="100" required>
+                                        <button id="evaluarBtn" type="submit">Puntuar</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- JavaScript para abrir y cerrar el modal -->
+                            <script>
+                                // Obtener el modal
+                                var modal = document.getElementById("myModal");
+                            
+                                // Obtener el botón que abre el modal
+                                var btn = document.getElementById("openModalBtn");
+                            
+                                // Obtener el botón de cerrar del modal
+                                var span = document.getElementsByClassName("close")[0];
+                            
+                                // Cuando se presiona el botón, abrir el modal
+                                btn.onclick = function () {
+                                    modal.style.display = "block";
+                                }
+                            
+                                // Cuando se presiona en la 'x' del modal, cerrarlo
+                                span.onclick = function () {
+                                    modal.style.display = "none";
+                                }
+                            
+                                // Cuando se presiona fuera del modal, cerrarlo
+                                window.onclick = function (event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                            </script>
+                            
+                            
+
+                                                      
                         </tr>
                         @endforeach
                     @else
