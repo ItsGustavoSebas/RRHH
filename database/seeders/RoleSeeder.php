@@ -79,5 +79,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Inicio Detalles Bitacoras'])->syncRoles([$rol1]); 
 
         Permission::create(['name' => 'Inicio Reportes'])->syncRoles([$rol1, $rol2]); 
+
+
+        //Horarios
+        Permission::create(['name' => 'Inicio Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Crear Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Horarios'])->syncRoles([$rol1, $rol2]);
     }
 }

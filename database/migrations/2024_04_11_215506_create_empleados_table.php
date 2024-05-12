@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreign('ID_Usuario')->references('id')->on('users')->onDelete('cascade');
             $table->integer('ID_Departamento')->foreign('ID_Departamento')->references('id')->on('departamentos')->onDelete('set null')->nullable();
             $table->integer('ID_Cargo')->foreign('ID_Cargo')->references('id')->on('cargos')->onDelete('set null')->nullable();
+            $table->integer('ID_Horario')->foreign('ID_Horario')->references('id')->on('horarios')->onDelete('set null')->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DetalleBitacoraController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EntrevistaController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\InformacionPersonalController;
 use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
@@ -120,6 +121,120 @@ Route::middleware([
 
 
     //EDUCACIONES CONTROLLER
+    Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');
+    Route::get('/educaciones/crear', [EducacionController::class, 'crear'])->name('educaciones.crear');
+    Route::get('/educaciones/crearSIG', [EducacionController::class, 'crearSIG'])->name('educaciones.crearSIG');
+    Route::get('/educaciones/editar/{id}', [EducacionController::class, 'editar'])->name('educaciones.editar');
+    Route::post('/educaciones/actualizar/{id}', [EducacionController::class, 'actualizar'])->name('educaciones.actualizar');
+    Route::post('/educaciones/eliminar/{id}', [EducacionController::class, 'eliminar'])->name('educaciones.eliminar');
+    Route::post('/educaciones/guardar', [EducacionController::class, 'guardar'])->name('educaciones.guardar');
+    Route::post('/educaciones/guardarSIG', [EducacionController::class, 'guardarSIG'])->name('educaciones.guardarSIG');
+
+    //POSTULANTES CONTROLLER
+    Route::get('/postulantes/rinicio', [PostulanteController::class, 'rinicio'])->name('postulantes.rinicio');
+    Route::get('/postulantes/editar/{id}', [PostulanteController::class, 'editar'])->name('postulantes.editar');
+    Route::get('/postulantes/editarGES/{id}', [PostulanteController::class, 'editarGES'])->name('postulantes.editarGES');
+    Route::post('/postulantes/actualizar/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizar');
+    Route::post('/postulantes/actualizarGES/{id}', [PostulanteController::class, 'actualizarGES'])->name('postulantes.actualizarGES');
+    Route::get('/postulantes/postularse', [PostulanteController::class, 'postularse'])->name('postulantes.postularse');
+    Route::get('/postulantes/inicio', [PostulanteController::class, 'inicio'])->name('postulantes.inicio');
+    Route::post('/postulantes/rechazar/{id}', [PostulanteController::class, 'rechazar'])->name('postulantes.rechazar');
+    Route::post('/postulantes/proceso/{id}', [PostulanteController::class, 'proceso'])->name('postulantes.proceso');
+
+    //Postulante evaluación CONTROLLER
+    Route::post('/postulantes/evaluar', [PostulanteController::class, 'evaluar'])->name('postulantes.evaluar');
+    Route::get('/postulantes/evaluarInicio/{id}', [PostulanteController::class, 'evaluarInicio'])->name('postulantes.evaluarInicio');
+    Route::get('/postulantes/evaluacionIdioma/{id}', [PostulanteController::class, 'evaluacionIdioma'])->name('postulantes.evaluacionIdioma');
+    Route::get('/postulantes/evaluacionEducacion/{id}', [PostulanteController::class, 'evaluacionEducacion'])->name('postulantes.evaluacionEducacion');
+    Route::get('/postulantes/evaluacionReconocimiento/{id}', [PostulanteController::class, 'evaluacionReconocimiento'])->name('postulantes.evaluacionReconocimiento');
+    Route::get('/postulantes/evaluacionReferencia/{id}', [PostulanteController::class, 'evaluacionReferencia'])->name('postulantes.evaluacionReferencia');
+    Route::get('/postulantes/evaluacionExperiencia/{id}', [PostulanteController::class, 'evaluacionExperiencia'])->name('postulantes.evaluacionExperiencia');
+    Route::post('/postulantes/actualizarEvaluacionIdioma/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionIdioma');
+    Route::post('/postulantes/editarEvaluacionEducacion/{id}', [PostulanteController::class, 'editarEvaluacionEducacion'])->name('postulantes.editarEvaluacionEducacion');
+    Route::post('/postulantes/actualizarEvaluacionReconocimiento/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionReconocimiento');
+    Route::post('/postulantes/actualizarEvaluacionExperiencia/{id}', [PostulanteController::class, 'actualizar'])->name('postulantes.actualizarEvaluacionExperiencia');
+
+
+
+    //Entrevistas postulante CONTROLLER
+    Route::get('/entrevistas/crear/{id}', [EntrevistaController::class, 'crear'])->name('entrevistas.crear');
+    Route::post('/entrevistas/guardar/{id}', [EntrevistaController::class, 'guardar'])->name('entrevistas.guardar');
+    Route::get('/entrevistas/inicio', [EntrevistaController::class, 'inicio'])->name('entrevistas.inicio');
+    Route::get('/entrevistas/editar/{id}', [EntrevistaController::class, 'editar'])->name('entrevistas.editar');
+    Route::post('/entrevistas/actualizar/{id}', [EntrevistaController::class, 'actualizar'])->name('entrevistas.actualizar');
+    Route::post('/entrevistas/eliminar/{id}', [EntrevistaController::class, 'eliminar'])->name('entrevistas.eliminar');
+    Route::get('/entrevistas/visualizar/{id}', [EntrevistaController::class, 'visualizar'])->name('entrevistas.visualizar');
+
+
+
+
+
+    //RECONOCIMIENTOS CONTROLLER
+    Route::get('/reconocimientos/rinicio', [ReconocimientoController::class, 'rinicio'])->name('reconocimientos.rinicio');
+    Route::get('/reconocimientos/crear', [ReconocimientoController::class, 'crear'])->name('reconocimientos.crear');
+    Route::get('/reconocimientos/crearSIG', [ReconocimientoController::class, 'crearSIG'])->name('reconocimientos.crearSIG');
+    Route::get('/reconocimientos/editar/{id}', [ReconocimientoController::class, 'editar'])->name('reconocimientos.editar');
+    Route::post('/reconocimientos/actualizar/{id}', [ReconocimientoController::class, 'actualizar'])->name('reconocimientos.actualizar');
+    Route::post('/reconocimientos/eliminar/{id}', [ReconocimientoController::class, 'eliminar'])->name('reconocimientos.eliminar');
+    Route::post('/reconocimientos/guardar', [ReconocimientoController::class, 'guardar'])->name('reconocimientos.guardar');
+    Route::post('/reconocimientos/guardarSIG', [ReconocimientoController::class, 'guardarSIG'])->name('reconocimientos.guardarSIG');
+
+
+    //EXPERIENCIAS CONTROLLER
+    Route::get('/experiencias/rinicio', [ExperienciaController::class, 'rinicio'])->name('experiencias.rinicio');
+    Route::get('/experiencias/crear', [ExperienciaController::class, 'crear'])->name('experiencias.crear');
+    Route::get('/experiencias/crearSIG', [ExperienciaController::class, 'crearSIG'])->name('experiencias.crearSIG');
+    Route::get('/experiencias/editar/{id}', [ExperienciaController::class, 'editar'])->name('experiencias.editar');
+    Route::post('/experiencias/actualizar/{id}', [ExperienciaController::class, 'actualizar'])->name('experiencias.actualizar');
+    Route::post('/experiencias/eliminar/{id}', [ExperienciaController::class, 'eliminar'])->name('experiencias.eliminar');
+    Route::post('/experiencias/guardar', [ExperienciaController::class, 'guardar'])->name('experiencias.guardar');
+    Route::post('/experiencias/guardarSIG', [ExperienciaController::class, 'guardarSIG'])->name('experiencias.guardarSIG');
+
+
+    //REFERENCIAS CONTROLLER
+    Route::get('/referencias/rinicio', [ReferenciaController::class, 'rinicio'])->name('referencias.rinicio');
+    Route::get('/referencias/crear', [ReferenciaController::class, 'crear'])->name('referencias.crear');
+    Route::get('/referencias/crearSIG', [ReferenciaController::class, 'crearSIG'])->name('referencias.crearSIG');
+    Route::get('/referencias/editar/{id}', [ReferenciaController::class, 'editar'])->name('referencias.editar');
+    Route::post('/referencias/actualizar/{id}', [ReferenciaController::class, 'actualizar'])->name('referencias.actualizar');
+    Route::post('/referencias/eliminar/{id}', [ReferenciaController::class, 'eliminar'])->name('referencias.eliminar');
+    Route::post('/referencias/guardar', [ReferenciaController::class, 'guardar'])->name('referencias.guardar');
+    Route::post('/referencias/guardarSIG', [ReferenciaController::class, 'guardarSIG'])->name('referencias.guardarSIG');
+
+    //Bitacora
+    Route::get('/bitacoras/inicio/{id}', [BitacoraController::class, 'inicio'])->name('bitacoras.inicio');
+    Route::get('/bitacoras/rinicio', [BitacoraController::class, 'rinicio'])->name('bitacoras.rinicio');
+    Route::get('/bitacoras/PDF', [BitacoraController::class, 'generarBitacoraPDF'])->name('generarBitacoraPDF');
+    Route::get('/bitacoras/PDF/{id}', [BitacoraController::class, 'generarBitacoraPDF_usuario'])->name('generarBitacoraPDF_usuario');
+
+    //DetalleBitacora
+    Route::get('/detbitacoras/inicio/{id}', [DetalleBitacoraController::class, 'inicio'])->name('detbitacoras.inicio');
+    Route::get('/detbitacoras/PDF/{id}', [DetalleBitacoraController::class, 'generarDetalleBitacoraPDF'])->name('generarDetalleBitacoraPDF');
+
+    //Reportes
+    Route::get('/reportes/inicio', [ReporteController::class, 'inicio'])->name('reportes.inicio');
+    Route::post('/reportes/empleados/personalizado', [ReporteController::class, 'reporteempleadopersonalizado'])->name('reportes.empleado');
+    Route::post('/reportes/departamentos/empleados/personalizado', [ReporteController::class, 'reportedepartamentoempleadopersonalizado'])->name('reportes.departamento.empleado');
+    Route::post('/reportes/postulantes/personalizado', [ReporteController::class, 'reportepostulantepersonalizado'])->name('reportes.postulante');
+    Route::get('/reportes/postulantes/excel', [ReporteController::class, 'excelpostulante'])->name('excelpostulante');
+    Route::get('/reportes/postulantes/csv', [ReporteController::class, 'csvpostulante'])->name('csvpostulante');
+    Route::get('/reportes/postulantes/pdf', [ReporteController::class, 'pdfpostulante'])->name('pdfpostulante');
+    Route::get('/reportes/postulantes/html', [ReporteController::class, 'htmlpostulante'])->name('htmlpostulante');
+    Route::get('/reportes/empleados/excel', [ReporteController::class, 'excelempleado'])->name('excelempleado');
+    Route::get('/reportes/empleados/csv', [ReporteController::class, 'csvempleado'])->name('csvempleado');
+    Route::get('/reportes/empleados/pdf', [ReporteController::class, 'pdfempleado'])->name('pdfempleado');
+    Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'])->name('htmlempleado');
+
+    Route::post('/marcar-notificacion-leida/{id}', [EntrevistaController::class, 'marcarLeida'])->name('marcar_notificacion_leida');
+
+    //HORARIOS
+    Route::get('/horarios/inicio', [HorarioController::class, 'inicio'])->name('horarios.inicio');
+    Route::get('/horarios/crear', [HorarioController::class, 'crear'])->name('horarios.crear');
+    Route::post('/horarios/guardar', [HorarioController::class, 'guardar'])->name('horarios.guardar');
+    Route::get('/horarios/editar/{id}', [HorarioController::class, 'editar'])->name('horarios.editar');
+    Route::post('/horarios/actualizar/{id}', [HorarioController::class, 'actualizar'])->name('horarios.actualizar');
+    Route::post('/horarios/eliminar/{id}', [HorarioController::class, 'eliminar'])->name('horarios.eliminar');
+
 
 Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');
 Route::get('/educaciones/crear', [EducacionController::class, 'crear'])->name('educaciones.crear');
