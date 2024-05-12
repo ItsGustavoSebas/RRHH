@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Calificacion;
 use App\Models\Educacion;
+use App\Models\Entrevista;
 use App\Models\Experiencia;
 use App\Models\Fuente_De_Contratacion;
 use App\Models\Idioma;
 use App\Models\Nivel_Idioma;
 use App\Models\Postulante;
+use App\Models\Pre_Contrato;
 use App\Models\Puesto_Disponible;
 use App\Models\Reconocimiento;
 use App\Models\Referencia;
@@ -24,8 +26,10 @@ class PostulanteController extends Controller
     public function inicio(){
         $postulantes = Postulante::all();
         $puestosDisponibles = Puesto_Disponible::all();
+        $pre_contratos = Pre_Contrato::all();
+        $entrevista = Entrevista::all();
     
-        return (view('Contratacion.postulantes.inicio', compact('postulantes', 'puestosDisponibles'))) ;
+        return (view('Contratacion.postulantes.inicio', compact('postulantes', 'puestosDisponibles', 'pre_contratos', 'entrevista'))) ;
     }
 
 
@@ -94,6 +98,7 @@ class PostulanteController extends Controller
     public function evaluar(Request $request){
 
         $postulantes = Postulante::all();
+        $puestos_disponibles = Puesto_Disponible::all();
         
         // Valores predeterminados
         $defaultIdioma = 1;
@@ -179,7 +184,18 @@ class PostulanteController extends Controller
             }
 
             $postulante->puntos = $puntosIdioma+$puntosEducacion+$puntosReconocimiento+$puntosExperiencia+$puntosReferencia;
+            $puesto_disponible = Puesto_Disponible::where('id', $postulante->ID_Puesto_Disponible)->first();
+            
+            if ($puesto_disponible->disponible == 0) {
+                $postulante->estado = false;
+            }
+            
             $postulante->save();
+
+
+      
+
+
         }
     
         return redirect()->route('postulantes.inicio')

@@ -115,9 +115,11 @@
                                 <select name="ID_Puesto_Disponible" id="ID_Puesto_Disponiblea" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500">
                                     <option value="">Selecciona un puesto</option>
                                     @foreach ($puestos as $puesto)
-                                        <option value="{{ $puesto->id }}" {{ $postulante->ID_Puesto_Disponible == $puesto->id ? 'selected' : '' }}>
-                                            {{ $puesto->nombre }}
-                                        </option>
+                                        @if ($puesto->disponible > 0)
+                                          <option value="{{ $puesto->id }}" {{ $postulante->ID_Puesto_Disponible == $puesto->id ? 'selected' : '' }}>
+                                          {{ $puesto->nombre }}
+                                          </option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 

@@ -138,6 +138,37 @@
                 <option value="{{ $puesto->id }}">{{ $puesto->nombre }}</option>
             @endforeach
         </select>
+
+        <select id="filtrarPorEstado">
+            <option value="" selected>Mostrar todos</option>
+            <option value="ocultar_rechazados">Ocultar rechazados</option>
+        </select>
+
+        <script>
+            document.getElementById('filtrarPorEstado').addEventListener('change', function() {
+                var selectedOption = this.value;
+                console.log('Selected option:', selectedOption); // Verifica el valor seleccionado
+        
+                var rows = document.querySelectorAll('.postulantes-table tbody tr');
+        
+                if (selectedOption === 'ocultar_rechazados') {
+                    rows.forEach(function(row) {
+                        var estado = row.querySelector('.estado-column').innerText.trim();
+                        console.log('Estado es:', estado); // Verifica el estado obtenido
+                        if (estado === 'Rechazado') {
+                            row.style.display = 'none';
+                        } else {
+                            row.style.display = 'table-row';
+                        }
+                    });
+                } else {
+                    rows.forEach(function(row) {
+                        row.style.display = 'table-row';
+                    });
+                }
+            });
+        </script>
+        
         
         <script>
             document.getElementById('filtrarPorPuesto').addEventListener('change', function() {
@@ -243,7 +274,14 @@
                                 Estado de postulación</th> 
                             <th
                                 class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                                Acciones</th>                  
+                                Puntaje de entrevista</th>      
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Acciones</th>  
+                            <th
+                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                Acciones Contrato</th>   
+
                                                     
                     
                                                  
@@ -307,7 +345,7 @@
                                     {{ $postulanteU->puntos ?? 0 }}
                             </td>
 
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell estado-column">
                                 <span class="inline-block w-1/3 md:hidden font-bold">Estado</span>
                                 @if ($postulanteU->estado === 1)
                                     Aceptado
@@ -316,6 +354,20 @@
                                 @else
                                     En proceso
                                 @endif
+                            </td>
+
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Puntaje de entrevista</span>
+                                @php
+                                    // Obtener el ID_Postulante del usuario actual
+                                    $idPostulante = $postulanteU->ID_Usuario;
+                            
+                                    // Buscar la entrevista que coincide con el ID_Postulante
+                                    $entrevista = App\Models\Entrevista::where('ID_Postulante', $idPostulante)->first();
+                            
+                                    // Mostrar los puntos si se encuentra la entrevista, de lo contrario mostrar 'Sin puntaje'
+                                    echo $entrevista ? $entrevista->puntos : 'Sin puntaje';
+                                @endphp
                             </td>
 
 
@@ -362,8 +414,41 @@
 
 
 
+
+
+
+
+
                                 </div>
+
                             </td>
+
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                <div class="flex flex-wrap">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Acciones Contrato</span>
+                                    
+                                 
+    
+                                    @if ($pre_contratos->where('ID_Postulante', $postulanteU->ID_Usuario)->first())
+                                        <a href="{{ route('generarContratoPDF', $postulanteU->ID_Usuario) }}" class="bg-white px-2 py-2 rounded-lg" title="Generar PDF de contratación">
+                                          <i class="fas fa-file-pdf"></i>
+                                        </a>
+
+                                        <a href="{{ route('precontratos.editar', $postulanteU->ID_Usuario) }}" class="bg-green-400 px-2 py-2 rounded-lg" title="Editar datos Pre Contrato">
+                                          <i class="fas fa-edit"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('precontratos.crear', $postulanteU->ID_Usuario) }}" class="bg-green-400 px-2 py-2 rounded-lg" title="Crear datos Pre Contrato">
+                                          <i class="fas fa-file-pdf"></i>
+                                        </a>  
+                                    @endif
+    
+    
+                                </div>
+
+                            </td>
+
+                      
                                                                                                                        
                           
                         </tr>
