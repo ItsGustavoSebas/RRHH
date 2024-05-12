@@ -102,4 +102,20 @@ class EntrevistaController extends Controller
             return response()->json(['error' => 'La notificación no se encontró'], 404);
         }
     }
+
+
+    public function puntuar(Request $request, $id){
+
+        $entrevista = Entrevista::where('id', '=', $id)->first();
+        $entrevistas = Entrevista::all();
+
+        $entrevista->puntos = $request->input('puntos');
+        $entrevista->save();
+        
+        dd($entrevista);
+
+        return redirect()->route('entrevistas.inicio')
+        ->with('evaluados', 'Entrevista puntuada de forma exitosa')
+        ->with('entrevistas', $entrevistas);
+    }
 }

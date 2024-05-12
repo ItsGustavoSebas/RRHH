@@ -13,22 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('entrevistas', function (Blueprint $table) {
+        Schema::create('pre_contrato', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_inicio');  
-            $table->string('hora');  
-            $table->date('fecha_fin');  
-            $table->string('detalles');  
-            $table->integer('puntos')->nullable();
+            $table->string('genero')->nullable();
+            $table->string('estadocivil')->nullable();
+            $table->integer('rol')->nullable();
             
-      
-      
             $table->unsignedBigInteger('ID_Postulante')->nullable();
-            $table->unsignedBigInteger('ID_Usuario')->nullable();
             $table->foreign('ID_Postulante')->references('ID_Usuario')->on('postulantes')->onDelete('cascade');
+
+            $table->unsignedBigInteger('ID_Usuario')->nullable();
             $table->foreign('ID_Usuario')->references('id')->on('users');
 
 
+            $table->integer('ID_Departamento')->foreign('ID_Departamento')->references('id')->on('departamentos')->onDelete('set null')->nullable();
+            $table->integer('ID_Cargo')->foreign('ID_Cargo')->references('id')->on('cargos')->onDelete('set null')->nullable();
             $table->timestamps();
         });
     }
@@ -40,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entrevistas');
+        Schema::dropIfExists('pre_contrato');
     }
 };

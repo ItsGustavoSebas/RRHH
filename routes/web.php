@@ -12,6 +12,7 @@ use App\Http\Controllers\EntrevistaController;
 use App\Http\Controllers\InformacionPersonalController;
 use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
+use App\Http\Controllers\Pre_ContratoController;
 use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\ReferenciaController;
 use App\Http\Controllers\ReporteController;
@@ -156,6 +157,19 @@ Route::get('/entrevistas/editar/{id}', [EntrevistaController::class, 'editar'])-
 Route::post('/entrevistas/actualizar/{id}', [EntrevistaController::class, 'actualizar'])->name('entrevistas.actualizar');
 Route::post('/entrevistas/eliminar/{id}', [EntrevistaController::class, 'eliminar'])->name('entrevistas.eliminar');
 Route::get('/entrevistas/visualizar/{id}', [EntrevistaController::class, 'visualizar'])->name('entrevistas.visualizar');
+Route::post('/entrevistas/puntuar/{id}', [EntrevistaController::class, 'puntuar'])->name('entrevistas.puntuar');
+
+//Pre contrato CONTROLLER
+Route::get('/precontratos/crear/{id}', [Pre_ContratoController::class, 'crear'])->name('precontratos.crear');
+Route::post('/precontratos/guardar/{id}', [Pre_ContratoController::class, 'guardar'])->name('precontratos.guardar');
+Route::get('/precontratos/inicio', [Pre_ContratoController::class, 'inicio'])->name('precontratos.inicio');
+Route::get('/precontratos/editar/{id}', [Pre_ContratoController::class, 'editar'])->name('precontratos.editar');
+Route::post('/precontratos/actualizar/{id}', [Pre_ContratoController::class, 'actualizar'])->name('precontratos.actualizar');
+
+
+
+//CONTRATO PDF
+Route::get('/Contrato/PDF/{id}', [Pre_ContratoController::class, 'generarContratoPDF'])->name('generarContratoPDF');
 
 
 
