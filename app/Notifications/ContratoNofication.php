@@ -65,6 +65,7 @@ class ContratoNofication extends Notification
         return [
         'contrato_id' => $this->contrato->id,
         'type' => 'contrato',
+        'postulante_id' => $this->contrato->ID_Postulante,
         ];
     }
 }
