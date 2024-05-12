@@ -41,6 +41,11 @@ class Postulante extends Model
         return $this->belongsTo(Fuente_De_Contratacion::class, 'ID_Fuente_De_Contratacion');
     }
 
+    public function contrato()
+    {
+        return $this->hasOne(Pre_Contrato::class, 'ID_Postulante')->latest();
+    }
+
 
     //relación con puesto disponible al que se postula
     public function puesto_disponible()

@@ -112,7 +112,7 @@ class EntrevistaController extends Controller
         $entrevista->puntos = $request->input('puntos');
         $entrevista->save();
         
-        dd($entrevista);
+
 
         return redirect()->route('entrevistas.inicio')
         ->with('evaluados', 'Entrevista puntuada de forma exitosa')
