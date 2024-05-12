@@ -134,7 +134,7 @@ class EducacionController extends Controller
         //     ]);
         // }
 
-        return redirect(route('educaciones.rinicio'))->with('creado', 'Curso creada exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'educaciones']))->with('creado', 'Curso creada exitosamente');
     }    
 
     public function editar()
@@ -183,7 +183,7 @@ class EducacionController extends Controller
         //     ]);
         // }
         
-        return redirect(route('educaciones.rinicio'))->with('actualizado', 'Educacion actualizada exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'educaciones']))->with('actualizado', 'Educacion actualizada exitosamente');
     }
 
     public function eliminar($id)
@@ -210,6 +210,6 @@ class EducacionController extends Controller
         //     ]);
         // }
 
-        return redirect(route('educaciones.rinicio'))->with('eliminado', 'Educacion eliminado exitosamente');
+        return redirect(route('dashboard', ['opcional' => 'educaciones']))->with('eliminado', 'Educacion eliminado exitosamente');
     }
 }

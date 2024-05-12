@@ -41,14 +41,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/puestos', function () {
+    $puesto_disponibles = Puesto_Disponible::where('disponible', '>', 0)->get();
+    return view('puestos-disponible', compact('puesto_disponibles'));
+})->name('puestos');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/dashboard/{opcional?}', function ($opcional = null) {
+        return view('dashboard', compact('opcional'));
     })->name('dashboard');
 
     //POSTULANTE CONTROLLER
@@ -88,6 +92,8 @@ Route::middleware([
     Route::get('puesto_disponibles/editar/{id}', [Puesto_DisponibleController::class, 'editar'])->name('puesto_disponibles.editar');
     Route::post('puesto_disponibles/actualizar/{id}', [Puesto_DisponibleController::class, 'actualizar'])->name('puesto_disponibles.actualizar');
     Route::post('puesto_disponibles/eliminar/{id}', [Puesto_DisponibleController::class, 'eliminar'])->name('puesto_disponibles.eliminar');
+    Route::get('puesto_disponibles/disponibles', [Puesto_DisponibleController::class, 'disponibles'])->name('puesto_disponibles.disponibles');
+    Route::get('puesto_disponibles/postularse/{idpuesto}', [Puesto_DisponibleController::class, 'postularse'])->name('puesto_disponibles.postularse');
 
     //CARGOS
     Route::get('/cargos/inicio', [CargoController::class, 'inicio'])->name('cargos.inicio');
@@ -114,6 +120,7 @@ Route::middleware([
 
 
     //EDUCACIONES CONTROLLER
+
 Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');
 Route::get('/educaciones/crear', [EducacionController::class, 'crear'])->name('educaciones.crear');
 Route::get('/educaciones/crearSIG', [EducacionController::class, 'crearSIG'])->name('educaciones.crearSIG');
@@ -232,7 +239,5 @@ Route::get('/reportes/empleados/pdf', [ReporteController::class, 'pdfempleado'])
 Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'])->name('htmlempleado');
 
 Route::post('/marcar-notificacion-leida/{id}', [EntrevistaController::class, 'marcarLeida'])->name('marcar_notificacion_leida');
+
 });
-
-
-

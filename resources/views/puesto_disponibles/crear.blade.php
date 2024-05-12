@@ -20,6 +20,22 @@
                         <strong class = "text-red-500">Debes ingresar el nombre</strong>
                     @enderror
                 </div>
+                <div class="col-span-1">
+                    <label class="font-bold text-lg" for=""> Información</label>
+                    <input id="informacion" name = "informacion" type="text" class="px3 py2 w-full rounded-x1 bg-blue-100" 
+                    placeholder="Ingresa el informacion" value="{{ old('informacion') }}">
+                    @error('informacion')
+                        <strong class = "text-red-500">Debes ingresar la Información</strong>
+                    @enderror
+                </div>
+                <div class="col-span-1">
+                    <label class="font-bold text-lg" for=""> Puestos dispobles</label>
+                    <input id="disponible" name = "disponible" type="text" class="px3 py2 w-full rounded-x1 bg-blue-100" 
+                    placeholder="Ingresa el disponible" value="{{ old('disponible') }}">
+                    @error('disponible')
+                        <strong class = "text-red-500">Debes ingresar la cantidad de Puestos disponibles</strong>
+                    @enderror
+                </div>
                 <div class = "p-5">
                     <button type ="submit" id="registrar" class="bg-blue-600 text-white fond-bold px-6 py-3 rounded-lg">
                         <i class= "fa-solid fa-floppy-disk">GUARDAR</i>
