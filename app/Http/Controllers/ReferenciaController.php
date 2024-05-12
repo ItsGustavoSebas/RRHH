@@ -82,11 +82,12 @@ class ReferenciaController extends Controller
                     break;
                 case 'guardar_y_siguiente':
                     // Redirigir al dashboard
-                    return redirect(route('completado'));
+                   // return redirect(route('completado'));
+                    return view('Contratacion.completado');
                     break;
                 default:
                     // Si no se reconoce la acción, redirigir a alguna vista por defecto
-                    return redirect(route('completado'));
+                    return view('Contratacion.completado');
             }
         }
     
