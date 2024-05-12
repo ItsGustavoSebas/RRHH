@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cargo;
 use App\Models\Departamento;
 use App\Models\Empleado;
+use App\Models\Horario;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,7 @@ class EmpleadoController extends Controller
         $empleados= Empleado::with('usuario')->get();
         $departamentos = Departamento::all();
         $cargos = Cargo::all();
-        return (view('usuarios.empleados.inicio', compact('empleados', 'departamentos', 'cargos')));
+        return view('usuarios.empleados.inicio', compact('empleados', 'departamentos', 'cargos'));
     }
 
     public function crear()
@@ -27,7 +28,8 @@ class EmpleadoController extends Controller
         $roles = Role::all();
         $departamentos = Departamento::all();
         $cargos = Cargo::all();
-        return view('usuarios.empleados.crear', compact('roles', 'departamentos', 'cargos'));
+        $horarios = Horario::all();
+        return view('usuarios.empleados.crear', compact('roles', 'departamentos', 'cargos', 'horarios'));
     }
 
     public function editar($id)
@@ -37,7 +39,8 @@ class EmpleadoController extends Controller
         $empleados = Empleado::where('ID_Usuario', '=', $id)->with('usuario')->first();
         $departamentos = Departamento::all();
         $cargos = Cargo::all();
-        return view('usuarios.empleados.editar', compact('roles', 'usuarios', 'empleados', 'departamentos', 'cargos'));
+        $horarios = Horario::all();
+        return view('usuarios.empleados.editar', compact('roles', 'usuarios', 'empleados', 'departamentos', 'cargos', 'horarios'));
     }
 
     public function eliminar($id)
@@ -99,10 +102,17 @@ class EmpleadoController extends Controller
             $url = null;
         }
 
+        if($request->ID_Horario){
+            $horario = $request->ID_Horario;
+        }else{
+            $horario = null;
+        }
+
         $empleados = new Empleado([
             'ID_Departamento' => $request->ID_Departamento,
             'ID_Cargo' => $request->ID_Cargo,
             'ruta_imagen_e' => $url,
+            'ID_Horario' => $horario,
         ]);
 
         $usuarios->empleado()->save($empleados);
@@ -171,6 +181,7 @@ class EmpleadoController extends Controller
         $empleados->update([
             'ID_Departamento' => $request->ID_Departamento,
             'ID_Cargo' => $request->ID_Cargo,
+            'ID_Horario' => $request->ID_Horario,
         ]);
 
         $empleados->save();
