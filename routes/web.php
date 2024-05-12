@@ -46,7 +46,7 @@ Route::get('/puestos', function () {
     $puesto_disponibles = Puesto_Disponible::where('disponible', '>', 0)->get();
     return view('puestos-disponible', compact('puesto_disponibles'));
 })->name('puestos');
-
+Route::get('/Contrato/PDF/{id}', [Pre_ContratoController::class, 'generarContratoPDF'])->name('generarContratoPDF');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -294,7 +294,7 @@ Route::post('/precontratos/actualizar/{id}', [Pre_ContratoController::class, 'ac
 
 
 //CONTRATO PDF
-Route::get('/Contrato/PDF/{id}', [Pre_ContratoController::class, 'generarContratoPDF'])->name('generarContratoPDF');
+
 
 
 
