@@ -62,6 +62,21 @@
                                                     {{ $notification->data['hora'] }}</div>
                                             </div>
                                         </a>
+                                    @else
+                                        @if ($notification->data['type'] == 'contrato')
+                                            <a href="{{ route('generarContratoPDF', $notification->data['contrato_id']) }}"
+                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
+                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
+                                                <div class="ml-2">
+                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                        Felicidades!</div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        Has sido seleccionado para el puesto al que postulaste</div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        Revisa los detalles del precontrato</div>
+                                                </div>
+                                            </a>
+                                        @endif
                                     @endif
                                 @endforeach
                             </div>
@@ -145,12 +160,12 @@
                     </a>
                 </li>
                 @can('Inicio Reportes')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('reportes.inicio') }}">
-                        <i class="fa-solid fa-chart-line text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Reportes</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('reportes.inicio') }}">
+                            <i class="fa-solid fa-chart-line text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Reportes</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Departamentos')
                     <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
@@ -169,52 +184,52 @@
                     </li>
                 @endcan
                 @can('Inicio Empleados')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('empleados.inicio') }}">
-                        <i class="fa-solid fa-user-check text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Empleados</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('empleados.inicio') }}">
+                            <i class="fa-solid fa-user-check text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Empleados</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Puestos Disponibles')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('puesto_disponibles.inicio') }}">
-                        <i class="fa-solid fa-briefcase text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Puestos Disponibles</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('puesto_disponibles.inicio') }}">
+                            <i class="fa-solid fa-briefcase text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Puestos Disponibles</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Roles')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('roles.inicio') }}">
-                        <i class="fa-solid fa-user-shield text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Roles</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('roles.inicio') }}">
+                            <i class="fa-solid fa-user-shield text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Roles</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Postulantes')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('postulantes.inicio') }}">
-                        <i class="fa-solid fa-user-clock text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Postulantes</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('postulantes.inicio') }}">
+                            <i class="fa-solid fa-user-clock text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Postulantes</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Bitacoras')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('bitacoras.rinicio') }}">
-                        <i class="fa-solid fa-clock-rotate-left text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Bitacoras</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('bitacoras.rinicio') }}">
+                            <i class="fa-solid fa-clock-rotate-left text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Bitacoras</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Horarios')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('horarios.inicio') }}">
-                        <i class="fa-regular fa-clock text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Horarios</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('horarios.inicio') }}">
+                            <i class="fa-regular fa-clock text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Horarios</span>
+                        </a>
+                    </li>
                 @endcan
             </ul>
             <ul class="flex flex-col gap-1 mt-2">
