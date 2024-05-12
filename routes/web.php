@@ -74,7 +74,7 @@ Route::middleware([
 
 
     Route::get('/completado', function () {
-        return view('contratacion.completado');
+        return view('Contratacion.completado');
     })->name('completado');
 
     //DEPARTAMENTOS
