@@ -65,7 +65,7 @@
         <p>Estamos impresionados por tu experiencia y habilidades, y creemos que serás un valioso miembro de nuestro
             equipo.</p>
         <p>Antes de proceder con el contrato formal, te invitamos a revisar los detalles del precontrato:</p>
-        <a href="http://137.184.179.201/Contrato/PDF/{{$contrato->id}}" class="button">Ver Detalles del Precontrato</a>
+        <a href="http://137.184.179.201/Contrato/PDF/{{$contrato->ID_Postulante}}" class="button">Ver Detalles del Precontrato</a>
         <p>Una vez que hayas revisado los detalles y estés listo/a para continuar, por favor ve a nuestras oficinas a firmar las bases del contrato:</p>
         <a href="http://137.184.179.201/" class="button">Mas detalles de la empresa</a>
         <p class="footer">¡Saludos cordiales,</p>
