@@ -33,30 +33,6 @@
                                 postularse
                                 a otros puestos que puedan ser de su interés.</p>
                         @else
-                            @if (!Auth::user()->postulante->entrevista && !Auth::user()->postulante->contrato)
-                                <p class="ml-10 text-green-500 fond-bold">Pendiente de revisión</p>
-                                <p class="ml-10 text-gray-500">Su solicitud ha sido enviada y está siendo revisada por
-                                    el
-                                    equipo
-                                    de
-                                    reclutamiento. Por favor, espere mientras procesamos su solicitud.</p>
-                            @endif
-
-                            @if (Auth::user()->postulante->entrevista)
-                                @if (!Auth::user()->postulante->entrevista->puntos)
-                                    <p class="ml-10 text-green-500 fond-bold">Programado para entrevista</p>
-                                    <p class="ml-10 text-gray-500">Ha sido programado para una entrevista. Por favor,
-                                        asegúrese
-                                        de
-                                        prepararse adecuadamente y estar disponible en el momento programado.</p>
-                                @else
-                                    <p class="ml-10 text-green-500 fond-bold">Entrevista realizada</p>
-                                    <p class="ml-10 text-gray-500">Ha completado con éxito la entrevista. Ahora estamos
-                                        evaluando su
-                                        desempeño y pronto nos pondremos en contacto con usted con más información.</p>
-                                @endif
-                            @endif
-
                             @if (Auth::user()->postulante->contrato)
                                 <p class="ml-10 text-green-500">Oferta extendida</p>
                                 <p class="ml-10 text-gray-500">Le hemos extendido una oferta de empleo. Por favor,
@@ -66,6 +42,36 @@
                                     discutir
                                     los
                                     detalles.</p>
+                            @else
+                                @if (!Auth::user()->postulante->entrevista && !Auth::user()->postulante->contrato)
+                                    <p class="ml-10 text-green-500 fond-bold">Pendiente de revisión</p>
+                                    <p class="ml-10 text-gray-500">Su solicitud ha sido enviada y está siendo revisada
+                                        por
+                                        el
+                                        equipo
+                                        de
+                                        reclutamiento. Por favor, espere mientras procesamos su solicitud.</p>
+                                @endif
+
+                                @if (Auth::user()->postulante->entrevista)
+                                    @if (!Auth::user()->postulante->entrevista->puntos)
+                                        <p class="ml-10 text-green-500 fond-bold">Programado para entrevista</p>
+                                        <p class="ml-10 text-gray-500">Ha sido programado para una entrevista. Por
+                                            favor,
+                                            asegúrese
+                                            de
+                                            prepararse adecuadamente y estar disponible en el momento programado.</p>
+                                    @else
+                                        <p class="ml-10 text-green-500 fond-bold">Entrevista realizada</p>
+                                        <p class="ml-10 text-gray-500">Ha completado con éxito la entrevista. Ahora
+                                            estamos
+                                            evaluando su
+                                            desempeño y pronto nos pondremos en contacto con usted con más información.
+                                        </p>
+                                    @endif
+                                @endif
+
+
                             @endif
                         @endif
                     @endif
@@ -87,25 +93,27 @@
                                 class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Puestos
                                 disponibles</a>
                         @else
-                            @if (Auth::user()->postulante->entrevista)
-                                @if (!Auth::user()->postulante->entrevista->puntos)
-                                    <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Información
-                                        de
-                                        la Entrevista</a>
-                                @endif
-                            @endif
                             @if (Auth::user()->postulante->contrato)
                                 <a href="{{ route('generarContratoPDF', Auth::user()->id) }}"
                                     class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Información
                                     del
                                     contrato</a>
-                            @endif
+                            @else
+                                @if (Auth::user()->postulante->entrevista)
+                                    @if (!Auth::user()->postulante->entrevista->puntos)
+                                        <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Información
+                                            de
+                                            la Entrevista</a>
+                                    @endif
+                                @endif
 
-                            @if (Auth::user()->postulante->referencias->isEmpty())
-                                <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md"
-                                    href="{{ route('postulantes.postularse') }}">Continuar
-                                    Proceso</a>
+
+                                @if (Auth::user()->postulante->referencias->isEmpty())
+                                    <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md"
+                                        href="{{ route('postulantes.postularse') }}">Continuar
+                                        Proceso</a>
+                                @endif
                             @endif
                         @endif
                         <button class="bg-gray-500 hover:bg-gray-600 text-white px-2 py-1 rounded-md"
@@ -122,22 +130,25 @@
         <x-tabla-informacion :opcional="$opcional" />
     @else
         @if (Auth::user()->hasRole('Administrador') || Auth::user()->hasRole('Encargado'))
-        <head>
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <style>
-                /* Agregar estilos para la vista de dispositivos pequeños */
-                @media (max-width: 768px) {
-                    .flex-wrap {
-                        display: flex;
-                        flex-wrap: wrap;
+
+            <head>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+                    rel="stylesheet">
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <style>
+                    /* Agregar estilos para la vista de dispositivos pequeños */
+                    @media (max-width: 768px) {
+                        .flex-wrap {
+                            display: flex;
+                            flex-wrap: wrap;
+                        }
+
+                        .section-small {
+                            width: 50%;
+                        }
                     }
-                    .section-small {
-                        width: 50%;
-                    }
-                }
-            </style>
-        </head>
+                </style>
+            </head>
             <div class="flex-1 p-4">
 
                 <!-- Contenedor de las 4 secciones (disminuido para dispositivos pequeños) -->
