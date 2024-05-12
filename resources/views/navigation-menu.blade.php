@@ -64,7 +64,7 @@
                                         </a>
                                     @else
                                         @if ($notification->data['type'] == 'contrato')
-                                            <a href="{{ route('generarContratoPDF', $notification->data['contrato_id']) }}"
+                                            <a href="{{ route('generarContratoPDF', $notification->data['postulante_id']) }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
                                                 onclick="marcarNotificacionLeida('{{ $notification->id }}')">
                                                 <div class="ml-2">
