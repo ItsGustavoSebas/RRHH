@@ -21,10 +21,10 @@ class Postulante_Idioma extends Model
 
     public function postulante()
     {
-        return $this->belongsTo(postulante::class, 'ID_Usuario', 'ID_Usuario');
+        return $this->belongsTo(Postulante::class, 'ID_Postulante');
     } 
 
     public function idioma() {
-        return $this->belongsTo(idioma::class, 'ID_Idioma', 'id');
+        return $this->belongsTo(Idioma::class, 'ID_Idioma', 'id');
     }
 }

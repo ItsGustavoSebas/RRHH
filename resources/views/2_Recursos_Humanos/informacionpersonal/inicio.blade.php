@@ -30,7 +30,7 @@
             cursor: pointer;
         }
     </style>
-    <div class="flex flex-col items-center justify-center min-h-screen ">
+    <div class="flex flex-col items-center justify-center min-h-screen mt-[55px]">
         <!-- dark theme -->
         <div class="container  m-4">
             <div class="max-w-5xl w-full mx-auto grid gap-4 grid-cols-1">

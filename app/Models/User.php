@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     // Relación con postulante
     public function postulante() {
-        return $this->hasOne(postulante::class, 'ID_Usuario');
+        return $this->hasOne(Postulante::class, 'ID_Usuario');
     }    
 
     // Relación con Empleado

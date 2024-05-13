@@ -21,9 +21,11 @@ class Postulante extends Model
         'nacionalidad',
         'habilidades',
         'puntos',
+        'estado',
         'ID_Fuente_De_Contratacion',
         'ID_Puesto_Disponible',
-        'ID_Idioma'
+        'ID_Idioma',
+        'ID_NivelIdioma',
     ];
 
     // Relación con el modelo Usuario
@@ -36,7 +38,12 @@ class Postulante extends Model
     //relación con fuente de contratacion
     public function fuente_de_contratacion()
     {
-        return $this->belongsTo(fuente_de_contratacion::class, 'ID_Fuente_De_Contratacion');
+        return $this->belongsTo(Fuente_De_Contratacion::class, 'ID_Fuente_De_Contratacion');
+    }
+
+    public function contrato()
+    {
+        return $this->hasOne(Pre_Contrato::class, 'ID_Postulante')->latest();
     }
 
 
@@ -51,4 +58,34 @@ class Postulante extends Model
     {
         return $this->belongsTo(Idioma::class, 'ID_Idioma');
     }    
+
+    public function nivel_idioma()
+    {
+        return $this->belongsTo(Nivel_Idioma::class, 'ID_NivelIdioma');
+    }   
+
+    public function referencias()
+    {
+        return $this->hasMany(Referencia::class, 'ID_Postulante');
+    }
+
+    public function educaciones()
+    {
+        return $this->hasMany(Educacion::class, 'ID_Postulante');
+    }
+
+    public function reconocimientos()
+    {
+        return $this->hasMany(Reconocimiento::class, 'ID_Postulante');
+    }
+
+    public function experiencias()
+    {
+        return $this->hasMany(Experiencia::class, 'ID_Postulante');
+    }
+
+    public function entrevista()
+    {
+        return $this->hasOne(Entrevista::class, 'ID_Postulante')->latest();
+    }
 }

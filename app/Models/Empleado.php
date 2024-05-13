@@ -23,6 +23,7 @@ class Empleado extends Model
         'fechanac',
         'genero',
         'estadocivil',
+        'ID_Horario',
     ];
 
     public function usuario()
@@ -43,5 +44,10 @@ class Empleado extends Model
     public function getEdadAttribute()
     {
         return Carbon::parse($this->fechanac)->age;
+    }
+
+    public function horario()
+    {
+        return $this->belongsTo(Horario::class, 'ID_Horario');
     }
 }

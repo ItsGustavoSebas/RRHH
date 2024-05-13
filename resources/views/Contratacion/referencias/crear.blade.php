@@ -61,6 +61,26 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <label class="font-bold text-lg" for="">Descripción de la referencia</label>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <div class="flex">
+                                <div
+                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                                    <i class="fa-solid fa-tag"></i>
+                                </div>
+                                <input id= "descripcion" type="string" name="descripcion"
+                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
+                                    placeholder="Ingrese la descripción" value="{{ old('descripcion') }}">
+                                @error('descripcion')
+                                    <strong class = "text-red-500">Debes ingresar la Descripción</strong>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
              
               
 

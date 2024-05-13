@@ -78,6 +78,17 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Inicio Bitacoras'])->syncRoles([$rol1]);
         Permission::create(['name' => 'Inicio Detalles Bitacoras'])->syncRoles([$rol1]); 
 
+        Permission::create(['name' => 'Inicio Reportes'])->syncRoles([$rol1, $rol2]); 
+
+
+        //Horarios
+        Permission::create(['name' => 'Inicio Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Crear Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Horarios'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Horarios'])->syncRoles([$rol1, $rol2]);
+
         // Permisos para la gestión de permisos del personal
         Permission::create(['name' => 'Solicitar Permiso'])->syncRoles([$rol4]); // Solo los empleados pueden solicitar permisos
         Permission::create(['name' => 'Ver Historial de Permisos'])->syncRoles([$rol1,$rol4]); // Solo los administradores pueden ver el historial de permisos

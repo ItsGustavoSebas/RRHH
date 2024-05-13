@@ -14,6 +14,10 @@ class Idioma extends Model
 
     protected $fillable = [
         'nombre', 
+        'ID_NivelIdioma',
     ];
+
+
+
 
 }

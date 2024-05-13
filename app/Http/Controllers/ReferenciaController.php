@@ -43,11 +43,13 @@ class ReferenciaController extends Controller
             $id = Auth::id();
             $request->validate([
                 'nombre' => 'required',
+                'descripcion' => 'required',
                 'telefono' => 'required',
             
             ]);
             $Referencia = new Referencia();
             $Referencia->nombre = $request->nombre;
+            $Referencia->descripcion = $request->descripcion;
             $Referencia->telefono = $request->telefono;
             $Referencia->ID_Postulante = $id;
             $Referencia->save();
@@ -80,11 +82,12 @@ class ReferenciaController extends Controller
                     break;
                 case 'guardar_y_siguiente':
                     // Redirigir al dashboard
-                    return redirect(route('completado'));
+                   // return redirect(route('completado'));
+                    return view('Contratacion.completado');
                     break;
                 default:
                     // Si no se reconoce la acción, redirigir a alguna vista por defecto
-                    return redirect(route('completado'));
+                    return view('Contratacion.completado');
             }
         }
     
@@ -93,10 +96,12 @@ class ReferenciaController extends Controller
             $id = Auth::id();
             $request->validate([
                 'nombre' => 'required',
+                'descripcion' => 'required',
                 'telefono' => 'required',
             ]);
             $Referencia = new Referencia();
             $Referencia->nombre = $request->nombre;
+            $Referencia->descripcion = $request->descripcion;
             $Referencia->telefono = $request->telefono;
             $Referencia->ID_Postulante = $id;
             $Referencia->save();
@@ -122,7 +127,7 @@ class ReferenciaController extends Controller
             //     ]);
             // }
     
-            return redirect(route('referencias.rinicio'))->with('creado', 'Curso creada exitosamente');
+            return redirect(route('dashboard', ['opcional' => 'referencias']))->with('creado', 'Curso creada exitosamente');
         }    
     
         public function editar()
@@ -138,9 +143,11 @@ class ReferenciaController extends Controller
             $Referencia = Referencia::where('ID_Postulante', '=', $id)->first();
             $request->validate([
                 'nombre' => 'required',
+                'descripcion' => 'required',
                 'telefono' => 'required',
             ]);
             $Referencia->nombre = $request->nombre;
+            $Referencia->descripcion = $request->descripcion;
             $Referencia->telefono = $request->telefono;
             $Referencia->ID_Postulante = $id;
     
@@ -165,7 +172,7 @@ class ReferenciaController extends Controller
             //     ]);
             // }
             
-            return redirect(route('referencias.rinicio'))->with('actualizado', 'Referencia actualizada exitosamente');
+            return redirect()->route('dashboard', ['opcional' => 'referencias'])->with('actualizado', 'Referencia actualizada exitosamente');
         }
     
         public function eliminar($id)
@@ -192,6 +199,6 @@ class ReferenciaController extends Controller
             //     ]);
             // }
     
-            return redirect(route('referencias.rinicio'))->with('eliminado', 'Referencia eliminado exitosamente');
+            return redirect(route('dashboard', ['opcional' => 'referencias']))->with('eliminado', 'Referencia eliminado exitosamente');
         }
 }
