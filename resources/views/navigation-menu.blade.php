@@ -216,12 +216,12 @@
                     </li>
                 @endcan
                 @can('Inicio Postulantes')
-                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                    <a class="w-full flex items-center py-3" href="{{ route('entrevistas.inicio') }}">
-                        <i class="fas fa-user-friends text-center px-5"></i>
-                        <span class="whitespace-nowrap pl-1">Entrevistas</span>
-                    </a>
-                </li>
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('entrevistas.inicio') }}">
+                            <i class="fas fa-user-friends text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Entrevistas</span>
+                        </a>
+                    </li>
                 @endcan
                 @can('Inicio Bitacoras')
                     <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
@@ -236,6 +236,15 @@
                         <a class="w-full flex items-center py-3" href="{{ route('horarios.inicio') }}">
                             <i class="fa-regular fa-clock text-center px-5"></i>
                             <span class="whitespace-nowrap pl-1">Horarios</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Ver Historial de Permisos')
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('permisos.historial') }}">
+                            <i class="fa-solid fa-user-injured text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Permisos</span>
                         </a>
                     </li>
                 @endcan
