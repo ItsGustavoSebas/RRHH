@@ -33,4 +33,26 @@ class AuthController extends Controller
             return response()->json(['message' => 'Rol no permitido'], 404);
         }
     }
+
+    public function getRol($id, $role){
+        
+        try {
+            $user = User::find($id);
+            $respuesta = $user->hasRole($role);
+            return response()->json($respuesta);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getRol', 'error' => $th->getMessage()], 500);
+        }
+    }
+
+    public function getPermission($id, $permiso){
+        
+        try {
+            $user = User::find($id);
+            $respuesta = $user->hasPermission($permiso);
+            return response()->json($respuesta);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getPermission', 'error' => $th->getMessage()], 500);
+        }
+    }
 }
