@@ -8,26 +8,28 @@ use Illuminate\Http\Request;
 
 class PostulanteController extends Controller
 {
-    public function getPostulante($id){
-        
+    public function getPostulante($id)
+    {
+
         try {
             $postulante = Postulante::find($id);
-            if($postulante->referencias->isEmpty()){
+            if ($postulante->referencias->isEmpty()) {
                 $postulante->estado = 'incompleto';
-            }else{
-                if($postulante->estado === 0){
+            } else {
+                if ($postulante->estado === 0) {
                     $postulante->estado = 'rechazado';
-                }else{
-                    if($postulante->contrato){
+                } else {
+                    if ($postulante->contrato) {
                         $postulante->estado = 'oferta';
-                    }
-                    if(!$postulante->entrevista && !$postulante->contrato){
-                        $postulante->estado = 'pendiente';
-                    }
-                    if($postulante->entrevista){
-                        $postulante->estado = 'entrevista';
-                    }else{
-                        $postulante->estado = 'entrevistado';
+                    } else {
+                        if (!$postulante->entrevista && !$postulante->contrato) {
+                            $postulante->estado = 'pendiente';
+                        }
+                        if ($postulante->entrevista) {
+                            $postulante->estado = 'entrevista';
+                        } else {
+                            $postulante->estado = 'entrevistado';
+                        }
                     }
                 }
             }
