@@ -112,6 +112,16 @@ Route::middleware([
     Route::post('/usuarios/empleados/actualizar/{id}', [EmpleadoController::class, 'actualizar'])->name('empleados.actualizar');
     Route::post('/usuarios/empleados/eliminar/{id}', [EmpleadoController::class, 'eliminar'])->name('empleados.eliminar');
 
+    Route::get('/usuarios/empleados/inicioH/{id}', [EmpleadoController::class, 'inicioH'])->name('empleados.inicioH');
+    Route::get('/usuarios/empleados/asignarHorario/{id}', [EmpleadoController::class, 'asignarHorario'])->name('empleados.asignarHorario');
+    Route::post('/usuarios/empleados/guardarHorario/{id}', [EmpleadoController::class, 'guardarHorario'])->name('empleados.guardarHorario');
+    Route::get('/usuarios/empleados/editarH/{id}', [EmpleadoController::class, 'editarH'])->name('empleados.editarH');
+    Route::post('/usuarios/empleados/actualizarH/{id}', [EmpleadoController::class, 'actualizarH'])->name('empleados.actualizarH');
+    Route::post('/usuarios/empleados/eliminarH/{id}', [EmpleadoController::class, 'eliminarH'])->name('empleados.eliminarH');
+
+    
+
+
     //INFORMACIONPERSONAL
     Route::get('/informacionpersonal/inicio/{id}', [InformacionPersonalController::class, 'inicio'])->name('informacionpersonal.inicio');
     Route::post('/informacionpersonal/actualizarD/{id}', [InformacionPersonalController::class, 'actualizarDepartamento'])->name('informacionpersonal.actualizar.departamento');

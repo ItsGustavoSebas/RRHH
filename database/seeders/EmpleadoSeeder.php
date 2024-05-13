@@ -22,14 +22,15 @@ class EmpleadoSeeder extends Seeder
             'ci' => '98716',
             'telefono' => '7789943',
             'direccion' => 'por ahí',
-            'password' => bcrypt('12345678')
+            'Postulante' => false,
+            'Empleado' => true,
+            'password' => bcrypt('12345678'),
         ])->assignRole('Administrador');
 
         $empleado = new Empleado([
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
-            'ID_Horario' => 1,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
@@ -43,6 +44,8 @@ class EmpleadoSeeder extends Seeder
             'ci' => '84461',
             'telefono' => '7318578',
             'direccion' => 'plan 3000',
+            'Postulante' => false,
+            'Empleado' => true,
             'password' => bcrypt('12345678')
         ])->assignRole('Encargado');
 
@@ -50,7 +53,6 @@ class EmpleadoSeeder extends Seeder
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
-            'ID_Horario' => 1,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
@@ -64,6 +66,8 @@ class EmpleadoSeeder extends Seeder
             'ci' => '998941',
             'telefono' => '7284693',
             'direccion' => 'zona la cuchilla',
+            'Postulante' => false,
+            'Empleado' => true,
             'password' => bcrypt('12345678')
         ])->assignRole('Empleado');
 
@@ -71,7 +75,6 @@ class EmpleadoSeeder extends Seeder
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
-            'ID_Horario' => 1,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
@@ -85,13 +88,14 @@ class EmpleadoSeeder extends Seeder
             'ci' => '918941',
             'telefono' => '7284693',
             'direccion' => 'zona la cuchilla',
+            'Postulante' => false,
+            'Empleado' => true,
             'password' => bcrypt('12345678')
         ])->assignRole('Empleado');
 
         $empleado = new Empleado([
             'ID_Cargo' => '1',
             'ID_Departamento'=> '1',
-            'ID_Horario' => 2,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',

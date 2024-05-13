@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Cargo;
 use App\Models\Departamento;
+use App\Models\Dia_Horario_Empleado;
+use App\Models\DiaTrabajo;
 use App\Models\Empleado;
 use App\Models\Horario;
+use App\Models\Horario_Empleado;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +20,7 @@ class EmpleadoController extends Controller
 
     public function inicio()
     {
-        $empleados= Empleado::with('usuario')->get();
+        $empleados = Empleado::with('usuario')->get();
         $departamentos = Departamento::all();
         $cargos = Cargo::all();
         return view('usuarios.empleados.inicio', compact('empleados', 'departamentos', 'cargos'));
@@ -49,7 +52,7 @@ class EmpleadoController extends Controller
         $nombre = $usuarios->nombre;
         $usuarios->delete();
 
-        
+
         return redirect(route('empleados.inicio'))->with('eliminado', 'Usuario ' . $nombre . 'eliminado exitosamente');
     }
 
@@ -98,26 +101,19 @@ class EmpleadoController extends Controller
             $nombreImagen = time() . '_' . $request->ruta_imagen_e->getClientOriginalName();
             $ruta = $request->ruta_imagen_e->storeAs('public/imagenes/empleados', $nombreImagen);
             $url = Storage::url($ruta);
-        }else{
+        } else {
             $url = null;
-        }
-
-        if($request->ID_Horario){
-            $horario = $request->ID_Horario;
-        }else{
-            $horario = null;
         }
 
         $empleados = new Empleado([
             'ID_Departamento' => $request->ID_Departamento,
             'ID_Cargo' => $request->ID_Cargo,
             'ruta_imagen_e' => $url,
-            'ID_Horario' => $horario,
         ]);
 
         $usuarios->empleado()->save($empleados);
 
-        
+
         return redirect(route('empleados.inicio'))->with('creado', 'Empleado registrado exitosamente');
     }
 
@@ -181,12 +177,99 @@ class EmpleadoController extends Controller
         $empleados->update([
             'ID_Departamento' => $request->ID_Departamento,
             'ID_Cargo' => $request->ID_Cargo,
-            'ID_Horario' => $request->ID_Horario,
         ]);
 
         $empleados->save();
 
 
         return redirect()->route('empleados.inicio')->with('actualizado', 'Usuario actualizado exitosamente');
+    }
+
+    public function inicioH($id)
+    {
+        $usuario = User::where('id', '=', $id)->first();
+        $empleado = Empleado::where('ID_Usuario', '=', $id)->with('usuario')->first();
+        $diasTrabajo = $empleado->diasTrabajo();
+        
+        return view('usuarios.empleados.inicioH', compact('usuario', 'empleado', 'diasTrabajo'));
+    }
+
+    public function asignarHorario($id)
+    {
+        $usuarios = User::where('id', '=', $id)->first();
+        $empleados = Empleado::where('ID_Usuario', '=', $id)->with('usuario')->first();
+        $diasTrabajo = DiaTrabajo::all();
+        $horarios = Horario::all();
+
+        return view('usuarios.empleados.asignarHorario', compact('usuarios', 'empleados', 'diasTrabajo', 'horarios'));
+    }
+
+    public function guardarHorario(Request $request, $id)
+    {
+        $usuarios = User::where('id', '=', $id)->first();
+        $empleados = Empleado::where('ID_Usuario', '=', $id)->with('usuario')->first();
+        
+        // Eliminar horarios anteriores del empleado
+        $empleados->Horarios()->detach();
+        // Recorrer los datos del formulario y guardar los nuevos horarios
+        foreach ($request->horario as $idDiaTrabajo => $idHorario) {
+            if (!empty($idHorario)) {
+                // Guardar la relación empleado y horario en 'horario_empleados'
+                $horarioEmpleado = new Horario_Empleado();
+                $horarioEmpleado->ID_Empleado = $id;
+                $horarioEmpleado->ID_Horario = $idHorario;
+                $horarioEmpleado->save();
+
+                // Obtener el ID generado para la relación empleado y horario
+                $idHorarioEmpleado = $horarioEmpleado->id;
+
+                // Guardar la relación día de trabajo y horario empleado en 'dia_horario_empleados'
+                $diaHorarioEmpleado = new Dia_Horario_Empleado();
+                $diaHorarioEmpleado->ID_DiaTrabajo = $idDiaTrabajo;
+                $diaHorarioEmpleado->ID_Horario_Empleado = $idHorarioEmpleado;
+                $diaHorarioEmpleado->save();
+            }
+        }
+
+        return redirect()->route('empleados.inicioH', $id)->with('creado', 'Horarios asignados correctamente.');
+    }
+
+    public function editarH($idEmpleado)
+    {
+        $usuarios = User::where('id', '=', $idEmpleado)->first();
+        $empleados = Empleado::where('ID_Usuario', '=', $idEmpleado)->with('usuario')->first();
+
+        // Obtener los horarios asignados para este empleado
+        $horariosAsignados = $empleados->Horarios;
+
+        // Convertir a un array
+        $horariosAsignados = $horariosAsignados->toArray();
+        
+
+        // Obtener todos los días de trabajo
+        $diasTrabajo = DiaTrabajo::all();
+
+        // Obtener todos los horarios disponibles
+        $horarios = Horario::all();
+        
+        return view('usuarios.empleados.editarH', compact('empleados', 'horariosAsignados', 'diasTrabajo', 'horarios'));
+    }
+
+    public function eliminarH($idEmpleado)
+    {
+        try {
+            // Encuentra al empleado por su ID
+            $usuarios = User::where('id', '=', $idEmpleado)->first();
+            $empleados = Empleado::where('ID_Usuario', '=', $idEmpleado)->with('usuario')->first();
+
+            // Elimina los horarios asignados al empleado
+            $empleados->Horarios()->detach();
+
+            // Redirecciona con un mensaje de éxito
+            return redirect()->route('empleados.inicioH', $idEmpleado)->with('eliminado', 'Horarios eliminados correctamente.');
+        } catch (\Exception $e) {
+            // Si ocurre algún error, redirecciona con un mensaje de error
+            return redirect()->route('empleados.inicioH', $idEmpleado)->with('error', 'Ocurrió un error al eliminar los horarios.');
+        }
     }
 }

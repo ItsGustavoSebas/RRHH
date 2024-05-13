@@ -18,8 +18,9 @@ class Horario extends Model
         'HoraLimite',
     ];
 
-    public function empleados()
+    public function Empleados()
     {
-        return $this->hasMany(Empleado::class, 'ID_Horario');
+        return $this->belongsToMany(Empleado::class, 'horario__empleados', 'ID_Empleado', 'ID_Horario');
     }
+
 }
