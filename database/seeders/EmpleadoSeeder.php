@@ -57,7 +57,7 @@ class EmpleadoSeeder extends Seeder
         $user->empleado()->save($empleado);
 
         $user = User::create([
-            'name' => 'Empleado',
+            'name' => 'Daniel',
             'email' => 'empleado@gmail.com',
             'ci' => '998941',
             'telefono' => '7284693',
@@ -67,7 +67,7 @@ class EmpleadoSeeder extends Seeder
 
         $empleado = new Empleado([
             'ruta_imagen_e' => null,
-            'ID_Cargo' => 1,
+            'ID_Cargo' => 4,
             'ID_Departamento' => 2,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
@@ -77,7 +77,7 @@ class EmpleadoSeeder extends Seeder
         $user->empleado()->save($empleado);
 
         $user = User::create([
-            'name' => 'Empleado',
+            'name' => 'Fernando',
             'email' => 'empleado3@gmail.com',
             'ci' => '918941',
             'telefono' => '7284693',
@@ -86,8 +86,8 @@ class EmpleadoSeeder extends Seeder
         ])->assignRole('Empleado');
 
         $empleado = new Empleado([
-            'ID_Cargo' => '1',
-            'ID_Departamento'=> '1',
+            'ID_Cargo' => 1,
+            'ID_Departamento'=> 1,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',

@@ -15,7 +15,7 @@ use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\ReferenciaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
-
+use App\Http\Controllers\PermisoController;
 
 use App\Models\Educacion;
 use App\Models\Postulante;
@@ -202,5 +202,11 @@ Route::get('/reportes/empleados/pdf', [ReporteController::class, 'pdfempleado'])
 Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'])->name('htmlempleado');
 });
 
-
-
+// Rutas relacionadas con la gestión de permisos del personal
+Route::get('/permisos/solicitud', [PermisoController::class, 'create'])->name('permisos.solicitud');
+Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud'])->name('permisos.enviar-solicitud');
+ // Rutas relacionadas con el historial de permisos
+ Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
+ Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
+ Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
+ 

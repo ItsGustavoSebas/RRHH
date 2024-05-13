@@ -77,5 +77,10 @@ class RoleSeeder extends Seeder
         //Bitacora
         Permission::create(['name' => 'Inicio Bitacoras'])->syncRoles([$rol1]);
         Permission::create(['name' => 'Inicio Detalles Bitacoras'])->syncRoles([$rol1]); 
+
+        // Permisos para la gestión de permisos del personal
+        Permission::create(['name' => 'Solicitar Permiso'])->syncRoles([$rol4]); // Solo los empleados pueden solicitar permisos
+        Permission::create(['name' => 'Ver Historial de Permisos'])->syncRoles([$rol1,$rol4]); // Solo los administradores pueden ver el historial de permisos
+
     }
 }

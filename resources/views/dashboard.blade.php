@@ -16,6 +16,7 @@
                     <a href="{{ route('referencias.rinicio') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Gestionar referencias</a>
                     <a href="{{ route('postulantes.postularse') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Postularse</a>
                     <a href="{{ route('reportes.inicio') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Reportes</a>
+                    <a href="{{ route('permisos.historial') }}" class="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg">Gestionar permisos de personal</a>
                 </div>
             </div>
         </div>
