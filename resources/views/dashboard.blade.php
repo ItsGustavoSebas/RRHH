@@ -416,9 +416,7 @@
                             <div class="bg-white border border-gray-800 shadow-lg  rounded-2xl p-4">
                                 <div class="flex-none sm:flex">
                                     <div class=" relative h-32 w-32   sm:mb-0 mb-3">
-                                        <!-- Foto --><img
-                                            src="https://tailwindcomponents.com/storage/avatars/njkIbPhyZCftc4g9XbMWwVsa7aGVPajYLRXhEeoo.jpg"
-                                            alt="aji"
+                                        <!-- Foto --><img src="{{ $empleado->ruta_imagen_e }}" alt="aji"
                                             class=" w-32 h-32 object-cover rounded-2xl border-2 border-gray-800">
                                         {{-- Editar Foto <a href="#"
                                         class="absolute -right-2 bottom-2   -ml-3  text-white p-1 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300">
@@ -500,7 +498,12 @@
                                             </svg>
                                             <p class="">14 Components</p> --}}
                                             </div>
-                                            <a href="https://www.behance.net/ajeeshmon" target="_blank"
+                                            @can('Solicitar Permiso')
+                                                <a href="{{ route(permisos.solicitud) }}" target="_blank"
+                                                    class="flex-no-shrink bg-green-400 hover:bg-blue-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Marcar
+                                                    Solicitar Permiso</a>
+                                            @endcan
+                                            <a href="" target="_blank"
                                                 class="flex-no-shrink bg-green-400 hover:bg-green-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Marcar
                                                 Asistencia</a>
                                         </div>
