@@ -82,7 +82,7 @@
 
                 
 
-                                    <button id="openModalBtn" class="bg-green-400 px-2 py-2 rounded-lg" title="Puntos">
+                                    <button class="bg-green-400 px-2 py-2 rounded-lg openModalBtn" data-target="{{ $entrevista->id }}" title="Puntos">
                                         <i class="fas fa-star"></i>
                                     </button>
                                     
@@ -148,7 +148,7 @@
      
                             
                             <!-- Modal -->
-                            <div id="myModal" class="modal text-center" style="display: none;">
+                            <div id="myModal_{{ $entrevista->id }}" class="modal text-center" style="display: none;">
                                 <div class="modal-content">
                                     <span class="close close-modal">&times;</span>
                                     <p class="input-description"><strong>Introducir puntaje:</strong> (Entre 1 y 100)</p>
@@ -162,32 +162,37 @@
                             
                             <!-- JavaScript para abrir y cerrar el modal -->
                             <script>
-                                // Obtener el modal
-                                var modal = document.getElementById("myModal");
+                                // Obtener todos los botones de apertura del modal
+                                var btns = document.querySelectorAll(".openModalBtn");
                             
-                                // Obtener el botón que abre el modal
-                                var btn = document.getElementById("openModalBtn");
+                                // Iterar sobre cada botón y asignar el manejador de eventos
+                                btns.forEach(function(btn) {
+                                    btn.addEventListener("click", function() {
+                                        // Obtener el ID de la entrevista desde el atributo data-target
+                                        var entrevistaId = this.getAttribute("data-target");
+                                        // Obtener el modal correspondiente
+                                        var modal = document.getElementById("myModal_" + entrevistaId);
+                                        // Mostrar el modal
+                                        modal.style.display = "block";
+                                    });
+                                });
                             
-                                // Obtener el botón de cerrar del modal
-                                var span = document.getElementsByClassName("close")[0];
-                            
-                                // Cuando se presiona el botón, abrir el modal
-                                btn.onclick = function () {
-                                    modal.style.display = "block";
-                                }
-                            
-                                // Cuando se presiona en la 'x' del modal, cerrarlo
-                                span.onclick = function () {
-                                    modal.style.display = "none";
-                                }
-                            
-                                // Cuando se presiona fuera del modal, cerrarlo
-                                window.onclick = function (event) {
-                                    if (event.target == modal) {
+                                // Asignar manejadores de eventos para cerrar el modal
+                                var modals = document.querySelectorAll(".modal");
+                                modals.forEach(function(modal) {
+                                    var span = modal.querySelector(".close");
+                                    span.addEventListener("click", function() {
                                         modal.style.display = "none";
-                                    }
-                                }
+                                    });
+                            
+                                    window.addEventListener("click", function(event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+                                        }
+                                    });
+                                });
                             </script>
+                            
                             
                             
 
