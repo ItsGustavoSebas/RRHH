@@ -12,18 +12,6 @@ class PostulanteController extends Controller
         
         try {
             $postulante = Postulante::find($id);
-            $postulante->educaciones;
-            $postulante->usuario;
-            $postulante->fuente_de_contratacion;
-            $postulante->contrato;
-            $postulante->puesto_disponible;
-            $postulante->idioma;
-            $postulante->nivel_idioma;
-            $postulante->referencias;
-            $postulante->educaciones;
-            $postulante->reconocimientos;
-            $postulante->experiencias;
-            $postulante->entrevista;
             if($postulante->referencias->isEmpty()){
                 $postulante->estado = 'incompleto';
             }else{
@@ -43,7 +31,23 @@ class PostulanteController extends Controller
                     }
                 }
             }
-            return response()->json($postulante);
+            $respuesta = [
+                'id' => $postulante->ID_Usuario,
+                'nombre' => $postulante->usuario->name,
+                'email' => $postulante->usuario->email,
+                'puesto' => $postulante->puesto_disponible->nombre,
+                'estado' => $postulante->estado,
+                'ci' => $postulante->usuario->ci,
+                'telefono   ' => $postulante->usuario->telefono,
+                'direccion' => $postulante->usuario->direccion,
+                'fecha_de_nacimiento' => $postulante->fecha_de_nacimiento,
+                'nacionalidad' => $postulante->nacionalidad,
+                'habilidades' => $postulante->habilidades,
+                'fuenteDeContratacion' => $postulante->fuente_de_contratacion->nombre,
+                'idioma' => $postulante->idioma->nombre,
+                'nivel_idioma' => $postulante->nivel_idioma->categoria,
+            ];
+            return response()->json($respuesta);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Error al procesar la solicitud de getPostulante', 'error' => $th->getMessage()], 500);
         }
