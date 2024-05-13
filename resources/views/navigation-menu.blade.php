@@ -215,6 +215,14 @@
                         </a>
                     </li>
                 @endcan
+                @can('Inicio Postulantes')
+                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <a class="w-full flex items-center py-3" href="{{ route('entrevistas.inicio') }}">
+                        <i class="fas fa-user-friends text-center px-5"></i>
+                        <span class="whitespace-nowrap pl-1">Entrevistas</span>
+                    </a>
+                </li>
+                @endcan
                 @can('Inicio Bitacoras')
                     <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
                         <a class="w-full flex items-center py-3" href="{{ route('bitacoras.rinicio') }}">
