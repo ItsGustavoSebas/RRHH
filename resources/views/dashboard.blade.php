@@ -512,16 +512,72 @@
                             </div>
                         </div>
                         <div
-                            class="flex flex-col relative bg-white border border-gray-800 text-black  rounded-2xl pb-6">
-
+                            class="flex flex-col relative bg-white border border-gray-800 text-black rounded-2xl pb-6">
                             <div class="text-xl font-bold py-4 px-4 mb-5">
-                                <h2>Horario</h3>
+                                <h2>Horario</h2>
                             </div>
                             <div class="px-4 ml-4">
-
+                                <table class="min-w-full border-collapse block md:table">
+                                    <thead class="block md:table-header-group">
+                                        <tr
+                                            class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                                            <th
+                                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                                Dia</th>
+                                            <th
+                                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                                Hora de Inicio</th>
+                                            <th
+                                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                                Hora de Finalizacion</th>
+                                            <th
+                                                class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                                Hora de Atraso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="block md:table-row-group">
+                                        @foreach (Auth::user()->empleado->diasTrabajo() as $diaTrabajo)
+                                            @php
+                                                $hasHorario = $diaTrabajo->Horario_Empleados->isNotEmpty();
+                                            @endphp
+                                            <tr
+                                                class="bg-white border border-grey-500 md:border-none block md:table-row">
+                                                <td
+                                                    class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                                    <span class="inline-block w-1/3 md:hidden font-bold">Dia</span>
+                                                    {{ $diaTrabajo->Nombre }}
+                                                </td>
+                                                @if ($hasHorario)
+                                                    <td
+                                                        class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                                        <span class="inline-block w-1/3 md:hidden font-bold">Hora de
+                                                            Inicio</span>
+                                                        {{ $diaTrabajo->Horario_Empleados->first()->Horario->HoraInicio }}
+                                                    </td>
+                                                    <td
+                                                        class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                                        <span class="inline-block w-1/3 md:hidden font-bold">Hora de
+                                                            Finalización</span>
+                                                        {{ $diaTrabajo->Horario_Empleados->first()->Horario->HoraFin }}
+                                                    </td>
+                                                    <td
+                                                        class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                                        <span class="inline-block w-1/3 md:hidden font-bold">Hora de
+                                                            Atraso</span>
+                                                        {{ $diaTrabajo->Horario_Empleados->first()->Horario->HoraLimite }}
+                                                    </td>
+                                                @else
+                                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
+                                                        colspan="3">
+                                                        No se asignó horario para este día
+                                                    </td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

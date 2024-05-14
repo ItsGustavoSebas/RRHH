@@ -23,7 +23,7 @@ class Empleado extends Model
         'fechanac',
         'genero',
         'estadocivil',
-        'ID_Horario',
+
     ];
 
     public function usuario()
@@ -46,8 +46,23 @@ class Empleado extends Model
         return Carbon::parse($this->fechanac)->age;
     }
 
-    public function horario()
+    public function Horarios()
     {
-        return $this->belongsTo(Horario::class, 'ID_Horario');
+        return $this->belongsToMany(Horario::class, 'horario__empleados', 'ID_Empleado', 'ID_Horario');
+    }
+
+    public function diasTrabajo()
+    {
+        // Obtener los IDs de los horarios asignados al empleado
+        $horariosIds = $this->Horarios()->pluck('ID_Horario');
+
+        // Obtener los IDs de los horarios_empleados asociados con esos horarios
+        $horariosEmpleadosIds = Horario_Empleado::whereIn('ID_Horario', $horariosIds)->pluck('id');
+
+        // Obtener los IDs de los días de trabajo asociados con esos horarios_empleados
+        $diasTrabajoIds = Dia_Horario_Empleado::whereIn('ID_Horario_Empleado', $horariosEmpleadosIds)->pluck('ID_DiaTrabajo');
+
+        // Obtener los días de trabajo asociados con esos IDs
+        return DiaTrabajo::whereIn('id', $diasTrabajoIds)->get();
     }
 }

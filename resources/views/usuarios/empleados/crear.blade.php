@@ -55,14 +55,13 @@
                             </div>
                         </div>
                     </div>
-
+                    <label class="font-bold text-lg" for=""> Correo Electrónico</label>
                     <div class="flex -mx-3">
-                        <div class="w-1/2 px-3 mb-5">
-                            <label class="font-bold text-lg" for=""> Correo Electrónico</label>
+                        <div class="w-full px-3 mb-5">
                             <div class="flex">
                                 <div
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="fa-solid fa-envelope text-gray-400 text-lg"></i>
+                                    <i class="fa-solid fa-house text-gray-400 text-lg"></i>
                                 </div>
                                 <input id= "email" type="email" name="email"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500"
@@ -72,28 +71,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="w-1/2 px-3 mb-5">
-                            <label class="font-bold text-lg" for=""> Horario</label>
-                            <div class="flex">
-                                <div
-                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="fa-solid fa-user text-gray-400 text-lg"></i>
-                                </div>
-                                <select name="ID_Horario" id="ID_Horario"
-                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500">
-                                    <option value="">Selecciona el Horario</option>
-                                    @foreach ($horarios as $horario)
-                                        <option value="{{ $horario->id }}">{{ $horario->HoraInicio }} - {{ $horario->HoraFin }}</option>
-                                    @endforeach
-                                </select>
-                                @error('ID_Horario')
-                                    <strong class = "text-red-500">{{ $message }}</strong>
-                                @enderror
-                            </div>
-                        </div>
                     </div>
 
-                    
                     <div class="flex -mx-3">
                         <div class="w-1/2 px-3 mb-5">
                             <label class="font-bold text-lg" for=""> Teléfono</label>
@@ -177,13 +156,13 @@
                             <div>
                                 @foreach ($roles as $rol)
                                     <label for= "{{ $rol->id }}">
-                                        <input type = "checkbox" name = "roles[]"
-                                            value="{{ $rol->name }}" id="{{ $rol->id }}">
+                                        <input type = "checkbox" name = "roles[]" value="{{ $rol->name }}"
+                                            id="{{ $rol->id }}">
                                         {{ $rol->name }}
                                     </label>
                                 @endforeach
                             </div>
-                        
+
                             @error('roles')
                                 <strong class="text-red-500 font-bold">Ingresar al menos un Rol</strong>
                             @enderror
@@ -203,7 +182,9 @@
                                             class="w-full -ml-10 pl-10 pr-3 py-2 rounded-2xl border-2 border-gray-200 outline-none focus:border-indigo-500">
                                             <option value="">Selecciona el Cargo</option>
                                             @foreach ($cargos as $cargo)
-                                            <option value="{{ $cargo->id }}" data-departamento="{{ $cargo->ID_Departamento }}">{{ $cargo->nombre }}</option>
+                                                <option value="{{ $cargo->id }}"
+                                                    data-departamento="{{ $cargo->ID_Departamento }}">
+                                                    {{ $cargo->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -281,14 +262,15 @@
             const departamentoSelect = document.getElementById('ID_Departamento');
             // Obtiene todos los options de cargos
             const cargoOptions = cargoContainer.querySelectorAll('option');
-    
+
             // Agrega un evento change al select de departamento
             departamentoSelect.addEventListener('change', function() {
                 const selectedDepartamento = this.value; // Obtiene el valor seleccionado del departamento
                 // Itera sobre todas las opciones de cargos
                 cargoOptions.forEach(option => {
                     // Si el valor de data-departamento coincide con el departamento seleccionado, muestra la opción, de lo contrario, ocúltala
-                    if (option.getAttribute('data-departamento') === selectedDepartamento || option.value === "") {
+                    if (option.getAttribute('data-departamento') === selectedDepartamento || option
+                        .value === "") {
                         option.style.display = 'block';
                     } else {
                         option.style.display = 'none';

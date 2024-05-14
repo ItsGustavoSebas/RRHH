@@ -141,6 +141,12 @@
                                     <i class="fas fa-history"></i>
                                 </a>
                             @endcan
+                            @can('Asignar Horarios')
+                                <a href="{{ route('empleados.inicioH', $empleado->usuario->id) }}"
+                                    class = "bg-purple-500 px-2 py-2 rounded-lg" title="Horario">
+                                    <i class="fas fa-clock"></i>
+                                </a>
+                            @endcan
                         </div>
                     </td>
                 </tr>
