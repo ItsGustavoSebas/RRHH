@@ -438,12 +438,20 @@
                                           <i class="fas fa-edit"></i>
                                         </a>
 
+                                        @if($empleados->contains('ID_Usuario', $postulanteU->ID_Usuario))
+
+                                        @else
                                         <form action="{{ route('precontratos.contratar', $postulanteU->ID_Usuario) }}" method="POST" style="display: inline;">
                                             @csrf
                                             <button type="submit" class="bg-green-500 px-2 py-2 rounded-lg" title="Contratar postulante">
                                                 <i class="fas fa-handshake"></i> 
-                                            </button>
+                                           </button>
                                         </form>
+
+
+                                        @endif
+
+
                                         
 
 
