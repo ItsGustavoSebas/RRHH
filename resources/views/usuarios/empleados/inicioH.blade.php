@@ -37,25 +37,25 @@
         <tbody class="block md:table-row-group">
             @foreach ($diasTrabajo as $diaTrabajo)
                 @php
-                    $hasHorario = $diaTrabajo->Horario_Empleados->isNotEmpty();
+                    $hasHorario = $diaTrabajo;
                 @endphp
                 <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         <span class="inline-block w-1/3 md:hidden font-bold">Dia</span>
-                        {{ $diaTrabajo->Nombre }}
+                        {{ $diaTrabajo->dia_horario_empleado->DiaTrabajo->Nombre }}
                     </td>
                     @if ($hasHorario)
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold">Hora de Inicio</span>
-                            {{ $diaTrabajo->Horario_Empleados->first()->Horario->HoraInicio }}
+                            {{ $diaTrabajo->Horario->HoraInicio }}
                         </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold">Hora de Finalización</span>
-                            {{ $diaTrabajo->Horario_Empleados->first()->Horario->HoraFin }}
+                            {{ $diaTrabajo->Horario->HoraFin }}
                         </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold">Hora de Atraso</span>
-                            {{ $diaTrabajo->Horario_Empleados->first()->Horario->HoraLimite }}
+                            {{ $diaTrabajo->Horario->HoraLimite }}
                         </td>
                     @else
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell" colspan="3">
