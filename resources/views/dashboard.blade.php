@@ -499,8 +499,8 @@
                                             <p class="">14 Components</p> --}}
                                             </div>
                                             @can('Solicitar Permiso')
-                                                <a href="{{ route(permisos.solicitud) }}" target="_blank"
-                                                    class="flex-no-shrink bg-green-400 hover:bg-blue-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Marcar
+                                                <a href="{{ route('permisos.solicitud') }}" target="_blank"
+                                                    class="flex-no-shrink bg-green-400 hover:bg-blue-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">
                                                     Solicitar Permiso</a>
                                             @endcan
                                             <a href="" target="_blank"
