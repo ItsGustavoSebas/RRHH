@@ -22,4 +22,9 @@ class Horario_Empleado extends Model
     {
      return $this->belongsTo(Empleado::class, 'ID_Empleado');
     }
+
+    public function dia_horario_empleado()
+    {
+        return $this->hasOne(Dia_Horario_Empleado::class, 'ID_Horario_Empleado');
+    }
 }
