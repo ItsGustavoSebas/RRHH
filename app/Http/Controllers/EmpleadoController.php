@@ -200,7 +200,6 @@ class EmpleadoController extends Controller
         $empleados = Empleado::where('ID_Usuario', '=', $id)->with('usuario')->first();
         $diasTrabajo = DiaTrabajo::all();
         $horarios = Horario::all();
-
         return view('usuarios.empleados.asignarHorario', compact('usuarios', 'empleados', 'diasTrabajo', 'horarios'));
     }
 

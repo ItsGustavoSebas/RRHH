@@ -65,4 +65,9 @@ class Empleado extends Model
         // Obtener los días de trabajo asociados con esos IDs
         return DiaTrabajo::whereIn('id', $diasTrabajoIds)->get();
     }
+
+    public function horario_empleado()
+    {
+        return $this->hasMany(Horario_Empleado::class, 'ID_Empleado');
+    }
 }
