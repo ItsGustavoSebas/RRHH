@@ -22,6 +22,9 @@ class Dia_Horario_Empleado extends Model
     {
      return $this->belongsTo(Horario_Empleado::class, 'ID_Horario_Empleado');
     }
-
+    public function Asistencias()
+    {
+        return $this->belongsToMany(Asistencia::class, 'dia__asistencias', 'ID_Dia_Horario_Empleado', 'ID_Asistencia');
+    }
 
 }
