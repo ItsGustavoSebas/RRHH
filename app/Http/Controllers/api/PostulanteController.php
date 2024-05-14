@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cargo;
+use App\Models\Departamento;
+use App\Models\Empleado;
+use App\Models\Entrevista;
 use App\Models\Postulante;
+use App\Models\Pre_Contrato;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PostulanteController extends Controller
@@ -24,11 +30,12 @@ class PostulanteController extends Controller
                     } else {
                         if (!$postulante->entrevista && !$postulante->contrato) {
                             $postulante->estado = 'pendiente';
-                        }
-                        if ($postulante->entrevista) {
-                            $postulante->estado = 'entrevista';
                         } else {
-                            $postulante->estado = 'entrevistado';
+                            if ($postulante->entrevista) {
+                                $postulante->estado = 'entrevista';
+                            } else {
+                                $postulante->estado = 'entrevistado';
+                            }
                         }
                     }
                 }
@@ -52,6 +59,34 @@ class PostulanteController extends Controller
             return response()->json($respuesta);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Error al procesar la solicitud de getPostulante', 'error' => $th->getMessage()], 500);
+        }
+    }
+
+    public function getContrato($id)
+    {
+        try {
+            $postulante = Postulante::where('ID_Usuario', '=', $id)->first();
+            $pre_contrato = Pre_Contrato::where('ID_Postulante', '=', $id)->first();
+            $entrevista = Entrevista::where('ID_Postulante', '=', $id)->first();
+            $departamentos = Departamento::all();
+            $cargos = Cargo::all();
+
+
+
+            $empleado = Empleado::where('ID_Usuario', '=', $pre_contrato->usuario->id)->first();
+
+            $data = [
+                'postulante' => $postulante,
+                'pre_contrato' => $pre_contrato,
+                'entrevista' => $entrevista,
+                'departamentos' => $departamentos,
+                'cargos' => $cargos,
+                'empleado' => $empleado,
+            ];
+            $pdf = Pdf::loadView('PDF.contrato', $data);
+            return $pdf->download('contrato.pdf');
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getContrato', 'error' => $th->getMessage()], 500);
         }
     }
 }
