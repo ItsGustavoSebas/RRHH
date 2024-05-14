@@ -96,5 +96,9 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'Solicitar Permiso'])->syncRoles([$rol4, $rol2]); // Solo los empleados pueden solicitar permisos
         Permission::create(['name' => 'Ver Historial de Permisos'])->syncRoles([$rol1,$rol4, $rol2]); // Solo los administradores pueden ver el historial de permisos
+    
+        //ASISTENCIA
+        Permission::create(['name' => 'Marcar Asistencia'])->syncRoles([$rol1, $rol2, $rol4]);
+
     }
 }
