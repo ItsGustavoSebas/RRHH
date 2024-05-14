@@ -16,6 +16,9 @@ class DiaTrabajoSeeder extends Seeder
     public function run()
     {
         DiaTrabajo::create([
+            'Nombre' => 'Domingo',
+        ]);
+        DiaTrabajo::create([
             'Nombre' => 'Lunes',
         ]);
         DiaTrabajo::create([
@@ -33,8 +36,6 @@ class DiaTrabajoSeeder extends Seeder
         DiaTrabajo::create([
             'Nombre' => 'Sábado',
         ]);
-        DiaTrabajo::create([
-            'Nombre' => 'Domingo',
-        ]);
+        
     }
 }
