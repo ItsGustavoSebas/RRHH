@@ -74,7 +74,7 @@
         <p>{{ $entrevista->detalles }}</p>
         <p>Estamos emocionados de conocerte y discutir cómo puedes contribuir al equipo en [Nombre de la Empresa].
             ¡Esperamos con ansias nuestra reunión!</p>
-        <a href="http://127.0.0.1:8000/" class="button">Confirmar</a>
+        <a href="http://137.184.179.201/" class="button">Confirmar</a>
         <p class="footer">¡Saludos cordiales,</p>
         @php
             $user = App\Models\User::find($entrevista->ID_Usuario);

@@ -10,6 +10,7 @@ use App\Models\Entrevista;
 use App\Models\Postulante;
 use App\Models\Pre_Contrato;
 use App\Models\User;
+use App\Notifications\ContratoNofication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -72,7 +73,9 @@ class Pre_ContratoController extends Controller
 
         ]);
 
+        $user = User::find($idPostulante);
 
+        $user->notify(new ContratoNofication($pre_contrato));
         
         return redirect(route('postulantes.inicio'))->with('actualizado', 'Datos del Pre-Contrato registrado exitosamente');
     }

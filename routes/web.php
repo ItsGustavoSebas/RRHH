@@ -18,7 +18,7 @@ use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\ReferenciaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
-
+use App\Http\Controllers\PermisoController;
 
 use App\Models\Educacion;
 use App\Models\Postulante;
@@ -46,7 +46,7 @@ Route::get('/puestos', function () {
     $puesto_disponibles = Puesto_Disponible::where('disponible', '>', 0)->get();
     return view('puestos-disponible', compact('puesto_disponibles'));
 })->name('puestos');
-
+Route::get('/Contrato/PDF/{id}', [Pre_ContratoController::class, 'generarContratoPDF'])->name('generarContratoPDF');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -75,7 +75,7 @@ Route::middleware([
 
 
     Route::get('/completado', function () {
-        return view('contratacion.completado');
+        return view('Contratacion.completado');
     })->name('completado');
 
     //DEPARTAMENTOS
@@ -304,7 +304,7 @@ Route::post('/precontratos/actualizar/{id}', [Pre_ContratoController::class, 'ac
 
 
 //CONTRATO PDF
-Route::get('/Contrato/PDF/{id}', [Pre_ContratoController::class, 'generarContratoPDF'])->name('generarContratoPDF');
+
 
 
 
@@ -368,4 +368,12 @@ Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'
 
 Route::post('/marcar-notificacion-leida/{id}', [EntrevistaController::class, 'marcarLeida'])->name('marcar_notificacion_leida');
 
+// Rutas relacionadas con la gestión de permisos del personal
+Route::get('/permisos/solicitud', [PermisoController::class, 'create'])->name('permisos.solicitud');
+Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud'])->name('permisos.enviar-solicitud');
+ // Rutas relacionadas con el historial de permisos
+ Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
+ Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
+ Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
+ 
 });

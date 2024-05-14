@@ -1,5 +1,5 @@
 <x-app-layout>
-    @if (Auth::user()->postulante)
+    @if (Auth::user()->Postulante)
         <div class="bg-white flex justify-between mt-[55px]">
             <div class=" max-w-7xl px-4 py-8 bg-white sm:px-6 lg:px-10 hidden lg:block md:block">
                 @if (Auth::user()->postulante->ruta_imagen_e)
@@ -33,30 +33,6 @@
                                 postularse
                                 a otros puestos que puedan ser de su interés.</p>
                         @else
-                            @if (!Auth::user()->postulante->entrevista && !Auth::user()->postulante->contrato)
-                                <p class="ml-10 text-green-500 fond-bold">Pendiente de revisión</p>
-                                <p class="ml-10 text-gray-500">Su solicitud ha sido enviada y está siendo revisada por
-                                    el
-                                    equipo
-                                    de
-                                    reclutamiento. Por favor, espere mientras procesamos su solicitud.</p>
-                            @endif
-
-                            @if (Auth::user()->postulante->entrevista)
-                                @if (!Auth::user()->postulante->entrevista->puntos)
-                                    <p class="ml-10 text-green-500 fond-bold">Programado para entrevista</p>
-                                    <p class="ml-10 text-gray-500">Ha sido programado para una entrevista. Por favor,
-                                        asegúrese
-                                        de
-                                        prepararse adecuadamente y estar disponible en el momento programado.</p>
-                                @else
-                                    <p class="ml-10 text-green-500 fond-bold">Entrevista realizada</p>
-                                    <p class="ml-10 text-gray-500">Ha completado con éxito la entrevista. Ahora estamos
-                                        evaluando su
-                                        desempeño y pronto nos pondremos en contacto con usted con más información.</p>
-                                @endif
-                            @endif
-
                             @if (Auth::user()->postulante->contrato)
                                 <p class="ml-10 text-green-500">Oferta extendida</p>
                                 <p class="ml-10 text-gray-500">Le hemos extendido una oferta de empleo. Por favor,
@@ -66,6 +42,36 @@
                                     discutir
                                     los
                                     detalles.</p>
+                            @else
+                                @if (!Auth::user()->postulante->entrevista && !Auth::user()->postulante->contrato)
+                                    <p class="ml-10 text-green-500 fond-bold">Pendiente de revisión</p>
+                                    <p class="ml-10 text-gray-500">Su solicitud ha sido enviada y está siendo revisada
+                                        por
+                                        el
+                                        equipo
+                                        de
+                                        reclutamiento. Por favor, espere mientras procesamos su solicitud.</p>
+                                @endif
+
+                                @if (Auth::user()->postulante->entrevista)
+                                    @if (!Auth::user()->postulante->entrevista->puntos)
+                                        <p class="ml-10 text-green-500 fond-bold">Programado para entrevista</p>
+                                        <p class="ml-10 text-gray-500">Ha sido programado para una entrevista. Por
+                                            favor,
+                                            asegúrese
+                                            de
+                                            prepararse adecuadamente y estar disponible en el momento programado.</p>
+                                    @else
+                                        <p class="ml-10 text-green-500 fond-bold">Entrevista realizada</p>
+                                        <p class="ml-10 text-gray-500">Ha completado con éxito la entrevista. Ahora
+                                            estamos
+                                            evaluando su
+                                            desempeño y pronto nos pondremos en contacto con usted con más información.
+                                        </p>
+                                    @endif
+                                @endif
+
+
                             @endif
                         @endif
                     @endif
@@ -87,25 +93,27 @@
                                 class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Puestos
                                 disponibles</a>
                         @else
-                            @if (Auth::user()->postulante->entrevista)
-                                @if (!Auth::user()->postulante->entrevista->puntos)
-                                    <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Información
-                                        de
-                                        la Entrevista</a>
-                                @endif
-                            @endif
                             @if (Auth::user()->postulante->contrato)
                                 <a href="{{ route('generarContratoPDF', Auth::user()->id) }}"
                                     class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Información
                                     del
                                     contrato</a>
-                            @endif
+                            @else
+                                @if (Auth::user()->postulante->entrevista)
+                                    @if (!Auth::user()->postulante->entrevista->puntos)
+                                        <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md">Información
+                                            de
+                                            la Entrevista</a>
+                                    @endif
+                                @endif
 
-                            @if (Auth::user()->postulante->referencias->isEmpty())
-                                <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md"
-                                    href="{{ route('postulantes.postularse') }}">Continuar
-                                    Proceso</a>
+
+                                @if (Auth::user()->postulante->referencias->isEmpty())
+                                    <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md"
+                                        href="{{ route('postulantes.postularse') }}">Continuar
+                                        Proceso</a>
+                                @endif
                             @endif
                         @endif
                         <button class="bg-gray-500 hover:bg-gray-600 text-white px-2 py-1 rounded-md"
@@ -408,9 +416,7 @@
                             <div class="bg-white border border-gray-800 shadow-lg  rounded-2xl p-4">
                                 <div class="flex-none sm:flex">
                                     <div class=" relative h-32 w-32   sm:mb-0 mb-3">
-                                        <!-- Foto --><img
-                                            src="https://tailwindcomponents.com/storage/avatars/njkIbPhyZCftc4g9XbMWwVsa7aGVPajYLRXhEeoo.jpg"
-                                            alt="aji"
+                                        <!-- Foto --><img src="{{ $empleado->ruta_imagen_e }}" alt="aji"
                                             class=" w-32 h-32 object-cover rounded-2xl border-2 border-gray-800">
                                         {{-- Editar Foto <a href="#"
                                         class="absolute -right-2 bottom-2   -ml-3  text-white p-1 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300">
@@ -492,7 +498,12 @@
                                             </svg>
                                             <p class="">14 Components</p> --}}
                                             </div>
-                                            <a href="https://www.behance.net/ajeeshmon" target="_blank"
+                                            @can('Solicitar Permiso')
+                                                <a href="{{ route(permisos.solicitud) }}" target="_blank"
+                                                    class="flex-no-shrink bg-green-400 hover:bg-blue-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Marcar
+                                                    Solicitar Permiso</a>
+                                            @endcan
+                                            <a href="" target="_blank"
                                                 class="flex-no-shrink bg-green-400 hover:bg-green-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Marcar
                                                 Asistencia</a>
                                         </div>

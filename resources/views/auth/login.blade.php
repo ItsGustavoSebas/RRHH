@@ -212,8 +212,7 @@
                             </div>
                         <div>
                             <button type="submit"
-                                class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign
-                                Up</button>
+                                class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Iniciar Sesión</button>
                         </div>
                     </form>
                 </div>
