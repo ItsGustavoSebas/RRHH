@@ -1,5 +1,5 @@
 <x-app-layout>
-    @if (Auth::user()->Postulante)
+    @if (!Auth::user()->Empleado)
         <div class="bg-white flex justify-between mt-[55px]">
             <div class=" max-w-7xl px-4 py-8 bg-white sm:px-6 lg:px-10 hidden lg:block md:block">
                 @if (Auth::user()->postulante->ruta_imagen_e)
