@@ -38,7 +38,7 @@ class PermisoController extends Controller
     public function historial()
     {
         // Verificar si el usuario actual es administrador
-        if (auth()->user()->HasRole('Administrador')) {
+        if (auth()->user->hasRole('Administrador')) {
             // Si es administrador, obtener todos los permisos
             $permisos = Permiso::all();
         } else {
