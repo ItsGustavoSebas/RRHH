@@ -142,15 +142,15 @@ class Pre_ContratoController extends Controller
       
 
 
-        $empleado = new Empleado();
-        $empleado->ID_Usuario = $pre_contrato->ID_Postulante;
-        $empleado->ruta_imagen_e = $postulante->ruta_imagen_e;
-        $empleado->genero = $pre_contrato->genero;
-        $empleado->estadocivil = $pre_contrato->estadocivil;
-        $empleado->fechanac = $postulante->fecha_de_nacimiento;
-        $empleado->ID_Departamento = $pre_contrato->ID_Departamento;
-        $empleado->ID_Cargo = $pre_contrato->ID_Cargo;
-        $empleado->save();
+        // $empleado = new Empleado();
+        // $empleado->ID_Usuario = $pre_contrato->ID_Postulante;
+        // $empleado->ruta_imagen_e = $postulante->ruta_imagen_e;
+        // $empleado->genero = $pre_contrato->genero;
+        // $empleado->estadocivil = $pre_contrato->estadocivil;
+        // $empleado->fechanac = $postulante->fecha_de_nacimiento;
+        // $empleado->ID_Departamento = $pre_contrato->ID_Departamento;
+        // $empleado->ID_Cargo = $pre_contrato->ID_Cargo;
+        // $empleado->save();
         
 
         $usuario = User::where('id', '=', $idPostulante)->first();
