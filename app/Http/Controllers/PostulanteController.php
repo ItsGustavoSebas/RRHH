@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Calificacion;
 use App\Models\Educacion;
+use App\Models\Empleado;
 use App\Models\Entrevista;
 use App\Models\Experiencia;
 use App\Models\Fuente_De_Contratacion;
@@ -28,8 +29,8 @@ class PostulanteController extends Controller
         $puestosDisponibles = Puesto_Disponible::all();
         $pre_contratos = Pre_Contrato::all();
         $entrevista = Entrevista::all();
-    
-        return (view('Contratacion.postulantes.inicio', compact('postulantes', 'puestosDisponibles', 'pre_contratos', 'entrevista'))) ;
+        $empleados= Empleado::all();
+        return (view('Contratacion.postulantes.inicio', compact('postulantes', 'puestosDisponibles', 'pre_contratos', 'entrevista' ,'empleados')));
     }
 
 
