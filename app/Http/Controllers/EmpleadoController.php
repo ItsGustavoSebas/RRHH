@@ -189,7 +189,7 @@ class EmpleadoController extends Controller
     {
         $usuario = User::where('id', '=', $id)->first();
         $empleado = Empleado::where('ID_Usuario', '=', $id)->with('usuario')->first();
-        $diasTrabajo = $empleado->diasTrabajo();
+        $diasTrabajo = $empleado->horario_empleado;
         
         return view('usuarios.empleados.inicioH', compact('usuario', 'empleado', 'diasTrabajo'));
     }
