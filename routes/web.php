@@ -378,6 +378,8 @@ Route::middleware([
     Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
 
     //ASISTENCIA
+    Route::get('/asistencias/marcar/{id}', [AsistenciaController::class, 'marcar'])->name('asistencias.marcar');
+    Route::post('/asistencias/guardarAsistencias/{idEmpleado}/{idDiaTrabajo}', [AsistenciaController::class, 'guardarAsistencias'])->name('asistencias.guardarAsistencias');
     Route::get('/asistencias/historial/{id}', [AsistenciaController::class, 'historial'])->name('asistencias.historial');
 
 
