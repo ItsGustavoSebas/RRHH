@@ -162,7 +162,6 @@ class Pre_ContratoController extends Controller
         ]);
         $usuario->assignRole($roles->name);
 
-        dd($usuario);
 
         $usuario->save();
 
