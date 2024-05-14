@@ -300,6 +300,7 @@ Route::post('/precontratos/guardar/{id}', [Pre_ContratoController::class, 'guard
 Route::get('/precontratos/inicio', [Pre_ContratoController::class, 'inicio'])->name('precontratos.inicio');
 Route::get('/precontratos/editar/{id}', [Pre_ContratoController::class, 'editar'])->name('precontratos.editar');
 Route::post('/precontratos/actualizar/{id}', [Pre_ContratoController::class, 'actualizar'])->name('precontratos.actualizar');
+Route::post('/precontratos/contratar/{id}', [Pre_ContratoController::class, 'contratar'])->name('precontratos.contratar');
 
 
 
