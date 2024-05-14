@@ -162,6 +162,11 @@ class Pre_ContratoController extends Controller
         ]);
         $usuario->assignRole($roles->name);
 
+    
+
+        $postulante->estado = true;
+        $postulante->save();
+
 
         $usuario->save();
 
