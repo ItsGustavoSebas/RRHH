@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\MensajesController;
 use App\Http\Controllers\api\PostulanteController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,6 +41,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         ? $request->user()->postulante->ruta_imagen_e
         : $request->user()->empleado->ruta_imagen_e;
     return $user;
+    Route::get('/messages', [MensajesController::class, 'index']);
+    Route::post('/messages', [MensajesController::class, 'store']);
+    Route::get('/messages/{id}', [MensajesController::class, 'show']);
+    Route::get('/messages/usuarios/{id}', [MensajesController::class, 'usuarios']);
 });
 Route::get('/postulante/{id}', [PostulanteController::class, 'getPostulante']);
 Route::get('/getRol/{id}/{rol}', [AuthController::class, 'getRol']);
