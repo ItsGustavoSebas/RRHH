@@ -45,3 +45,7 @@ Route::get('/postulante/{id}', [PostulanteController::class, 'getPostulante']);
 Route::get('/getRol/{id}/{rol}', [AuthController::class, 'getRol']);
 Route::get('/getPermission/{id}/{permiso}', [AuthController::class, 'getPermission']);
 Route::get('/contrato/{id}', [PostulanteController::class, 'getContrato']);
+Route::get('/postulante/educaciones/{id}', [PostulanteController::class, 'getEducaciones']);
+Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'getReconocimientos']);
+Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
+Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
