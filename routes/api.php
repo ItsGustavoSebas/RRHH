@@ -51,7 +51,7 @@ Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'ge
 Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
 Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
 
-Route::get('/messages/{id}', [MensajesController::class, 'index']);
-Route::post('/messages/enviar/{id}', [MensajesController::class, 'store']);
-Route::get('/messages/{usuario_id}/{otro_id}', [MensajesController::class, 'show']);
-Route::get('/messages/usuarios/{id}', [MensajesController::class, 'usuarios']);
+Route::get('/mensaje/nuevos/{id}', [MensajesController::class, 'index']);
+Route::post('/mensaje/enviar/{id}', [MensajesController::class, 'store']);
+Route::get('/mensaje/mostrar/{usuario_id}/{otro_id}', [MensajesController::class, 'show']);
+Route::get('/mensaje/usuarios/{id}', [MensajesController::class, 'usuarios']);

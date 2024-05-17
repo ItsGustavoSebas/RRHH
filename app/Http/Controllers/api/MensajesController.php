@@ -63,24 +63,27 @@ class MensajesController extends Controller
 
     public function usuarios($id)
     {
-        $user = User::find($id);
-
-        if ($user->hasRole('Encargado') || $user->hasRole('Administrador')) {
-            $users = User::all();
-        } else {
-            $users = User::role('Encargado')->get();
+        try {
+            $user = User::find($id);
+            if ($user->hasRole('Encargado') || $user->hasRole('Administrador')) {
+                $users = User::all();
+            } else {
+                $users = User::role('Encargado')->get();
+            }
+            $respuesta = $users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'avatar_url' => $user->postulante
+                        ? $user->postulante->ruta_imagen_e
+                        : ($user->empleado ? $user->empleado->ruta_imagen_e : null),
+                ];
+            });
+    
+            return response()->json($respuesta);
+            return response()->json($users);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de usuarios', 'error' => $th->getMessage()], 500);
         }
-
-        $respuesta = $users->map(function ($user) {
-            return [
-                'id' => $user->id,
-                'name' => $user->name,
-                'avatar_url' => $user->postulante
-                    ? $user->postulante->ruta_imagen_e
-                    : ($user->empleado ? $user->empleado->ruta_imagen_e : null),
-            ];
-        });
-
-        return response()->json($respuesta);
     }
 }
