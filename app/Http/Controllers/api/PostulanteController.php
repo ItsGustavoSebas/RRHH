@@ -44,7 +44,7 @@ class PostulanteController extends Controller
                 'id' => $postulante->ID_Usuario,
                 'nombre' => $postulante->usuario->name,
                 'email' => $postulante->usuario->email,
-                'puesto' => $postulante->puesto_disponible->nombre,
+                'puesto' => $postulante->puesto_disponible ? $postulante->puesto_disponible->nombre : '',
                 'estado' => $postulante->estado,
                 'ci' => $postulante->usuario->ci,
                 'telefono   ' => $postulante->usuario->telefono,
@@ -52,9 +52,9 @@ class PostulanteController extends Controller
                 'fecha_de_nacimiento' => $postulante->fecha_de_nacimiento,
                 'nacionalidad' => $postulante->nacionalidad,
                 'habilidades' => $postulante->habilidades,
-                'fuenteDeContratacion' => $postulante->fuente_de_contratacion->nombre,
-                'idioma' => $postulante->idioma->nombre,
-                'nivel_idioma' => $postulante->nivel_idioma->categoria,
+                'fuenteDeContratacion' => $postulante->fuente_de_contratacion ? $postulante->fuente_de_contratacion->nombre : '',
+                'idioma' => $postulante->idioma ? $postulante->idioma->nombre : '',
+                'nivel_idioma' => $postulante->nivel_idioma ? $postulante->nivel_idioma->categoria : '',
                 'foto' => $postulante->ruta_imagen_e,
             ];
             return response()->json($respuesta);

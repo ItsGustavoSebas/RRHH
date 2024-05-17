@@ -1,7 +1,7 @@
 <x-app-layout>
     @if (!Auth::user()->Empleado)
     <div class="bg-white px-4 py-4 sm:flex sm:justify-between sm:mt-[55px]">
-        <div class="flex items-center flex-row sm:hidden justify-between">
+        <div class="flex items-center flex-row md:hidden justify-between">
             <div class="flex-1">
                 @if (Auth::user()->postulante->ruta_imagen_e)
                     <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg"
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-            <div class=" max-w-7xl px-4 py-8 bg-white sm:px-6 lg:px-10 hidden lg:block md:block">
+            <div class=" max-w-7xl px-4 py-8 bg-white sm:px-6 lg:px-10 hidden md:block">
                 @if (Auth::user()->postulante->ruta_imagen_e)
                     <img class="flex-1 w-48 rounded-full shadow-lg" src="{{ Auth::user()->postulante->ruta_imagen_e }}"
                         alt="{{ Auth::user()->name }}" />
@@ -124,7 +124,7 @@
             </div>
 
 
-            <div class="bg-white mx-auto max-w-7xl px-2 py-20 hidden sm:block sm:px-2 lg:px-2">
+            <div class="bg-white mx-auto max-w-7xl px-2 py-20 hidden md:block sm:px-2 lg:px-2">
 
                 <div class="flex justify-between">
 
