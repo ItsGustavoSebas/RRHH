@@ -1,6 +1,51 @@
 <x-app-layout>
     @if (!Auth::user()->Empleado)
-        <div class="bg-white flex justify-between mt-[55px]">
+    <div class="bg-white px-4 py-4 sm:flex sm:justify-between sm:mt-[55px]">
+        <div class="flex items-center flex-row sm:hidden justify-between">
+            <div class="flex-1">
+                @if (Auth::user()->postulante->ruta_imagen_e)
+                    <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg"
+                        src="{{ Auth::user()->postulante->ruta_imagen_e }}" alt="{{ Auth::user()->name }}" />
+                @else
+                    <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }}"
+                        alt="{{ Auth::user()->name }}" />
+                @endif
+            </div>
+            <div class="flex space-x-4 space-y-4">
+                @if (Auth::user()->postulante->estado === 0)
+                    <a href="{{ route('puesto_disponibles.disponibles') }}"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Puestos
+                        disponibles</a>
+                @else
+                    @if (Auth::user()->postulante->contrato)
+                        <a href="{{ route('generarContratoPDF', Auth::user()->id) }}"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Información
+                            del
+                            contrato</a>
+                    @else
+                        @if (Auth::user()->postulante->entrevista)
+                            @if (!Auth::user()->postulante->entrevista->puntos)
+                                <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Información
+                                    de
+                                    la Entrevista</a>
+                            @endif
+                        @endif
+
+
+                        @if (Auth::user()->postulante->referencias->isEmpty())
+                            <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md"
+                                href="{{ route('postulantes.postularse') }}">Continuar
+                                Proceso</a>
+                        @endif
+                    @endif
+                @endif
+                <button class="bg-gray-500 hover:bg-gray-600 text-white px-2 rounded-md"
+                    onclick="window.location.href='{{ route('postulantes.editarinfo', Auth::user()->id) }}'">Editar</button>
+
+            </div>
+        </div>
+
             <div class=" max-w-7xl px-4 py-8 bg-white sm:px-6 lg:px-10 hidden lg:block md:block">
                 @if (Auth::user()->postulante->ruta_imagen_e)
                     <img class="flex-1 w-48 rounded-full shadow-lg" src="{{ Auth::user()->postulante->ruta_imagen_e }}"
@@ -11,7 +56,7 @@
                 @endif
             </div>
             <div>
-                <div class="bg-white max-w-7xl px-4 pt-14 sm:px-6 lg:px-8">
+                <div class="bg-white max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
                     <h1 class="text-3xl font-sans tracking-tight text-gray-900">
                         {{ Auth::user()->name }}
                     </h1>
@@ -79,7 +124,7 @@
             </div>
 
 
-            <div class="bg-white mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+            <div class="bg-white mx-auto max-w-7xl px-2 py-20 hidden sm:block sm:px-2 lg:px-2">
 
                 <div class="flex justify-between">
 

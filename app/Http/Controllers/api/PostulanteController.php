@@ -55,6 +55,7 @@ class PostulanteController extends Controller
                 'fuenteDeContratacion' => $postulante->fuente_de_contratacion->nombre,
                 'idioma' => $postulante->idioma->nombre,
                 'nivel_idioma' => $postulante->nivel_idioma->categoria,
+                'foto' => $postulante->ruta_imagen_e,
             ];
             return response()->json($respuesta);
         } catch (\Throwable $th) {
