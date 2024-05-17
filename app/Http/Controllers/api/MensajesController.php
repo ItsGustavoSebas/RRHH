@@ -10,32 +10,35 @@ use Illuminate\Http\Request;
 class MensajesController extends Controller
 {
     public function index($id)
-    {
-        $user = User::find($id);
+{
+    $user = User::find($id);
 
-        $messages = Message::where('emisor_id', $user->id)
-            ->orWhere('receptor_id', $user->id)
-            ->with('receptor', 'emisor')
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->unique(function ($item) use ($user) {
-                return $item->emisor_id === $user->id ? $item->receptor_id : $item->emisor_id;
-            });
-
-        $messages = $messages->map(function ($message) use ($user) {
-            $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
-            return [
-                'id' => $otherUser->id,
-                'last_message' => $message->mensaje,
-                'name' => $otherUser->name,
-                'avatar' => $otherUser->postulante
-                    ? $otherUser->postulante->ruta_imagen_e
-                    : ($otherUser->empleado ? $otherUser->empleado->ruta_imagen_e : null),
-            ];
+    $messages = Message::where('emisor_id', $user->id)
+        ->orWhere('receptor_id', $user->id)
+        ->with('receptor', 'emisor')
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->unique(function ($item) use ($user) {
+            return $item->emisor_id === $user->id ? $item->receptor_id : $item->emisor_id;
         });
 
-        return response()->json($messages);
-    }
+    $messages = $messages->map(function ($message) use ($user) {
+        $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
+        return [
+            'id' => $otherUser->id,
+            'last_message' => $message->mensaje,
+            'name' => $otherUser->name,
+            'avatar' => $otherUser->postulante
+                ? $otherUser->postulante->ruta_imagen_e
+                : ($otherUser->empleado ? $otherUser->empleado->ruta_imagen_e : null),
+        ];
+    });
+
+    $messages = $messages->values();
+
+    return response()->json($messages);
+}
+
 
     public function store(Request $request, $id)
     {
