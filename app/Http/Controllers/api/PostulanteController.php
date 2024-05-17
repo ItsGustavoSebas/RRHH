@@ -90,4 +90,44 @@ class PostulanteController extends Controller
             return response()->json(['message' => 'Error al procesar la solicitud de getContrato', 'error' => $th->getMessage()], 500);
         }
     }
+
+    public function getEducaciones($id){
+        try {
+            $postulante = Postulante::find($id);
+            $respuesta = $postulante->educaciones;
+            return response()->json($respuesta);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getEducaciones', 'error' => $th->getMessage()], 500);
+        }
+    }
+
+    public function getReconocimientos($id){
+        try {
+            $postulante = Postulante::find($id);
+            $respuesta = $postulante->reconocimientos;
+            return response()->json($respuesta);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getReconocimientos', 'error' => $th->getMessage()], 500);
+        }
+    }
+
+    public function getExperiencias($id){
+        try {
+            $postulante = Postulante::find($id);
+            $respuesta = $postulante->experiencias;
+            return response()->json($respuesta);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getExperiencias', 'error' => $th->getMessage()], 500);
+        }
+    }
+
+    public function getReferencias($id){
+        try {
+            $postulante = Postulante::find($id);
+            $respuesta = $postulante->referencias;
+            return response()->json($respuesta);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Error al procesar la solicitud de getReferencias', 'error' => $th->getMessage()], 500);
+        }
+    }
 }
