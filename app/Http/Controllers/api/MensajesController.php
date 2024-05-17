@@ -25,8 +25,7 @@ class MensajesController extends Controller
         $messages = $messages->map(function ($message) use ($user) {
             $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
             return [
-                'emisor_id' => $message->emisor_id,
-                'receptor_id' => $message->receptor_id,
+                'id' => $otherUser->id,
                 'last_message' => $message->message,
                 'name' => $otherUser->name,
                 'avatar' => $otherUser->postulante
@@ -40,10 +39,14 @@ class MensajesController extends Controller
 
     public function store(Request $request, $id)
     {
+        $request->validate([
+            'receptor_id' => 'required',
+            'message' => 'required',
+        ]);
         $message = Message::create([
             'emisor_id' => $id,
             'receptor_id' => $request->receptor_id,
-            'message' => $request->message,
+            'mensaje' => $request->message,
         ]);
 
         return response()->json($message);
