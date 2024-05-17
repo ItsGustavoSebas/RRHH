@@ -41,10 +41,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         ? $request->user()->postulante->ruta_imagen_e
         : $request->user()->empleado->ruta_imagen_e;
     return $user;
-    Route::get('/messages', [MensajesController::class, 'index']);
-    Route::post('/messages', [MensajesController::class, 'store']);
-    Route::get('/messages/{id}', [MensajesController::class, 'show']);
-    Route::get('/messages/usuarios/{id}', [MensajesController::class, 'usuarios']);
 });
 Route::get('/postulante/{id}', [PostulanteController::class, 'getPostulante']);
 Route::get('/getRol/{id}/{rol}', [AuthController::class, 'getRol']);
@@ -54,3 +50,8 @@ Route::get('/postulante/educaciones/{id}', [PostulanteController::class, 'getEdu
 Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'getReconocimientos']);
 Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
 Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
+
+Route::get('/messages/{id}', [MensajesController::class, 'index']);
+Route::post('/messages/enviar/{id}', [MensajesController::class, 'store']);
+Route::get('/messages/{usuario_id}/{otro_id}', [MensajesController::class, 'show']);
+Route::get('/messages/usuarios/{id}', [MensajesController::class, 'usuarios']);

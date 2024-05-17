@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class MensajesController extends Controller
 {
-    public function index(Request $request)
+    public function index($id)
     {
-        $user = $request->user();
+        $user = User::find($id);
 
         $messages = Message::where('emisor_id', $user->id)
             ->orWhere('receptor_id', $user->id)
@@ -38,10 +38,10 @@ class MensajesController extends Controller
         return response()->json($messages);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $message = Message::create([
-            'emisor_id' => $request->user()->id,
+            'emisor_id' => $id,
             'receptor_id' => $request->receptor_id,
             'message' => $request->message,
         ]);
@@ -49,16 +49,15 @@ class MensajesController extends Controller
         return response()->json($message);
     }
 
-    public function show($id)
+    public function show($otro_id, $usuario_id)
     {
-        $messages = Message::where(function ($query) use ($id) {
-            $query->where('emisor_id', auth()->id())
-                ->where('receptor_id', $id);
-        })->orWhere(function ($query) use ($id) {
-            $query->where('emisor_id', $id)
-                ->where('receptor_id', auth()->id());
+        $messages = Message::where(function ($query) use ($otro_id, $usuario_id) {
+            $query->where('emisor_id', $usuario_id)
+                ->where('receptor_id', $otro_id);
+        })->orWhere(function ($query) use ($otro_id, $usuario_id) {
+            $query->where('emisor_id', $otro_id)
+                ->where('receptor_id', $usuario_id);
         })->orderBy('created_at', 'asc')->get();
-
         return response()->json($messages);
     }
 
