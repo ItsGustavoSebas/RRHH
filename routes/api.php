@@ -3,6 +3,7 @@
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\PostulanteController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,11 @@ Route::put('/permisos/aprobar/{id}', [PermisoController::class, 'approve']);
 Route::put('/permisos/denegar/{id}', [PermisoController::class, 'deny']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $user = User::find($request->user()->id);
+    $user->foto = $user->Postulante
+        ? $request->user()->postulante->ruta_imagen_e
+        : $request->user()->empleado->ruta_imagen_e;
+    return $user;
 });
 Route::get('/postulante/{id}', [PostulanteController::class, 'getPostulante']);
 Route::get('/getRol/{id}/{rol}', [AuthController::class, 'getRol']);

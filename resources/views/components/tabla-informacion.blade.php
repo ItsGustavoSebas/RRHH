@@ -35,35 +35,35 @@
                 <div class="w-full mx-2   md:block lg:block md:mt-6 sm:mt-0">
                     <!-- Profile tab -->
                     <!-- About Section -->
-                    <div class="hidden md:block lg:block">
-                        <ul class="flex bg-white ">
+                    <div class="md:block lg:block flex ">
+                        <ul class="flex w-full bg-white ">
                             <li class="mr-1" id="informacion1">
                                 <a id="informacionButton"
-                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-xs lg:text-base
                                                 {{ !$opcional || $opcional == null ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
                                     href="#" onclick="cargarContenido('informacion')">Información</a>
                             </li>
                             <li class=" mr-1">
                                 <a id="educacionesButton"
-                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-xs lg:text-base
                                                 {{ $opcional == 'educaciones' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
                                     href="#" onclick="cargarContenido('educaciones')">Educaciones</a>
                             </li>
                             <li class=" mr-1">
                                 <a id="reconocimientosButton"
-                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-xs lg:text-base
                                                 {{ $opcional == 'reconocimientos' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
                                     href="#" onclick="cargarContenido('reconocimientos')">Reconocimientos</a>
                             </li>
                             <li class=" mr-1">
                                 <a id="experienciasButton"
-                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-xs lg:text-base
                                                 {{ $opcional == 'experiencias' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
                                     href="#" onclick="cargarContenido('experiencias')">Experiencias</a>
                             </li>
                             <li class=" mr-1">
                                 <a id="referenciasButton"
-                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4
+                                    class="rounded-sm bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-xs lg:text-base
                                                 {{ $opcional == 'referencias' ? 'text-blue-700 font-semibold shadow-md' : 'text-blue-500 hover:text-blue-800 font-semibold' }}"
                                     href="#" onclick="cargarContenido('referencias')">Referencias</a>
                             </li>
