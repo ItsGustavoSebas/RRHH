@@ -74,6 +74,9 @@ class MensajesController extends Controller
                 return [
                     'id' => $user->id,
                     'name' => $user->name,
+                    'cargo' => $user->Postulante
+                        ? 'Postulante'
+                        : ($user->empleado->cargo->Nombre),
                     'avatar_url' => $user->postulante
                         ? $user->postulante->ruta_imagen_e
                         : ($user->empleado ? $user->empleado->ruta_imagen_e : null),
