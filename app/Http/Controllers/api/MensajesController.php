@@ -26,7 +26,7 @@ class MensajesController extends Controller
             $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
             return [
                 'id' => $otherUser->id,
-                'last_message' => $message->message,
+                'last_message' => $message->mensaje,
                 'name' => $otherUser->name,
                 'avatar' => $otherUser->postulante
                     ? $otherUser->postulante->ruta_imagen_e
