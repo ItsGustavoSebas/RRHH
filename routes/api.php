@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\MensajesController;
 use App\Http\Controllers\api\PostulanteController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,6 +51,7 @@ Route::get('/postulante/educaciones/{id}', [PostulanteController::class, 'getEdu
 Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'getReconocimientos']);
 Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
 Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
+
 Route::post('/postulante/actualizarinfo/{id}', [PostulanteController::class, 'actualizar']);
 
 
@@ -84,4 +86,10 @@ Route::get('/postulantes/idiomas', [PostulanteController::class, 'getIdiomas']);
 Route::get('/postulantes/nivelIdiomas', [PostulanteController::class, 'getNivelIdiomas']);
 Route::get('/postulantes/fuenteDeContratacion', [PostulanteController::class, 'getFuenteDeContratacion']);
 Route::get('/postulantes/puestoDisponible', [PostulanteController::class, 'getPuestoDisponible']);
+
+
+Route::get('/mensaje/nuevos/{id}', [MensajesController::class, 'index']);
+Route::post('/mensaje/enviar/{id}', [MensajesController::class, 'store']);
+Route::get('/mensaje/mostrar/{usuario_id}/{otro_id}', [MensajesController::class, 'show']);
+Route::get('/mensaje/usuarios/{id}', [MensajesController::class, 'usuarios']);
 
