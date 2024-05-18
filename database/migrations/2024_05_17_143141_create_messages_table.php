@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('receptor_id');
             $table->foreign('receptor_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('mensaje');
+            $table->boolean('leido')->default(false);
             $table->timestamps();
         });
     }

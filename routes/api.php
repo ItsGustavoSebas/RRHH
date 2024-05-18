@@ -52,6 +52,11 @@ Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'ge
 Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
 Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
 
+Route::get('/mensaje/nuevos/{id}', [MensajesController::class, 'inicio']);
+Route::post('/mensaje/enviar/{id}', [MensajesController::class, 'enviar']);
+Route::get('/mensaje/mostrar/{usuario_id}/{otro_id}', [MensajesController::class, 'mostrar']);
+Route::get('/mensaje/usuarios/{id}', [MensajesController::class, 'usuarios']);
+
 Route::post('/postulante/actualizarinfo/{id}', [PostulanteController::class, 'actualizar']);
 
 
@@ -88,8 +93,4 @@ Route::get('/postulantes/fuenteDeContratacion', [PostulanteController::class, 'g
 Route::get('/postulantes/puestoDisponible', [PostulanteController::class, 'getPuestoDisponible']);
 
 
-Route::get('/mensaje/nuevos/{id}', [MensajesController::class, 'index']);
-Route::post('/mensaje/enviar/{id}', [MensajesController::class, 'store']);
-Route::get('/mensaje/mostrar/{usuario_id}/{otro_id}', [MensajesController::class, 'show']);
-Route::get('/mensaje/usuarios/{id}', [MensajesController::class, 'usuarios']);
 
