@@ -430,25 +430,6 @@ class PostulanteController extends Controller
 
         $postulante->save();
 
-
-        //Crear DetalleBitacora
-
-        // $bitacora_id = session('bitacora_id');
-
-        // if ($bitacora_id) {
-        //     $bitacora = Bitacora::find($bitacora_id);
-
-        //     $horaActual = now()->format('H:i:s');
-
-        //     $bitacora->detalleBitacoras()->create([
-        //         'accion' => 'Editar Marca',
-        //         'metodo' => $request->method(),
-        //         'hora' => $horaActual,
-        //         'tabla' => 'marcas',
-        //         'registroId' => $marca->id,
-        //         'ruta'=> request()->fullurl(),
-        //     ]);
-        // }
         
         return redirect(route('educaciones.crear'))->with('actualizado', 'Información añadida exitosamente');
 
