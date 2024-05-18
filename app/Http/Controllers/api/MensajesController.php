@@ -9,38 +9,44 @@ use Illuminate\Http\Request;
 
 class MensajesController extends Controller
 {
-    public function index($id)
-{
-    $user = User::find($id);
+    public function inicio($id)
+    {
+        $user = User::find($id);
 
-    $messages = Message::where('emisor_id', $user->id)
-        ->orWhere('receptor_id', $user->id)
-        ->with('receptor', 'emisor')
-        ->orderBy('created_at', 'desc')
-        ->get()
-        ->unique(function ($item) use ($user) {
-            return $item->emisor_id === $user->id ? $item->receptor_id : $item->emisor_id;
+        $messages = Message::where('emisor_id', $user->id)
+            ->orWhere('receptor_id', $user->id)
+            ->with('receptor', 'emisor')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->unique(function ($item) use ($user) {
+                return $item->emisor_id === $user->id ? $item->receptor_id : $item->emisor_id;
+            });
+
+        $messages = $messages->map(function ($message) use ($user) {
+            $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
+            $unreadCount = Message::where('emisor_id', $otherUser->id)
+                ->where('receptor_id', $user->id)
+                ->where('leido', false)
+                ->count();
+
+            return [
+                'id' => $otherUser->id,
+                'last_message' => $message->mensaje,
+                'name' => $otherUser->name,
+                'avatar' => $otherUser->postulante
+                    ? $otherUser->postulante->ruta_imagen_e
+                    : ($otherUser->empleado ? $otherUser->empleado->ruta_imagen_e : null),
+                'pendiente' => $unreadCount,
+            ];
         });
 
-    $messages = $messages->map(function ($message) use ($user) {
-        $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
-        return [
-            'id' => $otherUser->id,
-            'last_message' => $message->mensaje,
-            'name' => $otherUser->name,
-            'avatar' => $otherUser->postulante
-                ? $otherUser->postulante->ruta_imagen_e
-                : ($otherUser->empleado ? $otherUser->empleado->ruta_imagen_e : null),
-        ];
-    });
+        $messages = $messages->values();
 
-    $messages = $messages->values();
-
-    return response()->json($messages);
-}
+        return response()->json($messages);
+    }
 
 
-    public function store(Request $request, $id)
+    public function enviar(Request $request, $id)
     {
         $request->validate([
             'receptor_id' => 'required',
@@ -55,8 +61,13 @@ class MensajesController extends Controller
         return response()->json($message);
     }
 
-    public function show($otro_id, $usuario_id)
+    public function mostrar($otro_id, $usuario_id)
     {
+        Message::where('emisor_id', $otro_id)
+            ->where('receptor_id', $usuario_id)
+            ->update(['leido' => true]);
+
+        // Obtener los mensajes
         $messages = Message::where(function ($query) use ($otro_id, $usuario_id) {
             $query->where('emisor_id', $usuario_id)
                 ->where('receptor_id', $otro_id);
@@ -64,8 +75,10 @@ class MensajesController extends Controller
             $query->where('emisor_id', $otro_id)
                 ->where('receptor_id', $usuario_id);
         })->orderBy('created_at', 'asc')->get();
+
         return response()->json($messages);
     }
+
 
     public function usuarios($id)
     {
@@ -88,7 +101,7 @@ class MensajesController extends Controller
                         : ($user->empleado ? $user->empleado->ruta_imagen_e : null),
                 ];
             });
-    
+
             return response()->json($respuesta);
             return response()->json($users);
         } catch (\Throwable $th) {
