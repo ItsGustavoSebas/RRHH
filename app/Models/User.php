@@ -31,6 +31,8 @@ class User extends Authenticatable
         'ci',
         'telefono',
         'direccion',
+        'Empleado',
+        'Postulante',
         'password',
     ];
 

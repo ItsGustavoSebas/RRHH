@@ -437,6 +437,24 @@
                                         <a href="{{ route('precontratos.editar', $postulanteU->ID_Usuario) }}" class="bg-green-400 px-2 py-2 rounded-lg" title="Editar datos Pre Contrato">
                                           <i class="fas fa-edit"></i>
                                         </a>
+
+                                        @if($empleados->contains('ID_Usuario', $postulanteU->ID_Usuario))
+
+                                        @else
+                                        <form action="{{ route('precontratos.contratar', $postulanteU->ID_Usuario) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            <button type="submit" class="bg-green-500 px-2 py-2 rounded-lg" title="Contratar postulante">
+                                                <i class="fas fa-handshake"></i> 
+                                           </button>
+                                        </form>
+
+
+                                        @endif
+
+
+                                        
+
+
                                     @else
                                         <a href="{{ route('precontratos.crear', $postulanteU->ID_Usuario) }}" class="bg-green-400 px-2 py-2 rounded-lg" title="Crear datos Pre Contrato">
                                           <i class="fas fa-file-pdf"></i>

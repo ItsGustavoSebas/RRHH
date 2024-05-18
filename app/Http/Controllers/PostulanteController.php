@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Calificacion;
 use App\Models\Educacion;
+use App\Models\Empleado;
 use App\Models\Entrevista;
 use App\Models\Experiencia;
 use App\Models\Fuente_De_Contratacion;
@@ -28,8 +29,8 @@ class PostulanteController extends Controller
         $puestosDisponibles = Puesto_Disponible::all();
         $pre_contratos = Pre_Contrato::all();
         $entrevista = Entrevista::all();
-    
-        return (view('Contratacion.postulantes.inicio', compact('postulantes', 'puestosDisponibles', 'pre_contratos', 'entrevista'))) ;
+        $empleados= Empleado::all();
+        return (view('Contratacion.postulantes.inicio', compact('postulantes', 'puestosDisponibles', 'pre_contratos', 'entrevista' ,'empleados')));
     }
 
 
@@ -429,25 +430,6 @@ class PostulanteController extends Controller
 
         $postulante->save();
 
-
-        //Crear DetalleBitacora
-
-        // $bitacora_id = session('bitacora_id');
-
-        // if ($bitacora_id) {
-        //     $bitacora = Bitacora::find($bitacora_id);
-
-        //     $horaActual = now()->format('H:i:s');
-
-        //     $bitacora->detalleBitacoras()->create([
-        //         'accion' => 'Editar Marca',
-        //         'metodo' => $request->method(),
-        //         'hora' => $horaActual,
-        //         'tabla' => 'marcas',
-        //         'registroId' => $marca->id,
-        //         'ruta'=> request()->fullurl(),
-        //     ]);
-        // }
         
         return redirect(route('educaciones.crear'))->with('actualizado', 'Información añadida exitosamente');
 
