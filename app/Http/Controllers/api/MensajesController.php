@@ -56,7 +56,7 @@ class MensajesController extends Controller
             'emisor_id' => $id,
             'receptor_id' => $request->receptor_id,
             'mensaje' => $request->message,
-            'leido' => false,
+            'leido' => 0,
         ]);
 
         return response()->json($message);
@@ -66,9 +66,8 @@ class MensajesController extends Controller
     {
         Message::where('emisor_id', $otro_id)
             ->where('receptor_id', $usuario_id)
-            ->update(['leido' => true]);
+            ->update(['leido' => 1]); 
 
-        // Obtener los mensajes
         $messages = Message::where(function ($query) use ($otro_id, $usuario_id) {
             $query->where('emisor_id', $usuario_id)
                 ->where('receptor_id', $otro_id);
@@ -79,6 +78,7 @@ class MensajesController extends Controller
 
         return response()->json($messages);
     }
+
 
 
     public function usuarios($id)
