@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user/revoke', function (Request $reques
     $user->tokens()->delete();
     return 'Tokens Eliminados';
 });
+Route::post('/register', [AuthController::class, 'register']);
 
 // Rutas para la gestión de permisos
 Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud']);
@@ -49,3 +50,38 @@ Route::get('/postulante/educaciones/{id}', [PostulanteController::class, 'getEdu
 Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'getReconocimientos']);
 Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
 Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
+Route::post('/postulante/actualizarinfo/{id}', [PostulanteController::class, 'actualizar']);
+
+
+
+//Educaciones
+Route::post('/postulante/educacion/{id}', [PostulanteController::class, 'guardarEducacion']);
+Route::post('/postulante/actualizarEducacion/{id}', [PostulanteController::class, 'actualizarEducacion']);
+Route::delete('/educacionEliminar/{id}', [PostulanteController::class, 'eliminarEducacion']);
+
+
+//Reconocimientos
+Route::post('/postulante/reconocimiento/{id}', [PostulanteController::class, 'guardarReconocimiento']);
+Route::post('/postulante/actualizarReconocimiento/{id}', [PostulanteController::class, 'actualizarReconocimiento']);
+Route::delete('/reconocimientoEliminar/{id}', [PostulanteController::class, 'eliminarReconocimiento']);
+
+
+//Experiencias
+Route::post('/postulante/experiencia/{id}', [PostulanteController::class, 'guardarExperiencia']);
+Route::post('/postulante/actualizarExperiencia/{id}', [PostulanteController::class, 'actualizarExperiencia']);
+Route::delete('/experienciaEliminar/{id}', [PostulanteController::class, 'eliminarExperiencia']);
+
+
+//referencias
+Route::post('/postulante/referencia/{id}', [PostulanteController::class, 'guardarReferencia']);
+Route::post('/postulante/actualizarReferencia/{id}', [PostulanteController::class, 'actualizarReferencia']);
+Route::delete('/referenciaEliminar/{id}', [PostulanteController::class, 'eliminarReferencia']);
+
+
+
+//para los desplegables
+Route::get('/postulantes/idiomas', [PostulanteController::class, 'getIdiomas']);
+Route::get('/postulantes/nivelIdiomas', [PostulanteController::class, 'getNivelIdiomas']);
+Route::get('/postulantes/fuenteDeContratacion', [PostulanteController::class, 'getFuenteDeContratacion']);
+Route::get('/postulantes/puestoDisponible', [PostulanteController::class, 'getPuestoDisponible']);
+
