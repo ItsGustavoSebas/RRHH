@@ -24,8 +24,8 @@ class MensajesController extends Controller
 
         $messages = $messages->map(function ($message) use ($user) {
             $otherUser = $message->receptor_id == $user->id ? $message->emisor : $message->receptor;
-            $unreadCount = Message::where('emisor_id', $otherUser->id)
-                ->where('receptor_id', $user->id)
+            $unreadCount = Message::where('receptor_id', $otherUser->id)
+                ->where('emisor_id', $user->id)
                 ->where('leido', false)
                 ->count();
 
