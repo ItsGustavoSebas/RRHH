@@ -56,6 +56,7 @@ class MensajesController extends Controller
             'emisor_id' => $id,
             'receptor_id' => $request->receptor_id,
             'mensaje' => $request->message,
+            'leido' => false,
         ]);
 
         return response()->json($message);
