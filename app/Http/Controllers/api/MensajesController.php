@@ -62,7 +62,7 @@ class MensajesController extends Controller
         return response()->json($message);
     }
 
-    public function mostrar($otro_id, $usuario_id)
+    public function mostrar($usuario_id, $otro_id)
     {
         Message::where('emisor_id', $otro_id)
             ->where('receptor_id', $usuario_id)
