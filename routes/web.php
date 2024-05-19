@@ -40,6 +40,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/time', function() {
+    return now();
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
