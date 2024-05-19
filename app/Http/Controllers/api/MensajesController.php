@@ -52,7 +52,7 @@ class MensajesController extends Controller
             'receptor_id' => 'required',
             'message' => 'required',
         ]);
-        $date = \Carbon\Carbon::parse('2024-05-20 12:00:00', 'America/La_Paz');
+        $date = \Carbon\Carbon::parse('2024-05-20 12:00:00', 'UTC')->setTimezone('America/La_Paz');
         $message = Message::create([
             'emisor_id' => $id,
             'receptor_id' => $request->receptor_id,
