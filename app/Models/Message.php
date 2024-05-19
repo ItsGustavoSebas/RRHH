@@ -21,14 +21,4 @@ class Message extends Model
     {
         return $this->belongsTo(User::class, 'receptor_id');
     }
-
-    public function setCreatedAt($value)
-    {
-        $this->attributes['creado'] = Carbon::createFromFormat('Y-m-d H:i:s', $value, 'America/La_Paz');
-    }
-
-    public function setUpdatedAt($value)
-    {
-        $this->attributes['updated_at'] = Carbon::createFromFormat('Y-m-d H:i:s', $value, 'America/La_Paz');
-    }
 }
