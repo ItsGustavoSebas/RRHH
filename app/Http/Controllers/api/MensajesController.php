@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MensajesController extends Controller
@@ -58,8 +59,8 @@ class MensajesController extends Controller
             'receptor_id' => $request->receptor_id,
             'mensaje' => $request->message,
             'leido' => 0,
-            'created_at' => $date,
-            'update_at' => $date,
+            'creado' => Carbon::now(),
+            'updated_at' => Carbon::now('America/La_Paz'),
         ]);
 
         return response()->json($message);
