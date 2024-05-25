@@ -41,7 +41,7 @@ class PostulanteController extends Controller
                         if (!$postulante->entrevista && !$postulante->contrato) {
                             $postulante->estado = 'pendiente';
                         } else {
-                            if ($postulante->entrevista) {
+                            if (!$postulante->entrevista->puntos) {
                                 $postulante->estado = 'entrevista';
                             } else {
                                 $postulante->estado = 'entrevistado';
