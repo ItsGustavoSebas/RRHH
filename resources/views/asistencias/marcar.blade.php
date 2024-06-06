@@ -57,26 +57,33 @@
                         </td>
                     @endif
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        @php
+                            $horaAjustada = \Carbon\Carbon::now()->subHours(4)->toTimeString();
+                        @endphp
                         @if ($diaTrabajo->dia_horario_empleado->DiaTrabajo->id == $diaTrabajoActual->id)
-                            <div class="flex justify-start gap-4">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Marcar Asistencia</span>
-                                @can('Marcar Asistencia')
-                                    <form action="{{ route('asistencias.guardarAsistencias', ['idEmpleado' => $empleado->usuario->id, 'idDiaTrabajo' => $diaTrabajo->dia_horario_empleado->DiaTrabajo->id])  }}"
-                                        method="POST">
-                                        @csrf
-                                        <button type="submit" class="bg-green-400 px-1 py-1 rounded-lg"
-                                            title="Marcar Asistencia">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </form>
-                                @endcan
-                            </div>
+                            @if (!$asistenciaYaExiste && $horaAjustada >= $diaTrabajo->Horario->HoraInicio)
+                                <div class="flex justify-start gap-4">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Marcar Asistencia</span>
+                                    @can('Marcar Asistencia')
+                                        <form action="{{ route('asistencias.guardarAsistencias', ['idEmpleado' => $empleado->usuario->id, 'idDiaTrabajo' => $diaTrabajo->dia_horario_empleado->DiaTrabajo->id])  }}"
+                                            method="POST">
+                                            @csrf
+                                            <button type="submit" class="bg-green-400 px-1 py-1 rounded-lg"
+                                                title="Marcar Asistencia">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            @else
+                                <div class="flex justify-start gap-4">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Marcar Asistencia</span>
+                                </div>
+                            @endif
                         @endif
                     </td>
                 </tr>
             @endforeach
-
-
         </tbody>
     </table>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>

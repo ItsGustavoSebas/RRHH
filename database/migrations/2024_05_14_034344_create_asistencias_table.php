@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('asistencias', function (Blueprint $table) {
             $table->id();
             $table->date('FechaMarcada');
+            $table->time('HoraMarcada');
             $table->boolean('Puntual')->default(false);
             $table->boolean('Atraso')->default(false);
             $table->boolean('FaltaInjustificada')->default(false);
