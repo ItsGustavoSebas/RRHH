@@ -15,6 +15,7 @@ class Asistencia extends Model
 
     protected $fillable = [
         'FechaMarcada',
+        'HoraMarcada',
         'Puntual',
         'Atraso',
         'FaltaInjustificada',
