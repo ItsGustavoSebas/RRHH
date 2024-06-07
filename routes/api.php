@@ -41,6 +41,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user->foto = $user->Postulante
         ? $request->user()->postulante->ruta_imagen_e
         : $request->user()->empleado->ruta_imagen_e;
+    $user->cargo = $user->Postulante
+        ? 'Postulante'
+        : ($request->user()->empleado->cargo->nombre);
+    $user->departamento = $user->Postulante
+        ? 'Postulante'
+        : ($request->user()->empleado->departamento->nombre);
     return $user;
 });
 Route::get('/postulante/{id}', [PostulanteController::class, 'getPostulante']);
