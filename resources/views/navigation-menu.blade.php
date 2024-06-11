@@ -63,17 +63,49 @@
                                             </div>
                                         </a>
                                     @else
-                                        @if ($notification->data['type'] == 'contrato')
-                                            <a href="{{ route('generarContratoPDF', $notification->data['postulante_id']) }}"
+                                        @if ($notification->data['type'] == 'New Permiso')
+                                            <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
                                                 onclick="marcarNotificacionLeida('{{ $notification->id }}')">
                                                 <div class="ml-2">
                                                     <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Felicidades!</div>
+                                                        Nueva Solicitud de Permiso</div>
                                                     <div class="text-[11px] text-gray-500">
-                                                        Has sido seleccionado para el puesto al que postulaste</div>
+                                                        El usuario {{ $notification->notifiable->name }} ha solicitado
+                                                        un nuevo permiso</div>
                                                     <div class="text-[11px] text-gray-500">
-                                                        Revisa los detalles del precontrato</div>
+                                                        Desde: {{ $notification->data['fecha_inicio'] }} Hasta:
+                                                        {{ $notification->data['fecha_fin'] }}</div>
+                                                </div>
+                                            </a>
+                                        @endif
+                                    @else
+                                        @if ($notification->data['type'] == 'Permiso Aceptado')
+                                            <a href="{{ route('permisos.historial') }}"
+                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
+                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
+                                                <div class="ml-2">
+                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                        Permiso Aceptado!</div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        El que permiso que solicitaste </div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        Ha sido aceptado</div>
+                                                </div>
+                                            </a>
+                                        @endif
+                                    @else
+                                        @if ($notification->data['type'] == 'Permiso Rechazado')
+                                            <a href="{{ route('permisos.historial') }}"
+                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
+                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
+                                                <div class="ml-2">
+                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                        Permiso Rechazado!</div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        El que permiso que solicitaste </div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        Ha sido Rechazado</div>
                                                 </div>
                                             </a>
                                         @endif
