@@ -509,7 +509,8 @@ Route::middleware([
     Route::get('/reportes/empleados/html', [ReporteController::class, 'htmlempleado'])->name('htmlempleado');
 
     Route::post('/marcar-notificacion-leida/{id}', [EntrevistaController::class, 'marcarLeida'])->name('marcar_notificacion_leida');
-
+    Route::post('/marcar-notificaciones-leida', [EntrevistaController::class, 'marcarLeidas'])->name('marcar_notificaciones_leidas');
+    Route::post('/notificaciones/verTodas', [EntrevistaController::class, 'verTodas'])->name('notificaciones.verTodas');
     // Rutas relacionadas con la gestión de permisos del personal
     Route::get('/permisos/solicitud', [PermisoController::class, 'create'])->name('permisos.solicitud');
     Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud'])->name('permisos.enviar-solicitud');
