@@ -31,8 +31,7 @@
                             <div class="absolute left-0 top-0  bg-red-500 rounded-full">
                                 @if (auth()->user()->unreadNotifications->count() > 0)
                                     <span
-                                        class="text-sm text-white p-1">{{ auth()->user()->unreadNotifications->count() }}
-                                    </span>
+                                        class="text-sm text-white p-1">{{ auth()->user()->unreadNotifications->count() }}</span>
                                 @endif
                             </div>
                             <div class="p-2">
@@ -48,81 +47,31 @@
                             class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                             <div class="py-1" role="menu" aria-orientation="vertical"
                                 aria-labelledby="options-menu">
-                                @foreach (Auth::user()->unreadNotifications as $notification)
-                                    @if ($notification->data['type'] == 'entrevista')
-                                        <a href="{{ route('entrevistas.visualizar', $notification->data['entrevista_id']) }}"
-                                            class="py-2 px-4 flex items-center hover:bg-gray-50 group"
-                                            onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                            <div class="ml-2">
-                                                <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                    Tienes una entevista</div>
-                                                <div
-                                                    class="text-[11px] {{ $notification->data['fecha_inicio'] > now() ? 'text-green-500' : ($notification->data['fecha_inicio'] < now() ? 'text-red-500' : '') }}">
-                                                    {{ $notification->data['fecha_inicio'] }} a las
-                                                    {{ $notification->data['hora'] }}</div>
+                                <!-- Botón para marcar todas como leídas -->
+                                <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    onclick="marcarTodasComoLeidas()">
+                                    Marcar todas como leídas
+                                </button>
+                                <!-- Mostrar todas las notificaciones -->
+                                @foreach (auth()->user()->notifications as $notification)
+                                    <a href="{{ getNotificationLink($notification) }}"
+                                        class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
+                                        onclick="marcarNotificacionLeida('{{ $notification->id }}')">
+                                        <div class="ml-2">
+                                            <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                {{ getNotificationTitle($notification) }}
                                             </div>
-                                        </a>
-                                    @else
-                                        @if ($notification->data['type'] == 'contrato')
-                                            <a href="{{ route('generarContratoPDF', $notification->data['postulante_id']) }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Felicidades!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Has sido seleccionado para el puesto al que postulaste</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Revisa los detalles del precontrato</div>
-                                                </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'permisonuevo')
-                                            <a href="{{ route('permisos.historial') }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Nueva Solicitud de Permiso</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        El usuario {{ $notification->notifiable->name }} ha solicitado
-                                                        un nuevo permiso</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Desde: {{ $notification->data['fecha_inicio'] }} Hasta:
-                                                        {{ $notification->data['fecha_fin'] }}</div>
-                                                </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'permisoaceptado')
-                                            <a href="{{ route('permisos.historial') }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Permiso Aceptado!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        El que permiso que solicitaste </div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Ha sido aceptado</div>
-                                                </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'permisorechazado')
-                                            <a href="{{ route('permisos.historial') }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Permiso Rechazado!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        El que permiso que solicitaste </div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Ha sido Rechazado</div>
-                                                </div>
-                                            </a>
-                                        @endif
-                                    @endif
+                                            <div class="text-[11px] text-gray-500">
+                                                {{ getNotificationMessage($notification) }}
+                                            </div>
+                                        </div>
+                                    </a>
                                 @endforeach
+                                <!-- Botón para ver todas las notificaciones -->
+                                <a href="{{ route('notificaciones.verTodas') }}"
+                                    class="block text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Ver todas las notificaciones
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -327,5 +276,74 @@
             .catch(error => {
                 console.error('Error al marcar la notificación como leída:', error);
             });
+    }
+
+    function marcarTodasComoLeidas() {
+        fetch('{{ route('marcar_notificaciones_leidas') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Notificaciones marcadas como leída');
+                } else {
+                    console.error('Error al marcar la notificación como leída');
+                }
+            })
+            .catch(error => {
+                console.error('Error al marcar las notificaciones como leídas:', error);
+            });
+    }
+
+    function getNotificationLink(notification) {
+        switch (notification.data.type) {
+            case 'entrevista':
+                return '{{ route('entrevistas.visualizar', '') }}/' + notification.data.entrevista_id;
+            case 'contrato':
+                return '{{ route('generarContratoPDF', '') }}/' + notification.data.postulante_id;
+            case 'permisonuevo':
+            case 'permisoaceptado':
+            case 'permisorechazado':
+                return '{{ route('permisos.historial') }}';
+            default:
+                return '#';
+        }
+    }
+
+    function getNotificationTitle(notification) {
+        switch (notification.data.type) {
+            case 'entrevista':
+                return 'Tienes una entrevista';
+            case 'contrato':
+                return 'Felicidades!';
+            case 'permisonuevo':
+                return 'Nueva Solicitud de Permiso';
+            case 'permisoaceptado':
+                return 'Permiso Aceptado!';
+            case 'permisorechazado':
+                return 'Permiso Rechazado!';
+            default:
+                return 'Notificación';
+        }
+    }
+
+    function getNotificationMessage(notification) {
+        switch (notification.data.type) {
+            case 'entrevista':
+                return notification.data.fecha_inicio + ' a las ' + notification.data.hora;
+            case 'contrato':
+                return 'Has sido seleccionado para el puesto al que postulaste. Revisa los detalles del precontrato.';
+            case 'permisonuevo':
+                return 'El usuario ' + notification.notifiable.name + ' ha solicitado un nuevo permiso. Desde: ' +
+                    notification.data.fecha_inicio + ' Hasta: ' + notification.data.fecha_fin;
+            case 'permisoaceptado':
+                return 'El permiso que solicitaste ha sido aceptado.';
+            case 'permisorechazado':
+                return 'El permiso que solicitaste ha sido rechazado.';
+            default:
+                return '';
+        }
     }
 </script>

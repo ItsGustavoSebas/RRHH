@@ -12,10 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class EntrevistaController extends Controller
 {
-    public function inicio(){
+    public function inicio()
+    {
         $entrevistas = Entrevista::all();
 
-        return view ('Contratacion.entrevistas.inicio', compact('entrevistas'));
+        return view('Contratacion.entrevistas.inicio', compact('entrevistas'));
     }
 
     public function crear($id)
@@ -27,22 +28,22 @@ class EntrevistaController extends Controller
     public function guardar(REQUEST $request, $id)
     {
         $idUser = Auth::id();
-        
+
 
         $request->validate([
             'fecha_inicio' => 'required',
             'hora' => 'required',
             'fecha_fin' => 'required',
             'detalles' => 'required',
-        
+
         ]);
         $entrevista = new Entrevista();
-        $entrevista->fecha_inicio= $request->fecha_inicio;
-        $entrevista->hora= $request->hora;
-        $entrevista->fecha_fin= $request->fecha_fin;
-        $entrevista->detalles= $request->detalles;
-        $entrevista->ID_Postulante= $id;
-        $entrevista->ID_Usuario= $idUser;
+        $entrevista->fecha_inicio = $request->fecha_inicio;
+        $entrevista->hora = $request->hora;
+        $entrevista->fecha_fin = $request->fecha_fin;
+        $entrevista->detalles = $request->detalles;
+        $entrevista->ID_Postulante = $id;
+        $entrevista->ID_Usuario = $idUser;
         $entrevista->save();
         $user = User::find($id);
         $user->notify(new NotificationsEntrevista($entrevista));
@@ -65,13 +66,13 @@ class EntrevistaController extends Controller
             'fecha_fin' => 'required',
             'detalles' => 'required',
         ]);
-        $entrevistas->fecha_inicio= $request->fecha_inicio;
-        $entrevistas->hora= $request->hora;
-        $entrevistas->fecha_fin= $request->fecha_fin;
-        $entrevistas->detalles= $request->detalles;
+        $entrevistas->fecha_inicio = $request->fecha_inicio;
+        $entrevistas->hora = $request->hora;
+        $entrevistas->fecha_fin = $request->fecha_fin;
+        $entrevistas->detalles = $request->detalles;
         $entrevistas->save();
 
-        
+
         return redirect(route('entrevistas.inicio'))->with('actualizado', 'Entrevista actualizada exitosamente');
     }
 
@@ -104,18 +105,30 @@ class EntrevistaController extends Controller
     }
 
 
-    public function puntuar(Request $request, $id){
+    public function puntuar(Request $request, $id)
+    {
 
         $entrevista = Entrevista::where('id', '=', $id)->first();
         $entrevistas = Entrevista::all();
 
         $entrevista->puntos = $request->input('puntos');
         $entrevista->save();
-        
+
 
 
         return redirect()->route('entrevistas.inicio')
-        ->with('evaluados', 'Entrevista puntuada de forma exitosa')
-        ->with('entrevistas', $entrevistas);
+            ->with('evaluados', 'Entrevista puntuada de forma exitosa')
+            ->with('entrevistas', $entrevistas);
+    }
+    public function marcarTodasComoLeidas()
+    {
+        Auth::user()->unreadNotifications->markAsRead();
+        return response()->json(['success' => true]);
+    }
+    public function verTodas()
+    {
+        $notifications = Auth::user()->notifications;
+
+        return view('notificaciones', compact('notifications'));
     }
 }
