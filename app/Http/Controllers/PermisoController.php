@@ -47,16 +47,13 @@ class PermisoController extends Controller
     public function historial()
     {
         $user = User::find(Auth::id());
-        if ($user->hasRole('Administrador')) {
+        if ($user->hasRole('Administrador') || $user->hasRole('Encargado')) {
             $permisos = Permiso::all();
         } else {
             $permisos = Permiso::where('user_id', Auth::id())->get();
         }
         return view('permisos.historial', compact('permisos'));
     }
-    
-    
-    
     
 
     public function approve(Request $request, $id)
