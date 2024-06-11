@@ -28,7 +28,7 @@
                         <button @click="open = !open"
                             class="relative inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <!-- Ícono de notificación -->
-                            <div class="absolute left-0 top-0  bg-red-500 rounded-full">
+                            <div class="absolute left-0 top-0 bg-red-500 rounded-full">
                                 @if (auth()->user()->unreadNotifications->count() > 0)
                                     <span
                                         class="text-sm text-white p-1">{{ auth()->user()->unreadNotifications->count() }}</span>

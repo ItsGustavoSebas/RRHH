@@ -1,24 +1,37 @@
 <x-app-layout>
-    <div class="container">
-        <h1>Todas las notificaciones</h1>
-        <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            onclick="marcarTodasComoLeidas()">
-            Marcar todas como leídas
-        </button>
-        @foreach ($notifications as $notification)
-            <a href="{{ getNotificationLink($notification) }}"
-                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                <div class="ml-2">
-                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                        {{ getNotificationTitle($notification) }}
+    <x-slot name="header">
+        <div class = "flex flex-wrap justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Todas las notificaciones') }}
+            </h2>
+        </div>
+    </x-slot>
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg m-5">
+        @if (!$notifications->isEmpty())
+            <button class="w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                onclick="marcarTodasComoLeidas()">
+                Marcar todas como leídas
+            </button>
+            @foreach ($notifications as $notification)
+                <a href="{{ getNotificationLink($notification) }}"
+                    class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
+                    onclick="marcarNotificacionLeida('{{ $notification->id }}')">
+                    <div class="ml-2">
+                        <div class="text-[10px] text-gray-600 font-medium truncate">
+                            {{ getNotificationTitle($notification) }}
+                        </div>
+                        <div class="text-[11px] text-gray-500">
+                            {{ getNotificationMessage($notification) }}
+                        </div>
                     </div>
-                    <div class="text-[11px] text-gray-500">
-                        {{ getNotificationMessage($notification) }}
-                    </div>
-                </div>
-            </a>
-        @endforeach
+                </a>
+            @endforeach
+            @else
+            <div class="w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                >No hay notificaciones
+            </div>
+        @endif
+
     </div>
 
     <script>
