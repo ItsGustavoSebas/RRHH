@@ -62,7 +62,22 @@
                                                     {{ $notification->data['hora'] }}</div>
                                             </div>
                                         </a>
-                                        @if ($notification->data['type'] == 'New Permiso')
+                                    @else
+                                        @if ($notification->data['type'] == 'contrato')
+                                            <a href="{{ route('generarContratoPDF', $notification->data['postulante_id']) }}"
+                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group"
+                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
+                                                <div class="ml-2">
+                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                        Felicidades!</div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        Has sido seleccionado para el puesto al que postulaste</div>
+                                                    <div class="text-[11px] text-gray-500">
+                                                        Revisa los detalles del precontrato</div>
+                                                </div>
+                                            </a>
+                                        @endif
+                                        @if ($notification->data['type'] == 'permisonuevo')
                                             <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
                                                 onclick="marcarNotificacionLeida('{{ $notification->id }}')">
@@ -78,7 +93,7 @@
                                                 </div>
                                             </a>
                                         @endif
-                                        @if ($notification->data['type'] == 'Permiso Aceptado')
+                                        @if ($notification->data['type'] == 'permisoaceptado')
                                             <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
                                                 onclick="marcarNotificacionLeida('{{ $notification->id }}')">
@@ -92,7 +107,7 @@
                                                 </div>
                                             </a>
                                         @endif
-                                        @if ($notification->data['type'] == 'Permiso Rechazado')
+                                        @if ($notification->data['type'] == 'permisorechazado')
                                             <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
                                                 onclick="marcarNotificacionLeida('{{ $notification->id }}')">
