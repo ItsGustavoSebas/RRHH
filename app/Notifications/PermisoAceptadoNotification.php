@@ -58,7 +58,7 @@ class PermisoAceptadoNotification extends Notification
         return [
             'notifiable' => $notifiable,
             'permiso_id' => $this->permiso->id,
-            'type' => 'Permiso Aceptado',
+            'type' => 'permisoaceptado',
             'fecha_inicio' => $this->permiso->fecha_inicio,
             'fecha_fin' => $this->permiso->fecha_fin,
             'motivo' => $this->permiso->motivo,
