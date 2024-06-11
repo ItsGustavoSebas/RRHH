@@ -91,20 +91,6 @@ class EntrevistaController extends Controller
         return view('Contratacion.entrevistas.visualizar', compact('entrevista'));
     }
 
-    public function marcarLeida($id)
-    {
-        $usuario = Auth::user();
-        $notification = $usuario->notifications->where('id', $id)->first();
-        // Marca la notificación como leída si se encuentra
-        if ($notification) {
-            $notification->markAsRead();
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['error' => 'La notificación no se encontró'], 404);
-        }
-    }
-
-
     public function puntuar(Request $request, $id)
     {
 
@@ -120,15 +106,24 @@ class EntrevistaController extends Controller
             ->with('evaluados', 'Entrevista puntuada de forma exitosa')
             ->with('entrevistas', $entrevistas);
     }
-    public function marcarLeidas()
+    public function marcarTodasComoLeidas()
     {
         Auth::user()->unreadNotifications->markAsRead();
         return response()->json(['success' => true]);
     }
+
+    public function marcarComoLeida($id)
+    {
+        $notification = Auth::user()->notifications->find($id);
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return response()->json(['success' => true]);
+    }
+
     public function verTodas()
     {
-        $notifications = Auth::user()->notifications;
-
+        $notifications = Auth::user()->notifications; 
         return view('notificaciones', compact('notifications'));
     }
 }
