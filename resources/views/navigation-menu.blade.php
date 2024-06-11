@@ -62,7 +62,6 @@
                                                     {{ $notification->data['hora'] }}</div>
                                             </div>
                                         </a>
-                                    @else
                                         @if ($notification->data['type'] == 'New Permiso')
                                             <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
@@ -79,7 +78,6 @@
                                                 </div>
                                             </a>
                                         @endif
-                                    @else
                                         @if ($notification->data['type'] == 'Permiso Aceptado')
                                             <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
@@ -94,7 +92,6 @@
                                                 </div>
                                             </a>
                                         @endif
-                                    @else
                                         @if ($notification->data['type'] == 'Permiso Rechazado')
                                             <a href="{{ route('permisos.historial') }}"
                                                 class="py-2 px-4 flex items-center hover:bg-gray-50 group"
