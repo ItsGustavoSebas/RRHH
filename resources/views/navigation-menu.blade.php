@@ -259,46 +259,28 @@
     </aside>
 </nav>
 <script>
-    function marcarNotificacionLeida(notificationId) {
-        fetch('{{ route('marcar_notificacion_leida', ':id') }}'.replace(":id", notificationId), {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                }
-            })
+    function marcarTodasComoLeidas() {
+        axios.post('{{ route('notificaciones.marcarTodasComoLeidas') }}')
             .then(response => {
-                if (response.ok) {
-                    console.log('Notificación marcada como leída');
-                } else {
-                    console.error('Error al marcar la notificación como leída');
-                }
+                location.reload();
             })
             .catch(error => {
-                console.error('Error al marcar la notificación como leída:', error);
+                console.error('Error marcando todas como leídas:', error);
             });
     }
 
-    function marcarTodasComoLeidas() {
-        fetch('{{ route('marcar_notificaciones_leidas') }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                }
-            })
+    function marcarNotificacionLeida(notificationId) {
+        axios.post('{{ route('notificaciones.marcarComoLeida', '') }}/' + notificationId)
             .then(response => {
-                if (response.ok) {
-                    console.log('Notificaciones marcadas como leída');
-                } else {
-                    console.error('Error al marcar la notificación como leída');
-                }
+                location.reload();
             })
             .catch(error => {
-                console.error('Error al marcar las notificaciones como leídas:', error);
+                console.error('Error marcando notificación como leída:', error);
             });
     }
 
     function getNotificationLink(notification) {
-        switch (notification.data.type) {
+        switch(notification.data.type) {
             case 'entrevista':
                 return '{{ route('entrevistas.visualizar', '') }}/' + notification.data.entrevista_id;
             case 'contrato':
@@ -313,7 +295,7 @@
     }
 
     function getNotificationTitle(notification) {
-        switch (notification.data.type) {
+        switch(notification.data.type) {
             case 'entrevista':
                 return 'Tienes una entrevista';
             case 'contrato':
@@ -330,14 +312,13 @@
     }
 
     function getNotificationMessage(notification) {
-        switch (notification.data.type) {
+        switch(notification.data.type) {
             case 'entrevista':
                 return notification.data.fecha_inicio + ' a las ' + notification.data.hora;
             case 'contrato':
                 return 'Has sido seleccionado para el puesto al que postulaste. Revisa los detalles del precontrato.';
             case 'permisonuevo':
-                return 'El usuario ' + notification.notifiable.name + ' ha solicitado un nuevo permiso. Desde: ' +
-                    notification.data.fecha_inicio + ' Hasta: ' + notification.data.fecha_fin;
+                return 'El usuario ' + notification.notifiable.name + ' ha solicitado un nuevo permiso. Desde: ' + notification.data.fecha_inicio + ' Hasta: ' + notification.data.fecha_fin;
             case 'permisoaceptado':
                 return 'El permiso que solicitaste ha sido aceptado.';
             case 'permisorechazado':

@@ -120,7 +120,7 @@ class EntrevistaController extends Controller
             ->with('evaluados', 'Entrevista puntuada de forma exitosa')
             ->with('entrevistas', $entrevistas);
     }
-    public function marcarTodasComoLeidas()
+    public function marcarLeidas()
     {
         Auth::user()->unreadNotifications->markAsRead();
         return response()->json(['success' => true]);
