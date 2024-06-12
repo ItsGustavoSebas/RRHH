@@ -64,6 +64,7 @@ class PermisosNotification extends Notification
             'fecha_inicio' => $this->permiso->fecha_inicio,
             'fecha_fin' => $this->permiso->fecha_fin,
             'motivo' => $this->permiso->motivo,
+            'user_id' => $this->permiso->user_id,
         ];
     }
 }
