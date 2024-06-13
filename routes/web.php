@@ -385,6 +385,7 @@ Route::middleware([
     Route::get('/asistencias/marcar/{id}', [AsistenciaController::class, 'marcar'])->name('asistencias.marcar');
     Route::post('/asistencias/guardarAsistencias/{idEmpleado}/{idDiaTrabajo}', [AsistenciaController::class, 'guardarAsistencias'])->name('asistencias.guardarAsistencias');
     Route::get('/asistencias/historial/{id}', [AsistenciaController::class, 'historial'])->name('asistencias.historial');
+    Route::get('/asistencias/guardarAsistenciasAuto', [AsistenciaController::class, 'verificarFaltasAutomaticas'])->name('asistencias.verificarFaltasAutomaticas');
 
 
     Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');

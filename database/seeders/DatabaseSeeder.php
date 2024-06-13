@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HorarioSeeder::class);
         $this->call(EmpleadoSeeder::class);
         $this->call(DiaTrabajoSeeder::class);
+        $this->call(HorarioEmpleadoSeeder::class);
         $this->call(Puesto_DisponibleSeeder::class);
         $this->call(PostulanteSeeder::class);
         $this->call(IdiomaSeeder::class);
