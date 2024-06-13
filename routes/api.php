@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AsistenciasController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\MensajesController;
@@ -100,3 +101,8 @@ Route::get('/postulantes/puestoDisponible', [PostulanteController::class, 'getPu
 
 
 
+
+Route::get('/empleado/horario/{idEmpleado}', [AsistenciasController::class, 'getHorario']);
+Route::get('/empleado/marcar/{idEmpleado}', [AsistenciasController::class, 'marcar']);
+Route::get('/empleado/guardarAsistencia/{idEmpleado}/{idDiaTrabajo}', [AsistenciasController::class, 'guardarAsistencias']);
+Route::get('/empleado/guardarAsistenciaAuto/', [AsistenciasController::class, 'verificarFaltasAutomaticas']);
