@@ -58,11 +58,10 @@ class Entrevista extends Notification
     public function toArray($notifiable)
     {
         return [
-        'entrevista_id' => $this->entrevista->id,
-        'type' => 'entrevista',
-        'fecha_inicio' => $this->entrevista->fecha_inicio,
-        'hora' => $this->entrevista->hora,
-        'detalles' => $this->entrevista->detalles,
+            'titulo' => "Tienes una entevista",
+            'contenido' => "En fecha {$this->entrevista->fecha_inicio} a las {$this->entrevista->hora}",
+            'link' => route('entrevistas.visualizar', $this->entrevista->id),
+            'type' => 'entrevista',
         ];
     }
 }

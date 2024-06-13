@@ -519,5 +519,4 @@ Route::middleware([
      Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
      Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
      Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
-
 });

@@ -53,44 +53,29 @@
                                         Marcar todas como leídas
                                     </button>
                                     @foreach (auth()->user()->notifications as $notification)
-                                        @if ($notification->data['type'] == 'entrevista')
-                                            <a href="{{ route('entrevistas.visualizar', $notification->data['entrevista_id']) }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Tienes una entevista</div>
-                                                    <div
-                                                        class="text-[11px] {{ $notification->data['fecha_inicio'] > now() ? 'text-green-500' : ($notification->data['fecha_inicio'] < now() ? 'text-red-500' : '') }}">
-                                                        {{ $notification->data['fecha_inicio'] }} a las
-                                                        {{ $notification->data['hora'] }}</div>
+                                        <a href="{{ $notification->data['link'] }}"
+                                            class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
+                                            onclick="marcarNotificacionLeida(event, '{{ $notification->id }}')">
+                                            <div class="ml-2">
+                                                <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                    {{ $notification->data['titulo'] }}
                                                 </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'contrato')
-                                            <a href="{{ route('generarContratoPDF', $notification->data['postulante_id']) }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Felicidades!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Has sido seleccionado para el puesto al que postulaste</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Revisa los detalles del precontrato</div>
+                                                <div class="text-[11px] text-gray-500">
+                                                    {{ $notification->data['contenido'] }}
                                                 </div>
-                                            </a>
-                                        @endif
+                                            </div>
+                                        </a>
                                     @endforeach
+                                    <a href="{{ route('notificaciones.verTodas') }}"
+                                        class="block text-center px-4 py-2 text-sm text-blue-700 hover:bg-gray-100">
+                                        Ver todas las notificaciones
+                                    </a>
                                 @else
                                     <div class="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">No
                                         hay notificaciones
                                     </div>
                                 @endif
-                                <a href="{{ route('notificaciones.verTodas') }}"
-                                    class="block text-center px-4 py-2 text-sm text-blue-700 hover:bg-gray-100">
-                                    Ver todas las notificaciones
-                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -288,10 +273,13 @@
             });
     }
 
-    function marcarNotificacionLeida(notificationId) {
+    function marcarNotificacionLeida(event, notificationId) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+
         axios.post('{{ route('notificaciones.marcarComoLeida', '') }}/' + notificationId)
             .then(response => {
-                location.reload();
+                // Redirigir a la ruta de la notificación después de marcarla como leída
+                window.location.href = event.target.closest('a').href;
             })
             .catch(error => {
                 console.error('Error marcando notificación como leída:', error);

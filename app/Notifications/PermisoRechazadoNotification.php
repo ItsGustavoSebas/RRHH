@@ -56,12 +56,10 @@ class PermisoRechazadoNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'notifiable' => $notifiable,
-            'permiso_id' => $this->permiso->id,
+            'titulo' => "Permiso Rechazado!",
+            'contenido' => "El permiso que solicitaste ha sido rechazado",
+            'link' => route('permisos.historial'),
             'type' => 'permisorechazado',
-            'fecha_inicio' => $this->permiso->fecha_inicio,
-            'fecha_fin' => $this->permiso->fecha_fin,
-            'motivo' => $this->permiso->motivo,
         ];
     }
 }
