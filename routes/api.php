@@ -70,7 +70,6 @@ Route::get('/mensaje/usuarios/{id}', [MensajesController::class, 'usuarios']);
 Route::post('/postulante/actualizarinfo/{id}', [PostulanteController::class, 'actualizar']);
 
 
-
 //Educaciones
 Route::post('/postulante/educacion/{id}', [PostulanteController::class, 'guardarEducacion']);
 Route::post('/postulante/actualizarEducacion/{id}', [PostulanteController::class, 'actualizarEducacion']);
@@ -110,7 +109,7 @@ Route::get('/empleado/marcar/{idEmpleado}', [AsistenciasController::class, 'marc
 Route::get('/empleado/guardarAsistencia/{idEmpleado}/{idDiaTrabajo}', [AsistenciasController::class, 'guardarAsistencias']);
 Route::get('/empleado/guardarAsistenciaAuto/', [AsistenciasController::class, 'verificarFaltasAutomaticas']);
 
-Route::get('/notificacion/getnotificaciones', [NotificacionesController::class, 'getNotificaciones']);
+Route::get('/notificacion/getnotificaciones/{id}', [NotificacionesController::class, 'getNotificaciones']);
 Route::post('/notificacion/marcartodas/{id}', [NotificacionesController::class, 'marcarTodasComoLeidas']);
 Route::post('/notificacion/marcar/{id_user}/{id_noti}', [NotificacionesController::class, 'marcarComoLeida']);
 
