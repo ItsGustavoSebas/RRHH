@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('cantAsisAtraso')->nullable(); 
             $table->integer('cantFaltInjustificada')->nullable(); 
             $table->integer('cantFaltaJustificada')->nullable(); 
-            $table->string('mes')->nullable(); 
-            $table->string('anio')->nullable(); 
+            $table->integer('mes')->nullable(); 
+            $table->integer('anio')->nullable(); 
             $table->integer('puntaje')->nullable(); 
       
             $table->unsignedBigInteger('ID_Empleado');
