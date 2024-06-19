@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\AsistenciasController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\EmpleadoController;
 use App\Http\Controllers\api\MensajesController;
 use App\Http\Controllers\api\PostulanteController;
 use App\Models\User;
@@ -106,3 +107,10 @@ Route::get('/empleado/horario/{idEmpleado}', [AsistenciasController::class, 'get
 Route::get('/empleado/marcar/{idEmpleado}', [AsistenciasController::class, 'marcar']);
 Route::get('/empleado/guardarAsistencia/{idEmpleado}/{idDiaTrabajo}', [AsistenciasController::class, 'guardarAsistencias']);
 Route::get('/empleado/guardarAsistenciaAuto/', [AsistenciasController::class, 'verificarFaltasAutomaticas']);
+
+
+//empleado permisos
+Route::get('/empleado/getPermisosEmpleado/{idEmpleado}', [EmpleadoController::class, 'getPermisosEmpleado']);
+Route::post('/empleado/guardarPermiso/{idPermiso}', [EmpleadoController::class, 'guardarPermiso']);
+Route::post('/empleado/actualizarPermiso/{idPermiso}', [EmpleadoController::class, 'actualizarPermiso']);
+Route::delete('/empleado/eliminarPermiso/{idPermiso}', [EmpleadoController::class, 'eliminarPermiso']);
