@@ -41,5 +41,15 @@ class HorarioSeeder extends Seeder
             'HoraFin' => '20:00',
             'HoraLimite' => '14:30',
         ]);
+        Horario::create([
+            'HoraInicio' => '20:00',
+            'HoraFin' => '23:30',
+            'HoraLimite' => '23:59',
+        ]);
+        Horario::create([
+            'HoraInicio' => '00:00',
+            'HoraFin' => '06:00',
+            'HoraLimite' => '06:59',
+        ]);
     }
 }
