@@ -516,8 +516,18 @@ Route::middleware([
     Route::get('/permisos/solicitud', [PermisoController::class, 'create'])->name('permisos.solicitud');
     Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud'])->name('permisos.enviar-solicitud');
      // Rutas relacionadas con el historial de permisos
-     Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
-     Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
-     Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
+    Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
+    Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
+    Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
+
+
+
+
+    //asistencias Evaluacion
+    Route::get('/asistenciasEvaluacion/inicio', [AsistenciaController::class, 'evaluarInicio'])->name('asistencias.evaluarInicio');
+    Route::post('/asistenciasEvaluacion/evaluar', [AsistenciaController::class, 'evaluar'])->name('asistencias.evaluar');
+    Route::get('/asistenciasEvaluacion/editar/{id}', [AsistenciaController::class, 'editarEvaluacion'])->name('asistencias.editarEvaluacion');
+    Route::post('/asistenciasEvaluacion/actualizar/{id}', [AsistenciaController::class, 'actualizarEvaluacion'])->name('asistencias.actualizarEvaluacion');
+    Route::post('/asistenciasEvaluacion/eliminar/{id}', [AsistenciaController::class, 'eliminarEvaluacion'])->name('asistencias.eliminarEvaluacion');
 
 });

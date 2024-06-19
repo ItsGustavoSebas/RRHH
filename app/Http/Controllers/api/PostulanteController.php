@@ -12,6 +12,7 @@ use App\Models\Experiencia;
 use App\Models\Fuente_De_Contratacion;
 use App\Models\Idioma;
 use App\Models\Nivel_Idioma;
+use App\Models\Permiso;
 use App\Models\Postulante;
 use App\Models\Pre_Contrato;
 use App\Models\Puesto_Disponible;
@@ -535,6 +536,10 @@ class PostulanteController extends Controller
         return response()->json(['message' => 'Error al procesar la solicitud de eliminarreferencia', 'error' => $th->getMessage()], 500);
       }
     }
+
+
+
+
 
 
 

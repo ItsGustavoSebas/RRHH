@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\AsistenciasController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\EmpleadoController;
 use App\Http\Controllers\api\MensajesController;
 use App\Http\Controllers\api\NotificacionesController;
 use App\Http\Controllers\api\PostulanteController;
@@ -115,3 +116,9 @@ Route::post('/notificacion/marcar/{id_user}/{id_noti}', [NotificacionesControlle
 
 Route::get('/puestos/getpuestos', [PuestosController::class, 'getPuestos']);
 Route::post('/puestos/postularse/{id_user}/{idpuesto}', [PuestosController::class, 'postularse']);
+
+//empleado permisos
+Route::get('/empleado/getPermisosEmpleado/{idEmpleado}', [EmpleadoController::class, 'getPermisosEmpleado']);
+Route::post('/empleado/guardarPermiso/{idPermiso}', [EmpleadoController::class, 'guardarPermiso']);
+Route::post('/empleado/actualizarPermiso/{idPermiso}', [EmpleadoController::class, 'actualizarPermiso']);
+Route::delete('/empleado/eliminarPermiso/{idPermiso}', [EmpleadoController::class, 'eliminarPermiso']);

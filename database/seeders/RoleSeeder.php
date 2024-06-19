@@ -99,6 +99,7 @@ class RoleSeeder extends Seeder
     
         //ASISTENCIA
         Permission::create(['name' => 'Marcar Asistencia'])->syncRoles([$rol1, $rol2, $rol4]);
+        Permission::create(['name' => 'Ver Evaluacion'])->syncRoles([$rol1, $rol2]);
 
     }
 }

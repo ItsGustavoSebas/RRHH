@@ -31,7 +31,7 @@
             @foreach ($diasTrabajo as $diaTrabajo)
                 @php
                     $hasHorario = $diaTrabajo;
-                    $horaAjustada = \Carbon\Carbon::now()->subHours(4)->toTimeString();
+                    $horaAjustada = \Carbon\Carbon::now()->toTimeString();
                 @endphp
                 <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
