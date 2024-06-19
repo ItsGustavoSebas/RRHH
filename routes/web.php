@@ -525,5 +525,9 @@ Route::middleware([
 
     //asistencias Evaluacion
     Route::get('/asistenciasEvaluacion/inicio', [AsistenciaController::class, 'evaluarInicio'])->name('asistencias.evaluarInicio');
+    Route::post('/asistenciasEvaluacion/evaluar', [AsistenciaController::class, 'evaluar'])->name('asistencias.evaluar');
+    Route::get('/asistenciasEvaluacion/editar/{id}', [AsistenciaController::class, 'editarEvaluacion'])->name('asistencias.editarEvaluacion');
+    Route::post('/asistenciasEvaluacion/actualizar/{id}', [AsistenciaController::class, 'actualizarEvaluacion'])->name('asistencias.actualizarEvaluacion');
+    Route::post('/asistenciasEvaluacion/eliminar/{id}', [AsistenciaController::class, 'eliminarEvaluacion'])->name('asistencias.eliminarEvaluacion');
 
 });
