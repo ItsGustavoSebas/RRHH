@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Permiso;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -57,14 +58,12 @@ class PermisosNotification extends Notification
      */
     public function toArray($notifiable)
     {
+        $user = User::find($this->permiso->user_id);
         return [
-            'notifiable' => $notifiable,
-            'permiso_id' => $this->permiso->id,
+            'titulo' => "Nueva Solicitud de Permiso",
+            'contenido' => "El usuario {$user->name} ha solicitado un nuevo permiso. Desde: {$this->permiso->fecha_inicio} Hasta: {$this->permiso->fecha_fin}",
+            'link' => route('permisos.historial'),
             'type' => 'permisonuevo',
-            'fecha_inicio' => $this->permiso->fecha_inicio,
-            'fecha_fin' => $this->permiso->fecha_fin,
-            'motivo' => $this->permiso->motivo,
-            'user_id' => $this->permiso->user_id,
         ];
     }
 }
