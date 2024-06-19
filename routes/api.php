@@ -5,7 +5,9 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\EmpleadoController;
 use App\Http\Controllers\api\MensajesController;
+use App\Http\Controllers\api\NotificacionesController;
 use App\Http\Controllers\api\PostulanteController;
+use App\Http\Controllers\api\PuestosController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -108,6 +110,12 @@ Route::get('/empleado/marcar/{idEmpleado}', [AsistenciasController::class, 'marc
 Route::get('/empleado/guardarAsistencia/{idEmpleado}/{idDiaTrabajo}', [AsistenciasController::class, 'guardarAsistencias']);
 Route::get('/empleado/guardarAsistenciaAuto/', [AsistenciasController::class, 'verificarFaltasAutomaticas']);
 
+Route::get('/notificacion/getnotificaciones', [NotificacionesController::class, 'getNotificaciones']);
+Route::post('/notificacion/marcartodas/{id}', [NotificacionesController::class, 'marcarTodasComoLeidas']);
+Route::post('/notificacion/marcar/{id_user}/{id_noti}', [NotificacionesController::class, 'marcarComoLeida']);
+
+Route::get('/puestos/getpuestos', [PuestosController::class, 'getPuestos']);
+Route::post('/puestos/postularse/{id_user}/{idpuesto}', [PuestosController::class, 'postularse']);
 
 //empleado permisos
 Route::get('/empleado/getPermisosEmpleado/{idEmpleado}', [EmpleadoController::class, 'getPermisosEmpleado']);
