@@ -101,5 +101,13 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Marcar Asistencia'])->syncRoles([$rol1, $rol2, $rol4]);
         Permission::create(['name' => 'Ver Evaluacion'])->syncRoles([$rol1, $rol2]);
 
+         // Actividades
+         Permission::create(['name' => 'Inicio Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Crear Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Guardar Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Editar Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Actualizar Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Eliminar Actividades'])->syncRoles([$rol1, $rol2]);
+         
     }
 }

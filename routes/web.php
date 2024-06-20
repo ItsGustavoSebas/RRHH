@@ -21,7 +21,7 @@ use App\Http\Controllers\ReferenciaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
-
+use App\Http\Controllers\ActividadController;
 use App\Models\Educacion;
 use App\Models\Postulante;
 use App\Models\Reconocimiento;
@@ -542,4 +542,11 @@ Route::middleware([
 
 
 
-});
+    Route::get('/actividades/inicio', [ActividadController::class, 'inicio'])->name('actividades.inicio');
+    Route::get('/actividades/crear', [ActividadController::class, 'crear'])->name('actividades.crear');
+    Route::post('/actividades/guardar', [ActividadController::class, 'guardar'])->name('actividades.guardar');
+    Route::get('/actividades/editar/{id}', [ActividadController::class, 'editar'])->name('actividades.editar');
+    Route::put('/actividades/actualizar/{id}', [ActividadController::class, 'actualizar'])->name('actividades.actualizar');
+    Route::delete('/actividades/eliminar/{id}', [ActividadController::class, 'eliminar'])->name('actividades.eliminar');
+   });
+   
