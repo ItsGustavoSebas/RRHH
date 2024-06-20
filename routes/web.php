@@ -12,6 +12,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EntrevistaController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\InformacionPersonalController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\Pre_ContratoController;
@@ -529,5 +530,16 @@ Route::middleware([
     Route::get('/asistenciasEvaluacion/editar/{id}', [AsistenciaController::class, 'editarEvaluacion'])->name('asistencias.editarEvaluacion');
     Route::post('/asistenciasEvaluacion/actualizar/{id}', [AsistenciaController::class, 'actualizarEvaluacion'])->name('asistencias.actualizarEvaluacion');
     Route::post('/asistenciasEvaluacion/eliminar/{id}', [AsistenciaController::class, 'eliminarEvaluacion'])->name('asistencias.eliminarEvaluacion');
+
+
+    
+    //COMUNICACION RRHH MENSAJES
+    Route::get('/comunicacion/rinicio', [MessageController::class, 'rinicio'])->name('comunicacion.rinicio');
+    Route::get('/comunicacion/crear', [MessageController::class, 'crear'])->name('comunicacion.crear');
+    Route::post('/comunicacion/guardar', [MessageController::class, 'guardar'])->name('comunicacion.guardar');
+    Route::post('/comunicacion/guardarCHAT', [MessageController::class, 'guardarCHAT'])->name('comunicacion.guardarCHAT');
+    Route::get('/comunicacion/chatear/{idreceptor}', [MessageController::class, 'mostrar'])->name('comunicacion.mostrar');
+
+
 
 });
