@@ -36,7 +36,7 @@ class AsistenciaController extends Controller
         // Obtener la fecha y hora actuales
         $fechaActual = Carbon::now();
         // Restar 4 horas a la hora actual
-        $fechaAjustada = $fechaActual->copy()->subHours(0);
+        $fechaAjustada = $fechaActual->copy()->subHours(4);
         // dd($fechaAjustada->hour);
 
 
