@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\EntrevistaController;
 use App\Http\Controllers\api\MensajesController;
 use App\Http\Controllers\api\PostulanteController;
 use App\Models\User;
@@ -57,6 +58,9 @@ Route::get('/postulante/educaciones/{id}', [PostulanteController::class, 'getEdu
 Route::get('/postulante/reconocimientos/{id}', [PostulanteController::class, 'getReconocimientos']);
 Route::get('/postulante/experiencias/{id}', [PostulanteController::class, 'getExperiencias']);
 Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getReferencias']);
+
+Route::get('/entrevista/{id}', [EntrevistaController::class, 'getEntrevista']);
+Route::get('/postulante/contrato/{id}', [EntrevistaController::class, 'getContrato']);
 
 Route::get('/mensaje/nuevos/{id}', [MensajesController::class, 'inicio']);
 Route::post('/mensaje/enviar/{id}', [MensajesController::class, 'enviar']);
