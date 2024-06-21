@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Empleado;
+use App\Models\Sueldo;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EmpleadoSeeder extends Seeder
@@ -16,8 +16,13 @@ class EmpleadoSeeder extends Seeder
      */
     public function run()
     {
+        // Función para generar sueldos aleatorios entre 2500 y 6000
+        function generarSueldoAleatorio() {
+            return rand(2500, 6000);
+        }
+
         $user = User::create([
-            'name' => 'Administador',
+            'name' => 'Administrador',
             'email' => 'adm@gmail.com',
             'ci' => '98716',
             'telefono' => '7789943',
@@ -25,20 +30,24 @@ class EmpleadoSeeder extends Seeder
             'Postulante' => false,
             'Empleado' => true,
             'password' => bcrypt('12345678'),
-            'Postulante' => false,
-            'Empleado' => true,
         ])->assignRole('Administrador');
 
-        $empleado = new Empleado([
+        $sueldo = Sueldo::create([
+            'sueldo_basico' => generarSueldoAleatorio(),
+            'dias_pagados' => 24,
+            'horas_diarias' => 8,
+        ]);
+
+        $empleado = Empleado::create([
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
+            'ID_Sueldo' => $sueldo->id,
+            'ID_Usuario' => $user->id,
         ]);
-
-        $user->empleado()->save($empleado);
 
         $user = User::create([
             'name' => 'Encargado',
@@ -49,20 +58,24 @@ class EmpleadoSeeder extends Seeder
             'Postulante' => false,
             'Empleado' => true,
             'password' => bcrypt('12345678'),
-            'Postulante' => false,
-            'Empleado' => true,
         ])->assignRole('Encargado');
 
-        $empleado = new Empleado([
+        $sueldo = Sueldo::create([
+            'sueldo_basico' => generarSueldoAleatorio(),
+            'dias_pagados' => 24,
+            'horas_diarias' => 8,
+        ]);
+
+        $empleado = Empleado::create([
             'ruta_imagen_e' => null,
             'ID_Cargo' => 1,
             'ID_Departamento' => 2,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
+            'ID_Sueldo' => $sueldo->id,
+            'ID_Usuario' => $user->id,
         ]);
-
-        $user->empleado()->save($empleado);
 
         $user = User::create([
             'name' => 'Daniel',
@@ -73,20 +86,24 @@ class EmpleadoSeeder extends Seeder
             'Postulante' => false,
             'Empleado' => true,
             'password' => bcrypt('12345678'),
-            'Postulante' => false,
-            'Empleado' => true,
         ])->assignRole('Empleado');
 
-        $empleado = new Empleado([
+        $sueldo = Sueldo::create([
+            'sueldo_basico' => generarSueldoAleatorio(),
+            'dias_pagados' => 24,
+            'horas_diarias' => 8,
+        ]);
+
+        $empleado = Empleado::create([
             'ruta_imagen_e' => null,
             'ID_Cargo' => 4,
             'ID_Departamento' => 2,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
+            'ID_Sueldo' => $sueldo->id,
+            'ID_Usuario' => $user->id,
         ]);
-
-        $user->empleado()->save($empleado);
 
         $user = User::create([
             'name' => 'Fernando',
@@ -97,17 +114,22 @@ class EmpleadoSeeder extends Seeder
             'Postulante' => false,
             'Empleado' => true,
             'password' => bcrypt('12345678'),
-            'Postulante' => false,
-            'Empleado' => true,
         ])->assignRole('Empleado');
 
-        $empleado = new Empleado([
-            'ID_Cargo' => '1',
-            'ID_Departamento'=> '1',
+        $sueldo = Sueldo::create([
+            'sueldo_basico' => generarSueldoAleatorio(),
+            'dias_pagados' => 24,
+            'horas_diarias' => 8,
+        ]);
+
+        $empleado = Empleado::create([
+            'ID_Cargo' => 1,
+            'ID_Departamento' => 1,
             'fechanac' => '1990/07/01',
             'genero' => 'Masculino',
             'estadocivil' => 'Soltero',
+            'ID_Sueldo' => $sueldo->id,
+            'ID_Usuario' => $user->id,
         ]);
-        $user->empleado()->save($empleado);
     }
 }
