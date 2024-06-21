@@ -12,6 +12,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EntrevistaController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\InformacionPersonalController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Puesto_DisponibleController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\Pre_ContratoController;
@@ -20,7 +21,8 @@ use App\Http\Controllers\ReferenciaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
-
+use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\MemorandumController;
 use App\Models\Educacion;
 use App\Models\Postulante;
 use App\Models\Reconocimiento;
@@ -40,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/time', function() {
+Route::get('/time', function () {
     return now();
 });
 
@@ -385,6 +387,7 @@ Route::middleware([
     Route::get('/asistencias/marcar/{id}', [AsistenciaController::class, 'marcar'])->name('asistencias.marcar');
     Route::post('/asistencias/guardarAsistencias/{idEmpleado}/{idDiaTrabajo}', [AsistenciaController::class, 'guardarAsistencias'])->name('asistencias.guardarAsistencias');
     Route::get('/asistencias/historial/{id}', [AsistenciaController::class, 'historial'])->name('asistencias.historial');
+    Route::get('/asistencias/guardarAsistenciasAuto', [AsistenciaController::class, 'verificarFaltasAutomaticas'])->name('asistencias.verificarFaltasAutomaticas');
 
 
     Route::get('/educaciones/rinicio', [EducacionController::class, 'rinicio'])->name('educaciones.rinicio');
@@ -514,9 +517,45 @@ Route::middleware([
     // Rutas relacionadas con la gestión de permisos del personal
     Route::get('/permisos/solicitud', [PermisoController::class, 'create'])->name('permisos.solicitud');
     Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud'])->name('permisos.enviar-solicitud');
-     // Rutas relacionadas con el historial de permisos
-     Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
-     Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
-     Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
+    // Rutas relacionadas con el historial de permisos
+    Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
+    Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
+    Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
+
+
+
+
+    //asistencias Evaluacion
+    Route::get('/asistenciasEvaluacion/inicio', [AsistenciaController::class, 'evaluarInicio'])->name('asistencias.evaluarInicio');
+    Route::post('/asistenciasEvaluacion/evaluar', [AsistenciaController::class, 'evaluar'])->name('asistencias.evaluar');
+    Route::get('/asistenciasEvaluacion/editar/{id}', [AsistenciaController::class, 'editarEvaluacion'])->name('asistencias.editarEvaluacion');
+    Route::post('/asistenciasEvaluacion/actualizar/{id}', [AsistenciaController::class, 'actualizarEvaluacion'])->name('asistencias.actualizarEvaluacion');
+    Route::post('/asistenciasEvaluacion/eliminar/{id}', [AsistenciaController::class, 'eliminarEvaluacion'])->name('asistencias.eliminarEvaluacion');
+
+
+
+    //COMUNICACION RRHH MENSAJES
+    Route::get('/comunicacion/rinicio', [MessageController::class, 'rinicio'])->name('comunicacion.rinicio');
+    Route::get('/comunicacion/crear', [MessageController::class, 'crear'])->name('comunicacion.crear');
+    Route::post('/comunicacion/guardar', [MessageController::class, 'guardar'])->name('comunicacion.guardar');
+    Route::post('/comunicacion/guardarCHAT', [MessageController::class, 'guardarCHAT'])->name('comunicacion.guardarCHAT');
+    Route::get('/comunicacion/chatear/{idreceptor}', [MessageController::class, 'mostrar'])->name('comunicacion.mostrar');
+
+
+
+    Route::get('/actividades/inicio', [ActividadController::class, 'inicio'])->name('actividades.inicio');
+    Route::get('/actividades/crear', [ActividadController::class, 'crear'])->name('actividades.crear');
+    Route::post('/actividades/guardar', [ActividadController::class, 'guardar'])->name('actividades.guardar');
+    Route::get('/actividades/editar/{id}', [ActividadController::class, 'editar'])->name('actividades.editar');
+    Route::put('/actividades/actualizar/{id}', [ActividadController::class, 'actualizar'])->name('actividades.actualizar');
+    Route::delete('/actividades/eliminar/{id}', [ActividadController::class, 'eliminar'])->name('actividades.eliminar');
+
+
+    //memorandum
+    Route::get('/memorandum/inicio', [MemorandumController::class, 'inicio'])->name('memorandum.inicio');
+    Route::post('/send-memorandum', [MemorandumController::class, 'send'])->name('send.memorandum');
+
+
+
 
 });

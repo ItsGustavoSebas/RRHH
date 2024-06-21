@@ -69,21 +69,21 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Eliminar Departamentos'])->syncRoles([$rol1, $rol2]);
 
         //Cargos
-         Permission::create(['name' => 'Inicio Cargos'])->syncRoles([$rol1, $rol2]);
-         Permission::create(['name' => 'Crear Cargos'])->syncRoles([$rol1, $rol2]);
-         Permission::create(['name' => 'Guardar Cargos'])->syncRoles([$rol1, $rol2]);
-         Permission::create(['name' => 'Editar Cargos'])->syncRoles([$rol1, $rol2]);
-         Permission::create(['name' => 'Actualizar Cargos'])->syncRoles([$rol1, $rol2]);
-         Permission::create(['name' => 'Eliminar Cargos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Inicio Cargos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Crear Cargos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Cargos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Cargos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Cargos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Cargos'])->syncRoles([$rol1, $rol2]);
 
         //Informacion Personal
         Permission::create(['name' => 'Inicio Informacion Personal'])->syncRoles([$rol1, $rol2, $rol4]);
 
         //Bitacora
         Permission::create(['name' => 'Inicio Bitacoras'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'Inicio Detalles Bitacoras'])->syncRoles([$rol1]); 
+        Permission::create(['name' => 'Inicio Detalles Bitacoras'])->syncRoles([$rol1]);
 
-        Permission::create(['name' => 'Inicio Reportes'])->syncRoles([$rol1, $rol2]); 
+        Permission::create(['name' => 'Inicio Reportes'])->syncRoles([$rol1, $rol2]);
 
 
         //Horarios
@@ -95,10 +95,22 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Eliminar Horarios'])->syncRoles([$rol1, $rol2]);
 
         Permission::create(['name' => 'Solicitar Permiso'])->syncRoles([$rol4, $rol2]); // Solo los empleados pueden solicitar permisos
-        Permission::create(['name' => 'Ver Historial de Permisos'])->syncRoles([$rol1,$rol4, $rol2]); // Solo los administradores pueden ver el historial de permisos
-    
+        Permission::create(['name' => 'Ver Historial de Permisos'])->syncRoles([$rol1, $rol4, $rol2]); // Solo los administradores pueden ver el historial de permisos
+
         //ASISTENCIA
         Permission::create(['name' => 'Marcar Asistencia'])->syncRoles([$rol1, $rol2, $rol4]);
+        Permission::create(['name' => 'Ver Evaluacion'])->syncRoles([$rol1, $rol2]);
 
+        // Actividades
+        Permission::create(['name' => 'Inicio Actividades'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Crear Actividades'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Guardar Actividades'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Actividades'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Actualizar Actividades'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Actividades'])->syncRoles([$rol1, $rol2]);
+
+
+        //memorandums
+        Permission::create(['name' => 'Crear memorandum'])->syncRoles([$rol1, $rol2]);
     }
 }

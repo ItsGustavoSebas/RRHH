@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HorarioSeeder::class);
         $this->call(EmpleadoSeeder::class);
         $this->call(DiaTrabajoSeeder::class);
+        $this->call(HorarioEmpleadoSeeder::class);
         $this->call(Puesto_DisponibleSeeder::class);
         $this->call(PostulanteSeeder::class);
         $this->call(IdiomaSeeder::class);
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DepartamentoSeeder::class);
         $this->call(CargoSeeder::class);
         $this->call(Nivel_IdiomaSeeder::class);
+        $this->call(AsistenciaSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

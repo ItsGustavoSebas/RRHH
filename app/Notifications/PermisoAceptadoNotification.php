@@ -56,12 +56,10 @@ class PermisoAceptadoNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'notifiable' => $notifiable,
-            'permiso_id' => $this->permiso->id,
+            'titulo' => "Permiso Aceptado!",
+            'contenido' => "El permiso que solicitaste ha sido aceptado",
+            'link' => route('permisos.historial'),
             'type' => 'permisoaceptado',
-            'fecha_inicio' => $this->permiso->fecha_inicio,
-            'fecha_fin' => $this->permiso->fecha_fin,
-            'motivo' => $this->permiso->motivo,
         ];
     }
 }

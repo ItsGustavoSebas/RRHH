@@ -53,91 +53,29 @@
                                         Marcar todas como leídas
                                     </button>
                                     @foreach (auth()->user()->notifications as $notification)
-                                        @if ($notification->data['type'] == 'entrevista')
-                                            <a href="{{ route('entrevistas.visualizar', $notification->data['entrevista_id']) }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Tienes una entevista</div>
-                                                    <div
-                                                        class="text-[11px] {{ $notification->data['fecha_inicio'] > now() ? 'text-green-500' : ($notification->data['fecha_inicio'] < now() ? 'text-red-500' : '') }}">
-                                                        {{ $notification->data['fecha_inicio'] }} a las
-                                                        {{ $notification->data['hora'] }}</div>
+                                        <a href="{{ $notification->data['link'] }}"
+                                            class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
+                                            onclick="marcarNotificacionLeida(event, '{{ $notification->id }}')">
+                                            <div class="ml-2">
+                                                <div class="text-[10px] text-gray-600 font-medium truncate">
+                                                    {{ $notification->data['titulo'] }}
                                                 </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'contrato')
-                                            <a href="{{ route('generarContratoPDF', $notification->data['postulante_id']) }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Felicidades!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Has sido seleccionado para el puesto al que postulaste</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Revisa los detalles del precontrato</div>
+                                                <div class="text-[11px] text-gray-500">
+                                                    {{ $notification->data['contenido'] }}
                                                 </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'permisonuevo')
-                                            <a href="{{ route('permisos.historial') }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Nueva Solicitud de Permiso</div>
-                                                    @php
-                                                        $useraaa = App\Models\User::find($notification->data['user_id']);
-                                                    @endphp
-                                                    <div class="text-[11px] text-gray-500">
-                                                        El usuario {{ $useraaa->name }} ha solicitado
-                                                        un nuevo permiso</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Desde: {{ $notification->data['fecha_inicio'] }} Hasta:
-                                                        {{ $notification->data['fecha_fin'] }}</div>
-                                                </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'permisoaceptado')
-                                            <a href="{{ route('permisos.historial') }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Permiso Aceptado!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        El que permiso que solicitaste </div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Ha sido aceptado</div>
-                                                </div>
-                                            </a>
-                                        @endif
-                                        @if ($notification->data['type'] == 'permisorechazado')
-                                            <a href="{{ route('permisos.historial') }}"
-                                                class="py-2 px-4 flex items-center hover:bg-gray-50 group {{ $notification->read_at ? 'bg-gray-200' : 'bg-white' }}"
-                                                onclick="marcarNotificacionLeida('{{ $notification->id }}')">
-                                                <div class="ml-2">
-                                                    <div class="text-[10px] text-gray-600 font-medium truncate">
-                                                        Permiso Rechazado!</div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        El que permiso que solicitaste </div>
-                                                    <div class="text-[11px] text-gray-500">
-                                                        Ha sido Rechazado</div>
-                                                </div>
-                                            </a>
-                                        @endif
+                                            </div>
+                                        </a>
                                     @endforeach
+                                    <a href="{{ route('notificaciones.verTodas') }}"
+                                        class="block text-center px-4 py-2 text-sm text-blue-700 hover:bg-gray-100">
+                                        Ver todas las notificaciones
+                                    </a>
                                 @else
                                     <div class="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">No
                                         hay notificaciones
                                     </div>
                                 @endif
-                                <a href="{{ route('notificaciones.verTodas') }}"
-                                    class="block text-center px-4 py-2 text-sm text-blue-700 hover:bg-gray-100">
-                                    Ver todas las notificaciones
-                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -307,6 +245,44 @@
                         </a>
                     </li>
                 @endcan
+                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <a class="w-full flex items-center py-3" href="{{ route('actividades.inicio') }}">
+                        <i class="fa-solid fa-user-injured text-center px-5"></i>
+                        <span class="whitespace-nowrap pl-1">Actividades</span>
+                    </a>
+                </li>
+                @can('Ver Evaluacion')
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('asistencias.evaluarInicio') }}">
+                            <i class="fa-solid fa-user-injured text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Evaluación del personal</span>
+                        </a>
+                    </li>
+                @endcan
+
+
+                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <a class="w-full flex items-center py-3" href="{{ route('comunicacion.rinicio') }}">
+                        <i class="fa-solid fa-user-injured text-center px-5"></i>
+                        <span class="whitespace-nowrap pl-1">Comunicacion con RRHH</span>
+                    </a>
+                </li>
+
+                @can('Crear memorandum')
+                    <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                        <a class="w-full flex items-center py-3" href="{{ route('memorandum.inicio') }}">
+                            <i class="fa-solid fa-user-injured text-center px-5"></i>
+                            <span class="whitespace-nowrap pl-1">Crear Memorandum</span>
+                        </a>
+                    </li>
+                @endcan
+
+
+
+
+
+
+
             </ul>
             <ul class="flex flex-col gap-1 mt-2">
                 <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
@@ -335,10 +311,13 @@
             });
     }
 
-    function marcarNotificacionLeida(notificationId) {
+    function marcarNotificacionLeida(event, notificationId) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+
         axios.post('{{ route('notificaciones.marcarComoLeida', '') }}/' + notificationId)
             .then(response => {
-                location.reload();
+                // Redirigir a la ruta de la notificación después de marcarla como leída
+                window.location.href = event.target.closest('a').href;
             })
             .catch(error => {
                 console.error('Error marcando notificación como leída:', error);

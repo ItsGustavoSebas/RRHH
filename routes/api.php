@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\api\AsistenciasController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\EntrevistaController;
+use App\Http\Controllers\api\EmpleadoController;
 use App\Http\Controllers\api\MensajesController;
+use App\Http\Controllers\api\NotificacionesController;
 use App\Http\Controllers\api\PostulanteController;
+use App\Http\Controllers\api\PuestosController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -70,7 +74,6 @@ Route::get('/mensaje/usuarios/{id}', [MensajesController::class, 'usuarios']);
 Route::post('/postulante/actualizarinfo/{id}', [PostulanteController::class, 'actualizar']);
 
 
-
 //Educaciones
 Route::post('/postulante/educacion/{id}', [PostulanteController::class, 'guardarEducacion']);
 Route::post('/postulante/actualizarEducacion/{id}', [PostulanteController::class, 'actualizarEducacion']);
@@ -104,3 +107,21 @@ Route::get('/postulantes/puestoDisponible', [PostulanteController::class, 'getPu
 
 
 
+
+Route::get('/empleado/horario/{idEmpleado}', [AsistenciasController::class, 'getHorario']);
+Route::get('/empleado/marcar/{idEmpleado}', [AsistenciasController::class, 'marcar']);
+Route::get('/empleado/guardarAsistencia/{idEmpleado}/{idDiaTrabajo}', [AsistenciasController::class, 'guardarAsistencias']);
+Route::get('/empleado/guardarAsistenciaAuto/', [AsistenciasController::class, 'verificarFaltasAutomaticas']);
+
+Route::get('/notificacion/getnotificaciones/{id}', [NotificacionesController::class, 'getNotificaciones']);
+Route::post('/notificacion/marcartodas/{id}', [NotificacionesController::class, 'marcarTodasComoLeidas']);
+Route::post('/notificacion/marcar/{id_user}/{id_noti}', [NotificacionesController::class, 'marcarComoLeida']);
+
+Route::get('/puestos/getpuestos', [PuestosController::class, 'getPuestos']);
+Route::post('/puestos/postularse/{id_user}/{idpuesto}', [PuestosController::class, 'postularse']);
+
+//empleado permisos
+Route::get('/empleado/getPermisosEmpleado/{idEmpleado}', [EmpleadoController::class, 'getPermisosEmpleado']);
+Route::post('/empleado/guardarPermiso/{idPermiso}', [EmpleadoController::class, 'guardarPermiso']);
+Route::post('/empleado/actualizarPermiso/{idPermiso}', [EmpleadoController::class, 'actualizarPermiso']);
+Route::delete('/empleado/eliminarPermiso/{idPermiso}', [EmpleadoController::class, 'eliminarPermiso']);

@@ -63,9 +63,10 @@ class ContratoNofication extends Notification
     public function toArray($notifiable)
     {
         return [
-        'contrato_id' => $this->contrato->id,
-        'type' => 'contrato',
-        'postulante_id' => $this->contrato->ID_Postulante,
+            'titulo' => "Felicidades!",
+            'contenido' => "Has sido seleccionado para el puesto al que postulaste. Revisa los detalles del precontrato",
+            'link' => route('generarContratoPDF', $this->contrato->ID_Postulante),
+            'type' => 'contrato',
         ];
     }
 }

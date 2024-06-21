@@ -9,33 +9,33 @@
 
     <table class="min-w-full border-collapse block md:table">
         <thead class="block md:table-header-group">
-            <tr
-                class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
-                <th
-                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                    Dia</th>
-                <th
-                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                    Hora de Inicio</th>
-                <th
-                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                    Hora de Finalizacion</th>
-                <th
-                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                    Hora de Atraso</th>
-                <th
-                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                    Marcar Asistencia</th>
+            <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative">
+                <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Día
+                </th>
+                <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Hora de Inicio
+                </th>
+                <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Hora de Finalización
+                </th>
+                <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Hora de Atraso
+                </th>
+                <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Marcar Asistencia
+                </th>
             </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="block md:table-row-group">
             @foreach ($diasTrabajo as $diaTrabajo)
                 @php
                     $hasHorario = $diaTrabajo;
+                    $horaAjustada = \Carbon\Carbon::now()->toTimeString();
                 @endphp
                 <tr class="bg-white border border-grey-500 md:border-none block md:table-row">
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                        <span class="inline-block w-1/3 md:hidden font-bold">Dia</span>
+                        <span class="inline-block w-1/3 md:hidden font-bold">Día</span>
                         {{ $diaTrabajo->dia_horario_empleado->DiaTrabajo->Nombre }}
                     </td>
                     @if ($hasHorario)
@@ -57,15 +57,17 @@
                         </td>
                     @endif
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                        @php
-                            $horaAjustada = \Carbon\Carbon::now()->subHours(4)->toTimeString();
-                        @endphp
                         @if ($diaTrabajo->dia_horario_empleado->DiaTrabajo->id == $diaTrabajoActual->id)
-                            @if (!$asistenciaYaExiste && $horaAjustada >= $diaTrabajo->Horario->HoraInicio)
+                            @php
+                                $horaInicio = \Carbon\Carbon::parse($diaTrabajo->Horario->HoraInicio)->toTimeString();
+                                $horaFin = \Carbon\Carbon::parse($diaTrabajo->Horario->HoraFin)->toTimeString();
+                            @endphp
+                            @if (!$asistenciaYaExiste && $horaAjustada >= $horaInicio && $horaAjustada <= $horaFin)
                                 <div class="flex justify-start gap-4">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Marcar Asistencia</span>
                                     @can('Marcar Asistencia')
-                                        <form action="{{ route('asistencias.guardarAsistencias', ['idEmpleado' => $empleado->usuario->id, 'idDiaTrabajo' => $diaTrabajo->dia_horario_empleado->DiaTrabajo->id])  }}"
+                                        <form
+                                            action="{{ route('asistencias.guardarAsistencias', ['idEmpleado' => $empleado->usuario->id, 'idDiaTrabajo' => $diaTrabajo->dia_horario_empleado->DiaTrabajo->id]) }}"
                                             method="POST">
                                             @csrf
                                             <button type="submit" class="bg-green-400 px-1 py-1 rounded-lg"
@@ -86,6 +88,7 @@
             @endforeach
         </tbody>
     </table>
+
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <script>
         @if (Session::has('eliminado'))
