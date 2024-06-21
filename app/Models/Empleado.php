@@ -71,6 +71,11 @@ class Empleado extends Model
         return $this->hasMany(Horario_Empleado::class, 'ID_Empleado');
     }
 
+    public function llamada_atencion()
+    {
+        return $this->hasMany(LlamadaAtencion::class, 'ID_Empleado');
+    }
+
     public function asistencias()
     {
         return $this->hasMany(Asistencia::class, 'ID_Asistencia');
