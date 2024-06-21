@@ -3,11 +3,11 @@
     <x-slot name="header">
         <div class="flex flex-wrap justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('LISTA DE ACTIVIDADES') }}
+                {{ __('CREAR MEMORANDUM') }}
             </h2>
             @can('Crear Actividades')
                 <a href="{{ route('actividades.crear') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                    Crear Actividad
+                    Llamada de atención
                 </a>
             @endcan
         </div>
