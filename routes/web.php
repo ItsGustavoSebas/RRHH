@@ -22,6 +22,7 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\SueldoController;
 use App\Models\Educacion;
 use App\Models\Postulante;
 use App\Models\Reconocimiento;
@@ -548,5 +549,11 @@ Route::middleware([
     Route::get('/actividades/editar/{id}', [ActividadController::class, 'editar'])->name('actividades.editar');
     Route::put('/actividades/actualizar/{id}', [ActividadController::class, 'actualizar'])->name('actividades.actualizar');
     Route::delete('/actividades/eliminar/{id}', [ActividadController::class, 'eliminar'])->name('actividades.eliminar');
-   });
+   
+    Route::get('/sueldos', [SueldoController::class, 'inicio1'])->name('sueldos.inicio1');
+    Route::post('/sueldos', [SueldoController::class, 'inicio'])->name('sueldos.inicio');
+
+    Route::get('/sueldos/pdf', [SueldoController::class, 'descargarPdf'])->name('sueldos.descargarPdf');
+Route::get('/sueldos/excel', [SueldoController::class, 'descargarExcel'])->name('sueldos.descargarExcel');
+});
    
