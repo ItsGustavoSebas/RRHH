@@ -23,6 +23,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\SueldoController;
+use App\Http\Controllers\MemorandumController;
 use App\Models\Educacion;
 use App\Models\Postulante;
 use App\Models\Reconocimiento;
@@ -42,7 +43,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/time', function() {
+Route::get('/time', function () {
     return now();
 });
 
@@ -517,7 +518,7 @@ Route::middleware([
     // Rutas relacionadas con la gestión de permisos del personal
     Route::get('/permisos/solicitud', [PermisoController::class, 'create'])->name('permisos.solicitud');
     Route::post('/permisos/enviar-solicitud', [PermisoController::class, 'enviarSolicitud'])->name('permisos.enviar-solicitud');
-     // Rutas relacionadas con el historial de permisos
+    // Rutas relacionadas con el historial de permisos
     Route::get('/permisos/historial', [PermisoController::class, 'historial'])->name('permisos.historial');
     Route::post('/permisos/approve/{id}', [PermisoController::class, 'approve'])->name('permisos.approve');
     Route::post('/permisos/deny/{id}', [PermisoController::class, 'deny'])->name('permisos.deny');
@@ -533,7 +534,7 @@ Route::middleware([
     Route::post('/asistenciasEvaluacion/eliminar/{id}', [AsistenciaController::class, 'eliminarEvaluacion'])->name('asistencias.eliminarEvaluacion');
 
 
-    
+
     //COMUNICACION RRHH MENSAJES
     Route::get('/comunicacion/rinicio', [MessageController::class, 'rinicio'])->name('comunicacion.rinicio');
     Route::get('/comunicacion/crear', [MessageController::class, 'crear'])->name('comunicacion.crear');
@@ -555,5 +556,12 @@ Route::middleware([
 
     Route::get('/sueldos/pdf', [SueldoController::class, 'descargarPdf'])->name('sueldos.descargarPdf');
 Route::get('/sueldos/excel', [SueldoController::class, 'descargarExcel'])->name('sueldos.descargarExcel');
+
+    //memorandum
+    Route::get('/memorandum/inicio', [MemorandumController::class, 'inicio'])->name('memorandum.inicio');
+    Route::post('/send-memorandum', [MemorandumController::class, 'send'])->name('send.memorandum');
+
+
+
+
 });
-   
