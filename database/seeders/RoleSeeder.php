@@ -101,13 +101,21 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Marcar Asistencia'])->syncRoles([$rol1, $rol2, $rol4]);
         Permission::create(['name' => 'Ver Evaluacion'])->syncRoles([$rol1, $rol2]);
 
-        // Actividades
-        Permission::create(['name' => 'Inicio Actividades'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Crear Actividades'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Guardar Actividades'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Editar Actividades'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Actualizar Actividades'])->syncRoles([$rol1, $rol2]);
-        Permission::create(['name' => 'Eliminar Actividades'])->syncRoles([$rol1, $rol2]);
+         // Actividades
+         Permission::create(['name' => 'Inicio Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Crear Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Guardar Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Editar Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Actualizar Actividades'])->syncRoles([$rol1, $rol2]);
+         Permission::create(['name' => 'Eliminar Actividades'])->syncRoles([$rol1, $rol2]);
+         
+        // Depósitos
+        Permission::create(['name' => 'Ver Todos los Depósitos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Ver Mis Depósitos'])->syncRoles([$rol4]);
+        Permission::create(['name' => 'Crear Depósitos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Editar Depósitos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Eliminar Depósitos'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'Depositar Dinero'])->syncRoles([$rol1, $rol2]);
 
 
         //memorandums

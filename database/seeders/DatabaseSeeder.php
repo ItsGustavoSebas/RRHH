@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Fuente_De_ContratacionSeeder::class);
         $this->call(IdiomaSeeder::class);
         $this->call(Nivel_IdiomaSeeder::class);
+        $this->call(DepositoSeeder::class);
+        $this->call(ActividadSeeder::class);
         $this->call(AsistenciasSeeder::class);
         $this->call(Dias_Festivos_Seeder::class);
         // \App\Models\User::factory(10)->create();

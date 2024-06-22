@@ -91,6 +91,12 @@ class Empleado extends Model
     {
         return $this->hasMany(calificacion_empleado::class, 'ID_Empleado');
     }
-    
 
+
+    public function depositos()
+    {
+        return $this->hasMany(Deposito::class, 'empleado_id', 'ID_Usuario');
+    }
+
+    
 }
