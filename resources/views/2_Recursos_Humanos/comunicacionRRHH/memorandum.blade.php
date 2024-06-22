@@ -5,11 +5,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('CREAR MEMORANDUM') }}
             </h2>
-            @can('Crear Actividades')
-                <a href="{{ route('actividades.crear') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                    Llamada de atención
-                </a>
-            @endcan
+
         </div>
     </x-slot>
 
@@ -17,7 +13,9 @@
         enctype="multipart/form-data" class="max-w-2xl mx-auto mt-10 bg-white shadow-xl sm:rounded-lg p-6">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
             <div class="mb-4 text-center">
-                
+                <div class="text-center font-sans text-black font-bold text-3xl antialiased pb-10 mt-4">
+                    MEMORANDUM
+                </div>
                 <label class="font-bold text-lg p-5 text-center" for="tipoMemo">Tipo de Memorandum</label>
                 <div class="p-5">
                     <input type="radio" id="individual" name="tipoMemo" value="individual" checked>
@@ -39,8 +37,8 @@
 
                 <label class="font-bold text-lg p-5" for="departamento" id="labelDepartamento"
                     style="display: none;">Seleccionar Departamento</label>
-                <select type="hidden" id="departamento" name="departamento" class="px-3 py-2 w-full rounded-xl bg-blue-100"
-                    style="display: none;">
+                <select type="hidden" id="departamento" name="departamento"
+                    class="px-3 py-2 w-full rounded-xl bg-blue-100" style="display: none;">
                     @foreach ($departamentos as $departamento)
                         <option value="{{ $departamento->id }}">
                             {{ $departamento->nombre }}
@@ -58,7 +56,7 @@
                     <input type="hidden" id="para" name="Para"
                         value="{{ $empleados->first()->usuario->name }}">
                     <input type="hidden" id="de" name="De" value="{{ $yo->name }}">
-                    
+
                     <input id="asunto" name="Asunto" type="text"
                         class="px-3 py-2 w-full rounded-xl bg-blue-100 mt-2"
                         placeholder="Ingresa el asunto del memorandum">
@@ -70,7 +68,7 @@
                 <div class="mb-4">
                     <input type="hidden" id="fecha" name="Fecha" type="date" value="{{ date('Y-m-d') }}">
                     <input id="mensaje" name="Mensaje" type="text"
-                        class="px-3 py-2 w-full rounded-xl bg-blue-100 mt-2"
+                        class="px-3 p-5 py-2 w-full rounded-xl bg-blue-100 h-20"
                         placeholder="Ingresa el mensaje del memorandum">
                     @error('mensaje')
                         <strong class="text-red-500">Debes ingresar el mensaje</strong>
@@ -79,7 +77,7 @@
 
                 <input type="hidden" id="hiddenEmail" value="thealex6969@gmail.com">
                 <input type="hidden" id="saludos" name="Saludos" value="Saludos a UD.">
-                <input type="hidden" name="_next" value="{{ route('comunicacion.rinicio') }}">
+                <input type="hidden" name="_next" value="{{ url('/Memorandum') }}">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_subject" value="Memorandum">
                 <input type="file" id="pdfFile" name="adjunto" style="display:none;">
@@ -119,6 +117,7 @@
         });
 
         document.getElementById('enviarMensaje').addEventListener('click', function() {
+            handleFormSubmit(); // Show SweetAlert
             const {
                 jsPDF
             } = window.jspdf;
@@ -182,6 +181,7 @@
 
             if (tipoMemo === 'individual') {
                 document.getElementById('formularioMensaje').submit();
+
             } else if (tipoMemo === 'departamental') {
                 const departamentoId = document.getElementById('departamento').value;
                 const empleados = @json($empleados);
@@ -203,8 +203,21 @@
                 });
             }
         });
+
+        function handleFormSubmit() {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Mensaje enviado exitosamente',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
     </script>
 
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </x-app-layout>

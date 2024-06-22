@@ -22,6 +22,7 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\Llamada_De_AtencionController;
 use App\Http\Controllers\MemorandumController;
 use App\Models\Educacion;
 use App\Models\Postulante;
@@ -543,7 +544,7 @@ Route::middleware([
 
 
 
-    Route::get('/actividades/inicio', [ActividadController::class, 'inicio'])->name('actividades.inicio');
+    Route::get('/amemorandumAtencionGestion/inicio', [ActividadController::class, 'inicio'])->name('actividades.inicio');
     Route::get('/actividades/crear', [ActividadController::class, 'crear'])->name('actividades.crear');
     Route::post('/actividades/guardar', [ActividadController::class, 'guardar'])->name('actividades.guardar');
     Route::get('/actividades/editar/{id}', [ActividadController::class, 'editar'])->name('actividades.editar');
@@ -553,9 +554,14 @@ Route::middleware([
 
     //memorandum
     Route::get('/memorandum/inicio', [MemorandumController::class, 'inicio'])->name('memorandum.inicio');
-    Route::post('/send-memorandum', [MemorandumController::class, 'send'])->name('send.memorandum');
 
-
-
+    //memorandum
+    Route::view('/Memorandum', '2_Recursos_Humanos.comunicacionRRHH.memoInicio');
+    Route::get('/memorandumAtencion/inicio', [Llamada_De_AtencionController::class, 'inicio'])->name('memorandumLlamada.inicio');
+    Route::post('/memorandumAtencion/guardar', [Llamada_De_AtencionController::class, 'guardar'])->name('memorandumLlamada.guardar');
+    Route::get('/memorandumAtencionGestion/inicio', [Llamada_De_AtencionController::class, 'inicioGes'])->name('memorandumLlamada.inicioGes');
+    Route::get('/amemorandumAtencionGestion/editar/{id}', [Llamada_De_AtencionController::class, 'editar'])->name('memorandumLlamada.editar');
+    Route::post('/amemorandumAtencionGestion/actualizar/{id}', [Llamada_De_AtencionController::class, 'actualizar'])->name('memorandumLlamada.actualizar');
+    Route::post('/amemorandumAtencionGestion/eliminar/{id}', [Llamada_De_AtencionController::class, 'eliminar'])->name('memorandumLlamada.eliminar');
 
 });

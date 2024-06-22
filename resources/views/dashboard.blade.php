@@ -1,50 +1,50 @@
 <x-app-layout>
     @if (!Auth::user()->Empleado)
-    <div class="bg-white px-4 py-4 sm:flex sm:justify-between sm:mt-[55px]">
-        <div class="flex items-center flex-row md:hidden justify-between">
-            <div class="flex-1">
-                @if (Auth::user()->postulante->ruta_imagen_e)
-                    <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg"
-                        src="{{ Auth::user()->postulante->ruta_imagen_e }}" alt="{{ Auth::user()->name }}" />
-                @else
-                    <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }}"
-                        alt="{{ Auth::user()->name }}" />
-                @endif
-            </div>
-            <div class="flex space-x-4 space-y-4">
-                @if (Auth::user()->postulante->estado === 0)
-                    <a href="{{ route('puesto_disponibles.disponibles') }}"
-                        class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Puestos
-                        disponibles</a>
-                @else
-                    @if (Auth::user()->postulante->contrato)
-                        <a href="{{ route('generarContratoPDF', Auth::user()->id) }}"
-                            class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Información
-                            del
-                            contrato</a>
+        <div class="bg-white px-4 py-4 sm:flex sm:justify-between sm:mt-[55px]">
+            <div class="flex items-center flex-row md:hidden justify-between">
+                <div class="flex-1">
+                    @if (Auth::user()->postulante->ruta_imagen_e)
+                        <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg"
+                            src="{{ Auth::user()->postulante->ruta_imagen_e }}" alt="{{ Auth::user()->name }}" />
                     @else
-                        @if (Auth::user()->postulante->entrevista)
-                            @if (!Auth::user()->postulante->entrevista->puntos)
-                                <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
-                                    class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Información
-                                    de
-                                    la Entrevista</a>
+                        <img class="flex-1 w-36 sm:w-48 rounded-full shadow-lg"
+                            src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                    @endif
+                </div>
+                <div class="flex space-x-4 space-y-4">
+                    @if (Auth::user()->postulante->estado === 0)
+                        <a href="{{ route('puesto_disponibles.disponibles') }}"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Puestos
+                            disponibles</a>
+                    @else
+                        @if (Auth::user()->postulante->contrato)
+                            <a href="{{ route('generarContratoPDF', Auth::user()->id) }}"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Información
+                                del
+                                contrato</a>
+                        @else
+                            @if (Auth::user()->postulante->entrevista)
+                                @if (!Auth::user()->postulante->entrevista->puntos)
+                                    <a href="{{ route('entrevistas.visualizar', Auth::user()->postulante->entrevista->id) }}"
+                                        class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md">Información
+                                        de
+                                        la Entrevista</a>
+                                @endif
+                            @endif
+
+
+                            @if (Auth::user()->postulante->referencias->isEmpty())
+                                <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md"
+                                    href="{{ route('postulantes.postularse') }}">Continuar
+                                    Proceso</a>
                             @endif
                         @endif
-
-
-                        @if (Auth::user()->postulante->referencias->isEmpty())
-                            <a class="bg-blue-500 hover:bg-blue-600 text-white px-2 rounded-md"
-                                href="{{ route('postulantes.postularse') }}">Continuar
-                                Proceso</a>
-                        @endif
                     @endif
-                @endif
-                <button class="bg-gray-500 hover:bg-gray-600 text-white px-2 rounded-md"
-                    onclick="window.location.href='{{ route('postulantes.editarinfo', Auth::user()->id) }}'">Editar</button>
+                    <button class="bg-gray-500 hover:bg-gray-600 text-white px-2 rounded-md"
+                        onclick="window.location.href='{{ route('postulantes.editarinfo', Auth::user()->id) }}'">Editar</button>
 
+                </div>
             </div>
-        </div>
 
             <div class=" max-w-7xl px-4 py-8 bg-white sm:px-6 lg:px-10 hidden md:block">
                 @if (Auth::user()->postulante->ruta_imagen_e)
@@ -492,7 +492,80 @@
                                         </div>
                                         <div class="flex flex-row items-center">
                                             <div class="flex">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+
+                                                @php
+                                                    $calificacion = Auth::user()
+                                                        ->empleado->calificacion_empleado->where('mes', '05')
+                                                        ->where('anio', '2024')
+                                                        ->first();
+
+                                                    $puntaje = $calificacion ? $calificacion->puntaje : null;
+
+                                                @endphp
+
+                                                @if ($puntaje !== null)
+                                                    Puntaje obtenido: {{ $puntaje }}
+                                                    @php
+                                                        // Calcular la cantidad de estrellas a mostrar
+                                                        $estrellas = $puntaje / 20; // Cada 20 puntos es una estrella
+
+                                                        // Limitar el número de estrellas a un máximo de 5
+                                                        $estrellas = min($estrellas, 5);
+
+                                                        // Calcular el número de medias estrellas si es necesario
+                                                        $mediaEstrella = $estrellas - floor($estrellas);
+
+                                                        // Calcular el número de estrellas completas
+                                                        $estrellasCompletas = floor($estrellas);
+
+                                                        // Calcular el número de estrellas vacías
+                                                        $estrellasVacias = 5 - ceil($estrellas);
+                                                    @endphp
+
+                                                    <div class="flex">
+                                                        {{-- Estrellas llenas --}}
+                                                        @for ($i = 1; $i <= $estrellasCompletas; $i++)
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 20 20" fill="currentColor"
+                                                                class="h-5 w-5 text-yellow-400">
+                                                                <path
+                                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                                </path>
+                                                            </svg>
+                                                        @endfor
+
+                                                        {{-- Media estrella --}}
+                                                        @if ($mediaEstrella > 0)
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 20 20" fill="currentColor"
+                                                                class="h-5 w-5 text-yellow-400">
+                                                                <path
+                                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                                </path>
+                                                            </svg>
+                                                        @endif
+
+                                                        {{-- Estrellas vacías --}}
+                                                        @for ($i = 1; $i <= $estrellasVacias; $i++)
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 20 20" fill="currentColor"
+                                                                class="h-5 w-5 text-gray-300">
+                                                                <path
+                                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                                </path>
+                                                            </svg>
+                                                        @endfor
+                                                    </div>
+                                                @else
+                                                    No se encontró calificación para el mes 05 y año 2024.
+                                                @endif
+
+
+
+
+
+
+                                                {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" class="h-5 w-5 text-yellow-400">
                                                     <path
                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
@@ -521,7 +594,7 @@
                                                         stroke-width="2"
                                                         d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
                                                     </path>
-                                                </svg>
+                                                </svg> --}}
                                             </div>
                                         </div>
                                         <div class="flex pt-2  text-sm text-gray-400">
@@ -558,6 +631,46 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="flex flex-col sticky top-0 z-10">
+                            <div class="max-w-4xl mx-auto">
+
+
+                                <div class="bg-white border border-gray-800 shadow-lg rounded-2xl p-4">
+                                    <h1 class="text-center font-bold text-3xl mb-5">Llamadas de Atención</h1>
+                                    @php
+                                        $llamadasAtencion = Auth::user()->empleado->llamada_atencion->count();
+
+                                    @endphp
+
+                                    @if ($llamadasAtencion > 3)
+                                        <p class="text-red-600 font-bold text-center">
+                                            Tienes demasiadas llamadas de atención, un administrador se comunicará con
+                                            usted en la brevedad posible para ver su continuidad en la empresa.
+                                        </p>
+                                    @elseif ($llamadasAtencion == 3)
+                                        <p class="text-yellow-600 font-bold text-center">
+                                            Tiene tres llamadas de atención, su situación es crítica, por favor tome
+                                            medidas correctivas inmediatamente.
+                                        </p>
+                                    @elseif ($llamadasAtencion == 2)
+                                        <p class="text-yellow-600 font-bold text-center">
+                                            Dos llamadas de atención han sido registradas, le sugerimos evaluar su
+                                            conducta.
+                                        </p>
+                                    @elseif ($llamadasAtencion == 1)
+                                        <p class="text-green-600 font-bold text-center">
+                                            Tiene una llamada de atención, por favor preste más atención a sus acciones
+                                            para evitar futuras llamadas.
+                                        </p>
+                                    @else
+                                        <p class="text-green-600 font-bold text-center">
+                                            No tiene llamadas de atención, siga así y mantenga su buen desempeño.
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+
                         </div>
                         <div
                             class="flex flex-col relative bg-white border border-gray-800 text-black rounded-2xl pb-6">

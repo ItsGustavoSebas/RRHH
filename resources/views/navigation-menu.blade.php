@@ -245,16 +245,20 @@
                         </a>
                     </li>
                 @endcan
+
                 <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
                     <a class="w-full flex items-center py-3" href="{{ route('actividades.inicio') }}">
-                        <i class="fa-solid fa-user-injured text-center px-5"></i>
+                        <i class="fa-solid fa-cogs text-center px-5"></i>
+
                         <span class="whitespace-nowrap pl-1">Actividades</span>
                     </a>
                 </li>
+                
                 @can('Ver Evaluacion')
                     <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
                         <a class="w-full flex items-center py-3" href="{{ route('asistencias.evaluarInicio') }}">
-                            <i class="fa-solid fa-user-injured text-center px-5"></i>
+                            <i class="fa-solid fa-clipboard-check text-center px-5"></i>
+
                             <span class="whitespace-nowrap pl-1">Evaluación del personal</span>
                         </a>
                     </li>
@@ -263,18 +267,30 @@
 
                 <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
                     <a class="w-full flex items-center py-3" href="{{ route('comunicacion.rinicio') }}">
-                        <i class="fa-solid fa-user-injured text-center px-5"></i>
+                        <i class="fa-solid fa-comments text-center px-5"></i>
+
                         <span class="whitespace-nowrap pl-1">Comunicacion con RRHH</span>
                     </a>
                 </li>
-
+               
                 @can('Crear memorandum')
                     <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                        <a class="w-full flex items-center py-3" href="{{ route('memorandum.inicio') }}">
-                            <i class="fa-solid fa-user-injured text-center px-5"></i>
-                            <span class="whitespace-nowrap pl-1">Crear Memorandum</span>
+                        <a class="w-full flex items-center py-3" href="{{ url('/Memorandum') }}">
+                            <i class="fa-solid fa-file-alt text-center px-5"></i>
+
+                            <span class="whitespace-nowrap pl-1">Memorandum y Llamadas de atención</span>
                         </a>
                     </li>
+                @endcan
+
+                @can('Crear memorandum')
+                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <a class="w-full flex items-center py-3" href="{{ route('memorandumLlamada.inicioGes') }}">
+                        <i class="fa-solid fa-exclamation-circle text-center px-5"></i>
+
+                        <span class="whitespace-nowrap pl-1">Gestion Llamadas de atención</span>
+                    </a>
+                </li>
                 @endcan
 
 

@@ -80,5 +80,10 @@ class Empleado extends Model
     {
         return $this->hasMany(Asistencia::class, 'ID_Asistencia');
     }
+
+    public function calificacion_empleado()
+    {
+        return $this->hasMany(calificacion_empleado::class, 'ID_Empleado');
+    }
     
 }
