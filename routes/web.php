@@ -568,8 +568,6 @@ Route::middleware([
     Route::post('depositos/{id}/procesar', [DepositoController::class, 'procesarDeposito'])->name('depositos.procesarDeposito');
   // Ruta para que los empleados vean sus propios depósitos
     Route::get('/mis-depositos', [DepositoController::class, 'misDepositos'])->name('depositos.misDepositos');
-});
-   
    
     Route::get('/sueldos', [SueldoController::class, 'inicio1'])->name('sueldos.inicio1');
     Route::post('/sueldos', [SueldoController::class, 'inicio'])->name('sueldos.inicio');
