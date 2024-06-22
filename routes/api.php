@@ -5,6 +5,7 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\EntrevistaController;
 use App\Http\Controllers\api\EmpleadoController;
+use App\Http\Controllers\api\LlamadaController;
 use App\Http\Controllers\api\MensajesController;
 use App\Http\Controllers\api\NotificacionesController;
 use App\Http\Controllers\api\PostulanteController;
@@ -65,6 +66,7 @@ Route::get('/postulante/referencias/{id}', [PostulanteController::class, 'getRef
 
 Route::get('/entrevista/{id}', [EntrevistaController::class, 'getEntrevista']);
 Route::get('/postulante/contrato/{id}', [EntrevistaController::class, 'getContrato']);
+Route::get('/empleado/llamada/{id}', [LlamadaController::class, 'getLlamadas']);
 
 Route::get('/mensaje/nuevos/{id}', [MensajesController::class, 'inicio']);
 Route::post('/mensaje/enviar/{id}', [MensajesController::class, 'enviar']);
