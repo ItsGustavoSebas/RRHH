@@ -22,6 +22,7 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\DepositoController;
 use App\Models\Educacion;
 use App\Models\Postulante;
 use App\Models\Reconocimiento;
@@ -548,5 +549,18 @@ Route::middleware([
     Route::get('/actividades/editar/{id}', [ActividadController::class, 'editar'])->name('actividades.editar');
     Route::put('/actividades/actualizar/{id}', [ActividadController::class, 'actualizar'])->name('actividades.actualizar');
     Route::delete('/actividades/eliminar/{id}', [ActividadController::class, 'eliminar'])->name('actividades.eliminar');
-   });
+    
+
+    Route::get('depositos', [DepositoController::class, 'index'])->name('depositos.index');
+    Route::get('depositos/crear', [DepositoController::class, 'create'])->name('depositos.create');
+    Route::post('depositos', [DepositoController::class, 'store'])->name('depositos.store');
+    Route::get('depositos/{id}', [DepositoController::class, 'show'])->name('depositos.show');
+    Route::get('depositos/{id}/editar', [DepositoController::class, 'edit'])->name('depositos.edit');
+    Route::put('depositos/{id}', [DepositoController::class, 'update'])->name('depositos.update');
+    Route::delete('depositos/{id}', [DepositoController::class, 'destroy'])->name('depositos.destroy');
+    Route::get('depositos/{id}/depositar', [DepositoController::class, 'depositar'])->name('depositos.depositar');
+    Route::post('depositos/{id}/procesar', [DepositoController::class, 'procesarDeposito'])->name('depositos.procesarDeposito');
+  // Ruta para que los empleados vean sus propios depósitos
+    Route::get('/mis-depositos', [DepositoController::class, 'misDepositos'])->name('depositos.misDepositos');
+});
    

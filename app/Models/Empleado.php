@@ -75,5 +75,9 @@ class Empleado extends Model
     {
         return $this->hasMany(Asistencia::class, 'ID_Asistencia');
     }
-    
+
+    public function depositos()
+    {
+        return $this->hasMany(Deposito::class, 'empleado_id', 'ID_Usuario');
+    }
 }

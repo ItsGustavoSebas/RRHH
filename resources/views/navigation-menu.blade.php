@@ -259,8 +259,19 @@
                     </a>
                 </li>
                 @endcan
-
-      
+                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <a class="w-full flex items-center py-3" href="{{ route('depositos.index') }}">
+                        <i class="fa-solid fa-user-injured text-center px-5"></i>
+                        <span class="whitespace-nowrap pl-1">Depositos</span>
+                    </a>
+                </li>
+                <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <a class="w-full flex items-center py-3" href="{{ route('depositos.misDepositos') }}">
+                        <i class="fa-solid fa-user-injured text-center px-5"></i>
+                        <span class="whitespace-nowrap pl-1">Mis Depósitos</span>
+                    </a>
+                </li>
+                
                 <li class="text-gray-500 hover:bg-gray-100 hover:text-gray-900">
                     <a class="w-full flex items-center py-3" href="{{ route('comunicacion.rinicio') }}">
                         <i class="fa-solid fa-user-injured text-center px-5"></i>
