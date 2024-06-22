@@ -21,6 +21,7 @@ class Asistencia extends Model
         'FaltaInjustificada',
         'FaltaJustificada',
         'ID_Empleado',
+        'horaFin'
     ];
 
     public function empleado()

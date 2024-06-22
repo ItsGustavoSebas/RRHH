@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('FaltaInjustificada')->default(false);
             $table->boolean('FaltaJustificada')->default(false);
             $table->integer('ID_Empleado')->foreign('ID_Empleado')->references('ID_Usuario')->on('empleados')->onDelete('cascade');
+            $table->time('horaFin');
             $table->timestamps();
         });
     }

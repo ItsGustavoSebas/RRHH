@@ -23,12 +23,17 @@ class Empleado extends Model
         'fechanac',
         'genero',
         'estadocivil',
-
+        'ID_Sueldo',
     ];
 
     public function usuario()
     {
         return $this->belongsTo(User::class, 'ID_Usuario');
+    }
+
+    public function sueldo()
+    {
+        return $this->belongsTo(Sueldo::class, 'ID_Sueldo');
     }
 
     public function departamento()
@@ -78,12 +83,14 @@ class Empleado extends Model
 
     public function asistencias()
     {
-        return $this->hasMany(Asistencia::class, 'ID_Asistencia');
+        return $this->hasMany(Asistencia::class, 'ID_Empleado');
     }
+
 
     public function calificacion_empleado()
     {
         return $this->hasMany(calificacion_empleado::class, 'ID_Empleado');
     }
     
+
 }
