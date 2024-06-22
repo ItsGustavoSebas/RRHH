@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(HorarioSeeder::class);
+        $this->call(DepartamentoSeeder::class);
+        $this->call(CargoSeeder::class);
         $this->call(EmpleadoSeeder::class);
         $this->call(DiaTrabajoSeeder::class);
         $this->call(HorarioEmpleadoSeeder::class);
@@ -24,12 +27,11 @@ class DatabaseSeeder extends Seeder
         $this->call(IdiomaSeeder::class);
         $this->call(Fuente_De_ContratacionSeeder::class);
         $this->call(IdiomaSeeder::class);
-        $this->call(DepartamentoSeeder::class);
-        $this->call(CargoSeeder::class);
         $this->call(Nivel_IdiomaSeeder::class);
-        $this->call(AsistenciaSeeder::class);
         $this->call(DepositoSeeder::class);
         $this->call(ActividadSeeder::class);
+        $this->call(AsistenciasSeeder::class);
+        $this->call(Dias_Festivos_Seeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

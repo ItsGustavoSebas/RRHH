@@ -46,7 +46,7 @@
                                     Estado
                                 </th>
                                 <!-- Acciones -->
-                                @if (Auth::user()->hasRole('Administrador'))
+                                @if (Auth::user()->hasRole('Administrador') || Auth::user()->hasRole('Encargado'))
                                 <th scope="col" class="px-8 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Acciones
                                 </th>
@@ -94,7 +94,7 @@
                                         </span>
                                     </td>
                                     <!-- Acciones -->
-                                    @if (Auth::user()->hasRole('Administrador'))
+                                    @if (Auth::user()->hasRole('Administrador') || Auth::user()->hasRole('Encargado'))
                                     <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
                                         @if (!$permiso->aprobado && !$permiso->denegado)
                                             <form action="{{ route('permisos.approve', $permiso->id) }}" method="POST" class="inline">
@@ -122,4 +122,27 @@
             </div>
         </div>
     </div>
+    <script>
+        @if (Session::has('eliminado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('eliminado') }}")
+        @endif
+        @if (Session::has('actualizado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('actualizado') }}")
+        @endif
+        @if (Session::has('creado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('creado') }}")
+        @endif
+    </script>
 </x-app-layout>
