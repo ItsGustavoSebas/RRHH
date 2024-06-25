@@ -32,6 +32,11 @@
                 <th>Pago por Horas Extras</th>
                 <th>Dominical y Feriado</th>
                 <th>Pago Dominical y Feriado</th>
+                <th>Faltas Injustificadas</th>
+                <th>Descuentos por Falta</th>
+                <th>Descuentos por AFP</th>
+                <th>Descuentos por Seguro</th>
+                <th>Total Descuentos</th>
                 <th>Total Ganado</th>
             </tr>
         </thead>
@@ -50,6 +55,11 @@
                     <td>{{ number_format($empleado['pago_por_horas_extras'], 2) }}</td>
                     <td>{{ $empleado['dominical_feriado'] }}</td>
                     <td>{{ number_format($empleado['pago_dominical_feriado'], 2) }}</td>
+                    <td>{{ $empleado['faltas_injustificadas'] }}</td>
+                    <td>{{ number_format($empleado['descuento_faltas'], 2) }}</td>
+                    <td>{{ number_format($empleado['aporte_a_gestora'], 2)}}</td>
+                    <td>{{ number_format($empleado['seguro'], 2) }}</td>
+                    <td>{{ number_format($empleado['total_descuento'], 2) }}</td>
                     <td>{{ number_format($empleado['total_ganado'], 2) }}</td>
                 </tr>
             @endforeach
