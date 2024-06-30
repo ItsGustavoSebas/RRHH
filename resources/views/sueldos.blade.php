@@ -56,6 +56,24 @@
                 <th
                     class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                     Pago Dominical y Feriado</th>
+
+                <th
+                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Faltas</th>
+                <th
+                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Descuentos por Faltas</th>
+                <th
+                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    AFP (12.71%)</th>
+
+                <th
+                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Seguro (10%)</th>
+
+                <th
+                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Total Descuento</th>
                 <th
                     class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                     Total Ganado</th>
@@ -91,6 +109,16 @@
                         {{ $empleado['dominical_feriado'] }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         {{ number_format($empleado['pago_dominical_feriado'], 2) }}</td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        {{ $empleado['faltas_injustificadas'] }}</td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        {{ number_format($empleado['descuento_faltas'], 2) }}</td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        {{ number_format($empleado['aporte_a_gestora'], 2)}}</td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        {{ number_format($empleado['seguro'], 2) }}</td>
+                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                        {{ number_format($empleado['total_descuento'], 2) }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         {{ number_format($empleado['total_ganado'], 2) }}</td>
                 </tr>

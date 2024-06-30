@@ -49,6 +49,11 @@ class SueldoController extends Controller
             [20, 25, 42],
             [25, PHP_INT_MAX, 50]
         ];
+        $descuentoPorFalta = 0.1; // 10% de descuento por cada falta injustificada
+
+        $gestora = 0.1271;
+
+        $seguro = 0.10;
 
         $empleadosCalculados = [];
 
@@ -80,8 +85,25 @@ class SueldoController extends Controller
             // Calcular pago dominical y feriado
             $pagoDominicalYFeriado = ($empleado->sueldo->sueldo_basico / $empleado->sueldo->dias_pagados) * $dominical_feriado * 3;
 
+            // Contar faltas injustificadas
+            $faltasInjustificadas = $empleado->asistencias->filter(function ($asistencia) {
+                return $asistencia->FaltaInjustificada;
+            })->count();
+
+            // Calcular descuento por faltas injustificadas
+            $descuentoFaltas = $faltasInjustificadas * $descuentoPorFalta * $empleado->sueldo->sueldo_basico / $empleado->sueldo->dias_pagados;
+
+            //Aporte a la gestora
+            $descuentoGestora = $haberBasico * $gestora;
+
+            //Seguro
+            $descuentoSeguro = $haberBasico * $seguro;
+
+            //Total Descuentos
+            $totalDescuento = $descuentoFaltas + $descuentoGestora + $descuentoSeguro;
+
             // Calcular total ganado
-            $totalGanado = $haberBasico + $bonoAntiguedad + $pagoPorHorasExtras + $pagoDominicalYFeriado;
+            $totalGanado = $haberBasico + $bonoAntiguedad + $pagoPorHorasExtras + $pagoDominicalYFeriado - $descuentoFaltas - $descuentoGestora - $descuentoSeguro;
 
             // Asignar variables calculadas al empleado
             $empleadosCalculados[] = [
@@ -94,6 +116,11 @@ class SueldoController extends Controller
                 'pago_por_hora' => $pagoPorHora,
                 'pago_por_horas_extras' => $pagoPorHorasExtras,
                 'pago_dominical_feriado' => $pagoDominicalYFeriado,
+                'faltas_injustificadas' => $faltasInjustificadas,
+                'descuento_faltas' => $descuentoFaltas,
+                'aporte_a_gestora' => $descuentoGestora,
+                'seguro' => $descuentoSeguro,
+                'total_descuento' => $totalDescuento,
                 'total_ganado' => $totalGanado,
             ];
         }
@@ -110,15 +137,11 @@ class SueldoController extends Controller
         return $pdf->download('sueldos.pdf');
     }
 
-
     public function descargarExcel(Request $request)
     {
         $empleadosCalculados = $this->inicio($request)->getData()['empleadosCalculados'];
         return Excel::download(new SueldosExport($empleadosCalculados), 'sueldos.xlsx');
     }
-
-
-
 
     private function calcularBonoAntiguedad($antiguedadAnios, $bonoAntiguedadPorcentajes, $smn)
     {
@@ -143,7 +166,6 @@ class SueldoController extends Controller
         }
         return $diasTrabajados->count();
     }
-
 
     private function calcularHorasExtras($empleado, $fechaInicio, $fechaFin)
     {

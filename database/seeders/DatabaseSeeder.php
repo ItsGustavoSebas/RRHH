@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ActividadSeeder::class);
         $this->call(AsistenciasSeeder::class);
         $this->call(Dias_Festivos_Seeder::class);
+        $this->call(LlamadaSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
