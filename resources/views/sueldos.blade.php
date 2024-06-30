@@ -77,6 +77,9 @@
                 <th
                     class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                     Total Ganado</th>
+                <th
+                    class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                    Acciones</th>
             </tr>
         </thead>
         <tbody class="block md:table-row-group">
@@ -114,15 +117,52 @@
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         {{ number_format($empleado['descuento_faltas'], 2) }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                        {{ number_format($empleado['aporte_a_gestora'], 2)}}</td>
+                        {{ number_format($empleado['aporte_a_gestora'], 2) }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         {{ number_format($empleado['seguro'], 2) }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         {{ number_format($empleado['total_descuento'], 2) }}</td>
                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                         {{ number_format($empleado['total_ganado'], 2) }}</td>
+                        <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                            <form action="{{ route('sueldos.guardar') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="empleado_id" value="{{ $empleado['empleado']->ID_Usuario }}">
+                                <input type="hidden" name="fecha" value="{{ now()->toDateString() }}">
+                                <input type="hidden" name="depositado" value="0">
+                                <input type="hidden" name="monto" value="{{ $empleado['total_ganado'] }}">
+                                <input type="hidden" name="fecha_inicio" value="{{ request('fecha_inicio') }}">
+                                <input type="hidden" name="fecha_fin" value="{{ request('fecha_fin') }}">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 shadow">
+                                    Depositar
+                                </button>
+                            </form>
+                        </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <script>
+        @if (Session::has('eliminado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('eliminado') }}")
+        @endif
+        @if (Session::has('actualizado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('actualizado') }}")
+        @endif
+        @if (Session::has('creado'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+            toastr.success("{{ session('creado') }}")
+        @endif
+    </script>
 </x-app-layout>

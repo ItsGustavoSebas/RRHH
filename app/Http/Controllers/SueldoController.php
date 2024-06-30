@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Illuminate\Database\Eloquent\Builder;
 class SueldoController extends Controller
 {
     public function inicio1()
@@ -36,7 +36,12 @@ class SueldoController extends Controller
             'sueldo',
             'horario_empleado.Horario',
             'horario_empleado.dia_horario_empleado.DiaTrabajo'
-        ])->get();
+        ])
+        ->whereHas('asistencias', function (Builder $query) use ($fechaInicio, $fechaFin, $diasFestivos) {
+            $query->whereBetween('FechaMarcada', [$fechaInicio->toDateString(), $fechaFin->toDateString()])
+                  ->whereNotIn('FechaMarcada', $diasFestivos);
+        })
+        ->get();
 
         $smn = 2500; // Salario mínimo nacional
         $bonoAntiguedadPorcentajes = [
@@ -104,7 +109,8 @@ class SueldoController extends Controller
 
             // Calcular total ganado
             $totalGanado = $haberBasico + $bonoAntiguedad + $pagoPorHorasExtras + $pagoDominicalYFeriado - $descuentoFaltas - $descuentoGestora - $descuentoSeguro;
-
+            $mensaje = $request->input('creado');
+            session()->flash('creado', $mensaje);
             // Asignar variables calculadas al empleado
             $empleadosCalculados[] = [
                 'empleado' => $empleado,
@@ -192,13 +198,14 @@ class SueldoController extends Controller
             'empleado_id' => 'required|exists:empleados,ID_Usuario',
             'fecha' => 'required|date',
             'depositado' => 'required|boolean',
-            'monto' => 'required|numeric', 
+            'monto' => 'required|numeric',
         ]);
 
-        // Crear el depósito
         Deposito::create($request->all());
 
-        // Redirigir a la página anterior con una sesión de éxito
-        return back()->with('success', 'Depósito creado exitosamente.');
+        return view('red', [
+            'fecha_inicio' => $request->input('fecha_inicio'),
+            'fecha_fin' => $request->input('fecha_fin')
+        ])->with('creado', 'Depósito creado exitosamente.');
     }
 }
