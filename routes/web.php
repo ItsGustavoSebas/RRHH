@@ -569,11 +569,11 @@ Route::middleware([
   // Ruta para que los empleados vean sus propios depósitos
     Route::get('/mis-depositos', [DepositoController::class, 'misDepositos'])->name('depositos.misDepositos');
    
-    Route::get('/sueldos', [SueldoController::class, 'inicio1'])->name('sueldos.inicio1');
+    Route::get('/sueldos1', [SueldoController::class, 'inicio1'])->name('sueldos.inicio1');
     Route::post('/sueldos', [SueldoController::class, 'inicio'])->name('sueldos.inicio');
 
     Route::get('/sueldos/pdf', [SueldoController::class, 'descargarPdf'])->name('sueldos.descargarPdf');
-Route::get('/sueldos/excel', [SueldoController::class, 'descargarExcel'])->name('sueldos.descargarExcel');
+    Route::get('/sueldos/excel', [SueldoController::class, 'descargarExcel'])->name('sueldos.descargarExcel');
 
     //memorandum
     Route::get('/memorandum/inicio', [MemorandumController::class, 'inicio'])->name('memorandum.inicio');

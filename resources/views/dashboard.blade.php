@@ -221,7 +221,10 @@
                             <canvas id="commercesChart"></canvas>
                         </div>
                     </div>
-
+                    @php
+                        $permisos = App\Models\Permiso::orderBy('created_at', 'desc')->take(6)->get();
+                        $asistencias = App\Models\Asistencia::orderBy('created_at', 'desc')->take(10)->get();
+                    @endphp
                     <!-- Sección 3 - Tabla de Autorizaciones Pendientes (disminuida para dispositivos pequeños) -->
                     <div class="bg-white p-4 rounded-md">
                         <h2 class="text-gray-500 text-lg font-semibold pb-4">Permisos Pendientes</h2>
@@ -243,56 +246,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light"><img
-                                            src="https://via.placeholder.com/40" alt="Foto Perfil"
-                                            class="rounded-full h-10 w-10"></td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Juan Pérez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Comercio</td>
-                                </tr>
-                                <!-- Añade más filas aquí como la anterior para cada autorización pendiente -->
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light"><img
-                                            src="https://via.placeholder.com/40" alt="Foto Perfil"
-                                            class="rounded-full h-10 w-10"></td>
-                                    <td class="py-2 px-4 border-b border-grey-light">María Gómez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Usuario</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light"><img
-                                            src="https://via.placeholder.com/40" alt="Foto Perfil"
-                                            class="rounded-full h-10 w-10"></td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Carlos López</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Usuario</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light"><img
-                                            src="https://via.placeholder.com/40" alt="Foto Perfil"
-                                            class="rounded-full h-10 w-10"></td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Laura Torres</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Comercio</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light"><img
-                                            src="https://via.placeholder.com/40" alt="Foto Perfil"
-                                            class="rounded-full h-10 w-10"></td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Ana Ramírez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Usuario</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light"><img
-                                            src="https://via.placeholder.com/40" alt="Foto Perfil"
-                                            class="rounded-full h-10 w-10"></td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Luis Martínez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">Comercio</td>
-                                </tr>
+                                @foreach ($permisos as $permiso)
+                                    <tr class="hover:bg-grey-lighter">
+                                        <td class="py-2 px-4 border-b border-grey-light"><img
+                                                src="{{ $permiso->user->empleado->ruta_imagen_e }}" alt="Foto Perfil"
+                                                class="rounded-full h-10 w-10"></td>
+                                        <td class="py-2 px-4 border-b border-grey-light">
+                                            {{ $permiso->user->empleado->name }}</td>
+                                        <td class="py-2 px-4 border-b border-grey-light">
+                                            {{ $permiso->user->empleado->cargo->nombre }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <!-- Botón "Ver más" para la tabla de Autorizaciones Pendientes -->
                         <div class="text-right mt-4">
-                            <button class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
+                            <a href="{{ route('permisos.historial') }}"
+                                class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
                                 Ver más
-                            </button>
+                            </a>
                         </div>
                     </div>
 
@@ -317,59 +289,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Carlos Sánchez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">27/07/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Ana Torres</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">28/07/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Juan Ramírez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">29/07/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">María Gómez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">30/07/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Luis González</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">31/07/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Laura Pérez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">01/08/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Pedro Hernández</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">02/08/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Sara Ramírez</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">03/08/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">Daniel Torres</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">04/08/2023</td>
-                                    <td class="py-2 px-4 border-b border-grey-light text-right">9:00</td>
-                                </tr>
-
+                                @foreach ($asistencias as $asistencia)
+                                    <tr class="hover:bg-grey-lighter">
+                                        <td class="py-2 px-4 border-b border-grey-light">
+                                            {{ $asistencia->empleado->usuario->name }}</td>
+                                        <td class="py-2 px-4 border-b border-grey-light">
+                                            {{ $asistencia->FechaMarcada }}</td>
+                                        <td class="py-2 px-4 border-b border-grey-light text-right">
+                                            {{ $asistencia->HoraMarcada }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <!-- Botón "Ver más" para la tabla de Transacciones -->
                         <div class="text-right mt-4">
-                            <button class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
+                            <a class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
                                 Ver más
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
