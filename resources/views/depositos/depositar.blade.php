@@ -29,16 +29,8 @@
                             <div class="mt-1 text-sm text-gray-900">{{ $deposito->fecha }}</div>
                         </div>
                         <div class="mt-4">
-                            <label for="numero_tarjeta" class="block text-sm font-medium text-gray-700">Número de Tarjeta</label>
-                            <input type="text" name="numero_tarjeta" id="numero_tarjeta" class="form-input mt-1 block w-full" maxlength="16" required>
-                        </div>
-                        <div class="mt-4">
-                            <label for="fecha_expiracion" class="block text-sm font-medium text-gray-700">Fecha de Expiración</label>
-                            <input type="text" name="fecha_expiracion" id="fecha_expiracion" class="form-input mt-1 block w-full" placeholder="MM/YY" required>
-                        </div>
-                        <div class="mt-4">
-                            <label for="codigo_seguridad" class="block text-sm font-medium text-gray-700">Código de Seguridad</label>
-                            <input type="text" name="codigo_seguridad" id="codigo_seguridad" class="form-input mt-1 block w-full" maxlength="3" required>
+                            <label for="numero_cuenta" class="block text-sm font-medium text-gray-700">Número de Cuenta</label>
+                            <input type="text" name="numero_cuenta" id="numero_cuenta" class="form-input mt-1 block w-full" maxlength="16" required>
                         </div>
                         <div class="mt-6">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Depositar</button>

@@ -577,7 +577,7 @@ Route::get('/sueldos/excel', [SueldoController::class, 'descargarExcel'])->name(
 
     //memorandum
     Route::get('/memorandum/inicio', [MemorandumController::class, 'inicio'])->name('memorandum.inicio');
-
+    Route::post('/sueldos/depositos', [SueldoController::class, 'store'])->name('sueldos.guardar');
     //memorandum
     Route::view('/Memorandum', '2_Recursos_Humanos.comunicacionRRHH.memoInicio');
     Route::get('/memorandumAtencion/inicio', [Llamada_De_AtencionController::class, 'inicio'])->name('memorandumLlamada.inicio');
