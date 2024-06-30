@@ -50,9 +50,7 @@ class DepositoController extends Controller
     public function procesarDeposito(Request $request, $id)
     {
         $request->validate([
-            'numero_tarjeta' => 'required|digits:16',
-            'fecha_expiracion' => 'required|date_format:m/y',
-            'codigo_seguridad' => 'required|digits:3',
+            'numero_cuenta' => 'required',
         ]);
     
         $deposito = Deposito::findOrFail($id);

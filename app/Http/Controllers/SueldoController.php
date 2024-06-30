@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\SueldosExport;
 use App\Models\Asistencia;
+use App\Models\Deposito;
 use App\Models\Empleado;
 use App\Models\Dias_Festivos;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -135,7 +136,7 @@ class SueldoController extends Controller
         $pdf = Pdf::loadView('PDF.sueldos', compact('empleadosCalculados'))->setPaper('a4', 'landscape');
         return $pdf->download('sueldos.pdf');
     }
-    
+
     public function descargarExcel(Request $request)
     {
         $empleadosCalculados = $this->inicio($request)->getData()['empleadosCalculados'];
@@ -182,5 +183,22 @@ class SueldoController extends Controller
             }
         }
         return round($horasExtras, 2); // Redondear a 2 decimales
+    }
+
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'empleado_id' => 'required|exists:empleados,ID_Usuario',
+            'fecha' => 'required|date',
+            'depositado' => 'required|boolean',
+            'monto' => 'required|numeric', 
+        ]);
+
+        // Crear el depósito
+        Deposito::create($request->all());
+
+        // Redirigir a la página anterior con una sesión de éxito
+        return back()->with('success', 'Depósito creado exitosamente.');
     }
 }
