@@ -115,6 +115,7 @@ class AsistenciaController extends Controller
                     $asistencia->FechaMarcada = $fechaMarcada;
                     $asistencia->HoraMarcada = $horaMarcada;
                     $asistencia->ID_Empleado = $empleado->ID_Usuario;
+                    $asistencia->horaFin = null;
 
 
                     // Verificar si el empleado es puntual
@@ -147,6 +148,7 @@ class AsistenciaController extends Controller
                     $asistenciaFalta->HoraMarcada = $horaMarcada;
                     $asistenciaFalta->ID_Empleado = $empleado->ID_Usuario;
                     $asistenciaFalta->FaltaInjustificada = true;
+                    $asistenciaFalta->horaFin = null;
                     $asistenciaFalta->save();
                 }
 
@@ -209,6 +211,7 @@ class AsistenciaController extends Controller
                             $asistencia->HoraMarcada = $horaMarcada;
                             $asistencia->ID_Empleado = $empleado->ID_Usuario;
                             $asistencia->FaltaInjustificada = true;
+                            $asistencia->horaFin = null;
 
                             // Guardar la asistencia
                             $asistencia->save();
@@ -217,6 +220,7 @@ class AsistenciaController extends Controller
                             $diaAsistencia = new Dia_Asistencia();
                             $diaAsistencia->ID_Asistencia = $asistencia->id;
                             $diaAsistencia->ID_Dia_Horario_Empleado = $horarioEmpleado->dia_horario_empleado->id;
+                            $asistencia->horaFin = null;
                             $diaAsistencia->save();
                         }
                     }
