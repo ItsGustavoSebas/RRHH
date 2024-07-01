@@ -45,7 +45,7 @@ class AsistenciasController extends Controller
         }
     }
 
-    // Otras funciones existentes adaptadas a API móvil
+    
     public function marcar($id)
     {
         try {
@@ -102,6 +102,7 @@ class AsistenciasController extends Controller
                 $fechaAjustada = $fechaActual->copy()->subHours(4);
                 $fechaMarcada = $fechaAjustada->toDateString();
                 $horaMarcada = $fechaAjustada->toTimeString();
+                
                 $asistenciaExistente = Asistencia::where('ID_Empleado', $empleado->ID_Usuario)
                     ->whereDate('FechaMarcada', $fechaMarcada)
                     ->exists();
@@ -115,6 +116,7 @@ class AsistenciasController extends Controller
                     $asistencia = new Asistencia();
                     $asistencia->FechaMarcada = $fechaMarcada;
                     $asistencia->HoraMarcada = $horaMarcada;
+                    $horaFin = null;
                     $asistencia->ID_Empleado = $empleado->ID_Usuario;
 
                     if ($fechaAjustada->between($horaInicio, $horaLimite)) {
@@ -139,6 +141,7 @@ class AsistenciasController extends Controller
                     $asistenciaFalta->HoraMarcada = $horaMarcada;
                     $asistenciaFalta->ID_Empleado = $empleado->ID_Usuario;
                     $asistenciaFalta->FaltaInjustificada = true;
+                    $horaFin = null;
                     $asistenciaFalta->save();
                 }
 
