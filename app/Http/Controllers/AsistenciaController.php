@@ -115,6 +115,7 @@ class AsistenciaController extends Controller
                     $asistencia->FechaMarcada = $fechaMarcada;
                     $asistencia->HoraMarcada = $horaMarcada;
                     $asistencia->ID_Empleado = $empleado->ID_Usuario;
+                    $asistencia->horaFin = null;
 
 
                     // Verificar si el empleado es puntual
