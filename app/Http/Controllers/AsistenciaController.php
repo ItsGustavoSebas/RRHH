@@ -29,30 +29,15 @@ class AsistenciaController extends Controller
         $idDiaTrabajo = $numeroDiaSemana + 1;
 
         // Buscar el DiaTrabajo correspondiente al día actual de la semana
-
-
         $diasTrabajo = $empleado->horario_empleado;
 
         // Obtener la fecha y hora actuales
         $fechaActual = Carbon::now();
-        // Restar 4 horas a la hora actual
-        $fechaAjustada = $fechaActual->copy()->subHours(4);
-        // dd($fechaAjustada->hour);
+        $fechaMarcada = $fechaActual->toDateString();
 
+        $diaTrabajoActual = DiaTrabajo::where('id', $idDiaTrabajo)->first();
 
-        $fecha = $fechaAjustada->hour;
-
-        // Ajustar la fecha si la hora ajustada cae en el día anterior
-        if ($fechaAjustada->hour > $fechaActual->hour) {
-            $idDiaTrabajo = $idDiaTrabajo - 1;
-            $diaTrabajoActual = DiaTrabajo::where('id', $idDiaTrabajo)->first();
-            $fechaMarcada = $fechaAjustada->copy()->subDay()->toDateString();
-        } else {
-            $diaTrabajoActual = DiaTrabajo::where('id', $idDiaTrabajo)->first();
-            $fechaMarcada = $fechaAjustada->toDateString();
-        }
-
-        // Verificar si el empleado ya marcó asistencia en la fecha ajustada
+        // Verificar si el empleado ya marcó asistencia en la fecha actual
         $asistenciaExistente = Asistencia::where('ID_Empleado', $empleado->ID_Usuario)
             ->whereDate('FechaMarcada', $fechaMarcada)
             ->exists();
@@ -60,12 +45,8 @@ class AsistenciaController extends Controller
         // Variable booleana para verificar si ya existe la asistencia
         $asistenciaYaExiste = $asistenciaExistente ? true : false;
 
-
-
         return view('asistencias.marcar', compact('usuario', 'empleado', 'diasTrabajo', 'diaTrabajoActual', 'asistenciaYaExiste'));
     }
-
-
 
     public function guardarAsistencias($idEmpleado, $idDiaTrabajo)
     {
@@ -89,14 +70,10 @@ class AsistenciaController extends Controller
 
                 // Obtener la fecha y hora actuales
                 $fechaActual = Carbon::now();
-                // Restar 4 horas a la hora actual
-                $fechaAjustada = $fechaActual->copy()->subHours(4);
+                $fechaMarcada = $fechaActual->toDateString();
+                $horaMarcada = $fechaActual->toTimeString();
 
-                // Ajustar la fecha si la hora ajustada cae en el día anterior
-                $fechaMarcada = $fechaAjustada->toDateString();
-                $horaMarcada = $fechaAjustada->toTimeString();
-
-                // Verificar si el empleado ya marcó asistencia en la fecha ajustada
+                // Verificar si el empleado ya marcó asistencia en la fecha actual
                 $asistenciaExistente = Asistencia::where('ID_Empleado', $empleado->ID_Usuario)
                     ->whereDate('FechaMarcada', $fechaMarcada)
                     ->exists();
@@ -117,19 +94,18 @@ class AsistenciaController extends Controller
                     $asistencia->ID_Empleado = $empleado->ID_Usuario;
                     $asistencia->horaFin = null;
 
-
                     // Verificar si el empleado es puntual
-                    if ($fechaAjustada->between($horaInicio, $horaLimite)) {
+                    if ($fechaActual->between($horaInicio, $horaLimite)) {
                         $asistencia->Puntual = true;
                     }
 
                     // Verificar si el empleado tiene atraso
-                    if ($fechaAjustada->between($horaLimite, $horaFin)) {
+                    if ($fechaActual->between($horaLimite, $horaFin)) {
                         $asistencia->Atraso = true;
                     }
 
                     // Verificar si el empleado tiene falta injustificada
-                    if ($fechaAjustada->gte($horaFin)) {
+                    if ($fechaActual->gte($horaFin)) {
                         $asistencia->FaltaInjustificada = true;
                     }
 
@@ -166,14 +142,13 @@ class AsistenciaController extends Controller
         try {
             // Obtener la fecha y hora actuales
             $fechaActual = Carbon::now();
-            $fechaAjustada = $fechaActual->copy()->subHours(4);
 
             // Obtener todos los empleados
             $empleados = Empleado::all();
 
             foreach ($empleados as $empleado) {
                 // Obtener el día actual de la semana (0 para domingo, 1 para lunes, ...)
-                $numeroDiaSemana = $fechaAjustada->dayOfWeek;
+                $numeroDiaSemana = $fechaActual->dayOfWeek;
 
                 // El ID del DiaTrabajo corresponde al número del día de la semana + 1
                 $idDiaTrabajo = $numeroDiaSemana + 1;
@@ -195,16 +170,15 @@ class AsistenciaController extends Controller
 
                         $horaFin = Carbon::createFromTimeString($horario->HoraFin);
 
-                        // Ajustar la fecha si la hora ajustada cae en el día anterior
-                        $fechaMarcada = $fechaAjustada->toDateString();
-                        $horaMarcada = $fechaAjustada->toTimeString();
+                        $fechaMarcada = $fechaActual->toDateString();
+                        $horaMarcada = $fechaActual->toTimeString();
 
-                        // Verificar si el empleado ya marcó asistencia en la fecha ajustada
+                        // Verificar si el empleado ya marcó asistencia en la fecha actual
                         $asistenciaExistente = Asistencia::where('ID_Empleado', $empleado->ID_Usuario)
                             ->whereDate('FechaMarcada', $fechaMarcada)
                             ->exists();
 
-                        if (!$asistenciaExistente && $fechaAjustada->gte($horaFin)) {
+                        if (!$asistenciaExistente && $fechaActual->gte($horaFin)) {
                             // Crear una nueva asistencia con falta injustificada
                             $asistencia = new Asistencia();
                             $asistencia->FechaMarcada = $fechaMarcada;
@@ -220,7 +194,6 @@ class AsistenciaController extends Controller
                             $diaAsistencia = new Dia_Asistencia();
                             $diaAsistencia->ID_Asistencia = $asistencia->id;
                             $diaAsistencia->ID_Dia_Horario_Empleado = $horarioEmpleado->dia_horario_empleado->id;
-                            $asistencia->horaFin = null;
                             $diaAsistencia->save();
                         }
                     }
@@ -232,6 +205,7 @@ class AsistenciaController extends Controller
             return response()->json(['error' => 'Error al verificar las faltas automáticas: ' . $e->getMessage()], 500);
         }
     }
+
 
     public function historial($idEmpleado)
     {
